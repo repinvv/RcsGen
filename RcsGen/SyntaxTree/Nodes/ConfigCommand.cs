@@ -1,4 +1,4 @@
-﻿namespace RcsGen.SyntaxTree
+﻿namespace RcsGen.SyntaxTree.Nodes
 {
     internal enum ConfigCommand
     {

@@ -7,7 +7,7 @@
     using Microsoft.VisualStudio.Shell.Interop;
 
     [Guid("D03CB851-1B73-4447-9DD7-26FD3CFF03A9")]
-    public class RcsGen : IVsSingleFileGenerator
+    public class RcsGenerator : IVsSingleFileGenerator
     {
         public int DefaultExtension(out string pbstrDefaultExtension)
         {

@@ -5,7 +5,7 @@ Windows Registry Editor Version 5.00
 "InprocServer32"="C:\\Windows\\System32\\mscoree.dll"
 "ThreadingModel"="Both"
 
-"Class"="RcsGen.RcsGen"
+"Class"="RcsGen.RcsGenerator"
 
 "Assembly"="RcsGen, Version=1.0.0.0, Culture=neutral, PublicKeyToken=8fb75e1dbc3f5ced, processorArchitecture=MSIL"
 
