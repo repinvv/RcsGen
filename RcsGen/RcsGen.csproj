@@ -51,6 +51,8 @@
     <Compile Include="Generator.cs" />
     <Compile Include="RcsGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SyntaxTree\Content.cs" />
+    <Compile Include="SyntaxTree\KeywordParser.cs" />
     <Compile Include="SyntaxTree\NodeParser.cs" />
     <Compile Include="SyntaxTree\Nodes\ConfigCommand.cs" />
     <Compile Include="SyntaxTree\Nodes\ConfigNode.cs" />

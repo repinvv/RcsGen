@@ -10,24 +10,24 @@
         const string ForKw = "for";
         const string ForEachKw = "foreach";
 
-        public static IEnumerable<INode> ParseNode(string input, int start, int count)
+        public static IEnumerable<INode> ParseNode(Content content)
         {
-            if (count < 1 || input[start + 1] == ' ')
+            if (content.Count < 1 || content.Input[content.Start + 1] == ' ')
             {
-                throw new Exception("Syntax error, @ sign, position " + start);
+                throw new Exception("Syntax error, @ sign, position " + content.Start);
             }
 
-            if (input[start + 1] == '{')
+            if (content.Input[content.Start + 1] == '{')
             {
                 
             }
 
-            if (input[start + 1] == '*')
+            if (content.Input[content.Start + 1] == '*')
             {
 
             }
 
-            var disposition
+            KeywordParser.CheckKeyword(content, IfKw, ProcessIf);
             if (IsKeyword(input, start + 1, count - 1, IfKw))
             {
                 
@@ -46,11 +46,13 @@
             yield break;
         }
 
-        private static bool KeywordDisposition(string input, int start, int count, string keyword)
+        private static IEnumerable<INode> ProcessIf(Content content, string condition)
+
+        private static int KeywordDisposition(string input, int start, int count, string keyword)
         {
             var kwPresent = string.Compare(keyword, 0, input, start, Math.Max(count, keyword.Length));
-            if(kwPresent)
-            return false;
+            //if(kwPresent)
+            return 0;
         }
     }
 }
