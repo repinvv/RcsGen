@@ -1,6 +1,6 @@
 ﻿namespace RcsGen
 {
-    using SyntaxTree;
+    using RcsGen.LowLevelTree;
 
     internal static class Generator
     {

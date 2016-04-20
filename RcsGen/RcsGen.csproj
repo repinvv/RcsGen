@@ -49,23 +49,24 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Generator.cs" />
+    <Compile Include="LowLevelTree\Extensions\CurlyBraceNodeParse.cs" />
+    <Compile Include="LowLevelTree\Extensions\DocumentParse.cs" />
+    <Compile Include="LowLevelTree\Nodes\ContainerNode.cs" />
+    <Compile Include="LowLevelTree\Nodes\BracketNode.cs" />
+    <Compile Include="LowLevelTree\Nodes\CurlyBraceNode.cs" />
+    <Compile Include="LowLevelTree\Nodes\Document.cs" />
+    <Compile Include="LowLevelTree\Nodes\INode.cs" />
+    <Compile Include="LowLevelTree\Nodes\LiteralNode.cs" />
+    <Compile Include="LowLevelTree\Nodes\NodeType.cs" />
+    <Compile Include="LowLevelTree\Parser.cs" />
     <Compile Include="RcsGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SyntaxTree\Content.cs" />
-    <Compile Include="SyntaxTree\KeywordParser.cs" />
-    <Compile Include="SyntaxTree\NodeParser.cs" />
-    <Compile Include="SyntaxTree\Nodes\ConfigCommand.cs" />
-    <Compile Include="SyntaxTree\Nodes\ConfigNode.cs" />
-    <Compile Include="SyntaxTree\Nodes\ForNode.cs" />
-    <Compile Include="SyntaxTree\Nodes\IfNode.cs" />
-    <Compile Include="SyntaxTree\Nodes\INode.cs" />
-    <Compile Include="SyntaxTree\Nodes\SimpleNode.cs" />
-    <Compile Include="SyntaxTree\Nodes\NodeType.cs" />
-    <Compile Include="SyntaxTree\Parser.cs" />
+    <Compile Include="LowLevelTree\Content.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="someKey.snk" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>"c:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.6 Tools\gacutil.exe" /if $(TargetPath)</PostBuildEvent>
