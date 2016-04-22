@@ -1,7 +1,6 @@
 ﻿namespace RcsGen.LowLevelTree.Extensions
 {
     using System.Linq;
-    using System.Security.AccessControl;
     using RcsGen.LowLevelTree.Nodes;
 
     internal static class DocumentParse
@@ -10,7 +9,7 @@
 
         public static Document Parse(this Document document, Content content)
         {
-            while (true)
+            while (content.Start != content.End)
             {
                 int symbolPosition = GetSymbolPosition(content);
                 if (symbolPosition > content.Start)
@@ -38,6 +37,8 @@
                         return null;
                 }
             }
+
+            return document;
         }
 
         private static int GetSymbolPosition(Content content)
