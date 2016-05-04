@@ -3,25 +3,19 @@
     using System.Collections.Generic;
     using RcsGen.SyntaxTree.Nodes;
 
-    internal class KeywordState : IState
+    internal class AllKeywordsState : KeywordState
     {
-        protected readonly List<Node> nodes;
-        protected readonly StateMachine stateMachine;
-        protected readonly IState previous;
-        protected readonly List<char> symbols = new List<char>();
+        public AllKeywordsState(List<Node> nodes, StateMachine stateMachine, IState previous) 
+            : base(nodes, stateMachine, previous)
+        { }
 
-        public KeywordState(List<Node> nodes, StateMachine stateMachine, IState previous)
-        {
-            this.nodes = nodes;
-            this.stateMachine = stateMachine;
-            this.previous = previous;
-        }
-
-        public virtual void ProcessChar(char ch)
+        public override void ProcessChar(char ch)
         {
             switch (ch)
             {
                 case ' ':
+                    ProcessAllKeywords(new string(symbols.ToArray()));
+                    return;
                 case '(':
                     ProcessCommandKeywords(new string(symbols.ToArray()));
                     return;
@@ -36,9 +30,7 @@
             }
         }
 
-        
-
-        protected void ProcessCommandKeywords(string keyword)
+        private void ProcessAllKeywords(string keyword)
         {
             switch (keyword)
             {
@@ -49,6 +41,8 @@
                 case KeywordConstants.Foreach:
                     var forNode = new ForNode(keyword);
                     return;
+                case KeywordConstants.Config.Inherits:
+
                 default:
                     return;
             }

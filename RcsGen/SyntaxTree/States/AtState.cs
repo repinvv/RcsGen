@@ -31,6 +31,8 @@
                     nodes.Add(new LiteralNode("@ "));
                     stateMachine.CurrentState = previous;
                     return;
+                case '"':
+                    return; // todo
                 case '\r':
                 case '\n':
                     nodes.Add(new LiteralNode("@"));
