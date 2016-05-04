@@ -2,11 +2,14 @@
 {
     internal enum NodeType
     {
+        Document,
         Literal,
-        Write,
-        Code,
+        WriteExpression,
+        CodeExpression,
         Config,
         If,
-        For
+        For,
+        Space,
+        Eol
     }
 }

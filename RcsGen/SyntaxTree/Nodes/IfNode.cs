@@ -2,14 +2,17 @@
 {
     using System.Collections.Generic;
 
-    internal class IfNode : INode
+    internal class IfNode : Node
     {
-        public NodeType NodeType => NodeType.If;
+        public IfNode() : base(NodeType.If)
+        {
+            
+        }
 
         public string Condition { get; set; }
 
-        public IEnumerable<INode> IfNodes { get; set; }
+        public List<Node> IfNodes { get; } = new List<Node>();
 
-        public IEnumerable<INode> ElseNodes { get; set; }
+        public List<Node> ElseNodes { get; } = new List<Node>();
     }
 }

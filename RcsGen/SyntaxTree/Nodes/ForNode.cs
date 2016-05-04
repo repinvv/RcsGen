@@ -2,14 +2,17 @@
 {
     using System.Collections.Generic;
 
-    internal class ForNode : INode
+    internal class ForNode : Node
     {
-        public NodeType NodeType => NodeType.For;
+        public ForNode(string keyword) : base(NodeType.For)
+        {
+            Keyword = keyword;
+        }
 
-        public string Keyword { get; set; }
+        public string Keyword { get; }
 
-        public string CycleDefinition { get; set; }
+        public string Condition { get; set; }
 
-        public IEnumerable<INode> ChildNodes { get; set; }
+        public IEnumerable<Node> ChildNodes { get; set; }
     }
 }

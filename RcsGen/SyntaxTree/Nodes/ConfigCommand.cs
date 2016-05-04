@@ -2,8 +2,9 @@
 {
     internal enum ConfigCommand
     {
-        TypeVisibility,
-        Imports,
+        Unknown = 0,
+        Visibility,
+        Using,
         Inherits,
     }
 }
