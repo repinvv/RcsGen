@@ -1,6 +1,7 @@
 ﻿namespace RcsGen.SyntaxTree.States
 {
     using System.Collections.Generic;
+    using System.Linq;
     using RcsGen.SyntaxTree.Nodes;
 
     internal class DocumentState : IState
@@ -29,7 +30,8 @@
                     return;
                 case '@':
                     TryAddSymbols();
-                    stateMachine.CurrentState = new AtState(document.Nodes, stateMachine, this);
+                    bool allNodesAreConfig = document.Nodes.All(x => x.NodeType == NodeType.Config);
+                    stateMachine.CurrentState = new AtState(document.Nodes, stateMachine, this, allNodesAreConfig);
                     return;
                 default:
                     symbols.Add(ch);

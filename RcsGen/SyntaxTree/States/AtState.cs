@@ -11,12 +11,14 @@
         private readonly List<Node> nodes;
         private readonly StateMachine stateMachine;
         private readonly IState previous;
+        private readonly bool allKeywords;
 
-        public AtState(List<Node> nodes, StateMachine stateMachine, IState previous)
+        public AtState(List<Node> nodes, StateMachine stateMachine, IState previous, bool allKeywords = false)
         {
             this.nodes = nodes;
             this.stateMachine = stateMachine;
             this.previous = previous;
+            this.allKeywords = allKeywords;
         }
 
         public void ProcessChar(char ch)
@@ -46,7 +48,10 @@
                     stateMachine.CurrentState = new CommentState(() => stateMachine.CurrentState = previous);
                     return;
                 default:
-                    stateMachine.CurrentState = new KeywordState(nodes, stateMachine, previous);
+                    stateMachine.CurrentState = allKeywords 
+                        ? new AllKeywordsState(nodes, stateMachine, previous)
+                        : new KeywordsState();
+
                     stateMachine.CurrentState.ProcessChar(ch);
                     return;
             }

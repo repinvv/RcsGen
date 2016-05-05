@@ -3,14 +3,14 @@
     using System.Collections.Generic;
     using RcsGen.SyntaxTree.Nodes;
 
-    internal class KeywordState : IState
+    internal class KeywordsState : IState
     {
         protected readonly List<Node> nodes;
         protected readonly StateMachine stateMachine;
         protected readonly IState previous;
         protected readonly List<char> symbols = new List<char>();
 
-        public KeywordState(List<Node> nodes, StateMachine stateMachine, IState previous)
+        public KeywordsState(List<Node> nodes, StateMachine stateMachine, IState previous)
         {
             this.nodes = nodes;
             this.stateMachine = stateMachine;

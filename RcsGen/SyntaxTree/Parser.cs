@@ -12,6 +12,8 @@
                 stateMachine.ProcessChar(ch);
             }
 
+            stateMachine.ProcessChar('\r');
+
             return stateMachine.Document;
         }
     }

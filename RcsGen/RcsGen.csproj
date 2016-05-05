@@ -69,11 +69,13 @@
     <Compile Include="SyntaxTree\States\ExpressionStates\ExpressionState.cs" />
     <Compile Include="SyntaxTree\States\IState.cs" />
     <Compile Include="SyntaxTree\States\KeywordStates\AllKeywordsState.cs" />
-    <Compile Include="SyntaxTree\States\KeywordStates\GotConfig.cs" />
+    <Compile Include="SyntaxTree\States\KeywordStates\GotConfigState.cs" />
     <Compile Include="SyntaxTree\States\KeywordStates\GotForState.cs" />
     <Compile Include="SyntaxTree\States\KeywordStates\GotIfState.cs" />
-    <Compile Include="SyntaxTree\States\KeywordStates\KeywordState.cs" />
-    <Compile Include="UnitTest1.cs" />
+    <Compile Include="SyntaxTree\States\KeywordStates\KeywordsState.cs" />
+    <Compile Include="Tests\CommentTest.cs" />
+    <Compile Include="Tests\ConfigTest.cs" />
+    <Compile Include="Tests\UnitTest1.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="someKey.snk" />
