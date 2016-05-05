@@ -48,7 +48,7 @@
                 return false;
             }
 
-            document.Nodes.Add(new LiteralNode(current));
+            document.Nodes.Add(new ContentNode(current, NodeType.Literal));
             return true;
         }
     }

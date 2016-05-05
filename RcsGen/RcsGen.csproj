@@ -60,7 +60,7 @@
     <Compile Include="SyntaxTree\Nodes\IfNode.cs" />
     <Compile Include="SyntaxTree\Nodes\Node.cs" />
     <Compile Include="SyntaxTree\Nodes\NodeType.cs" />
-    <Compile Include="SyntaxTree\Nodes\SimpleNode.cs" />
+    <Compile Include="SyntaxTree\Nodes\ContentNode.cs" />
     <Compile Include="SyntaxTree\Parser.cs" />
     <Compile Include="SyntaxTree\StateMachine.cs" />
     <Compile Include="SyntaxTree\States\AtState.cs" />
@@ -76,6 +76,7 @@
     <Compile Include="Tests\CommentTest.cs" />
     <Compile Include="Tests\ConfigTest.cs" />
     <Compile Include="Tests\UnitTest1.cs" />
+    <Compile Include="Tests\WriteExpressionsTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="someKey.snk" />

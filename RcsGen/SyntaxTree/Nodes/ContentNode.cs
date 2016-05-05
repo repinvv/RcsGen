@@ -1,8 +1,8 @@
 ﻿namespace RcsGen.SyntaxTree.Nodes
 {
-    internal class LiteralNode : Node
+    internal class ContentNode : Node
     {
-        public LiteralNode(string content) : base(NodeType.Literal)
+        public ContentNode(string content, NodeType nodeType) : base(nodeType)
         {
             Content = content;
         }

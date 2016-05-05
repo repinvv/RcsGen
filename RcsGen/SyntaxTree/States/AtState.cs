@@ -26,18 +26,18 @@
             switch (ch)
             {
                 case '@': 
-                    nodes.Add(new LiteralNode("@"));
+                    nodes.Add(new ContentNode("@", NodeType.Literal));
                     stateMachine.CurrentState = previous;
                     return;
                 case ' ':
-                    nodes.Add(new LiteralNode("@ "));
+                    nodes.Add(new ContentNode("@ ", NodeType.Literal));
                     stateMachine.CurrentState = previous;
                     return;
                 case '"':
                     return; // todo
                 case '\r':
                 case '\n':
-                    nodes.Add(new LiteralNode("@"));
+                    nodes.Add(new ContentNode("@", NodeType.Literal));
                     nodes.Add(new Node(NodeType.Eol));
                     stateMachine.CurrentState = previous;
                     return;
@@ -50,7 +50,7 @@
                 default:
                     stateMachine.CurrentState = allKeywords 
                         ? new AllKeywordsState(nodes, stateMachine, previous)
-                        : new KeywordsState();
+                        : new KeywordsState(nodes, stateMachine, previous);
 
                     stateMachine.CurrentState.ProcessChar(ch);
                     return;
