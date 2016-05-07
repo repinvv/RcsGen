@@ -47,11 +47,12 @@
                 case '*':
                     stateMachine.CurrentState = new CommentState(() => stateMachine.CurrentState = previous);
                     return;
+                case '(':
+                    stateMachine.CurrentState = new ExplicitWriteState(stateMachine, previous);
                 default:
                     stateMachine.CurrentState = allKeywords 
                         ? new AllKeywordsState(nodes, stateMachine, previous)
                         : new KeywordsState(nodes, stateMachine, previous);
-
                     stateMachine.CurrentState.ProcessChar(ch);
                     return;
             }

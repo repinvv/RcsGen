@@ -8,8 +8,8 @@
     public class WriteExpressionsTest
     {
         string source = @"@using namespace
-@hail queen
 @(hail)king
+@hail queen
 ";
         [TestMethod]
         public void TwoTypesOfWriteExpression()
@@ -24,12 +24,12 @@
             TestWriteNode(node.Nodes[4] as ContentNode);
             Assert.AreEqual(NodeType.Eol, node.Nodes[6].NodeType);
 
-            var node1 = node.Nodes[2] as ContentNode;
+            var node1 = node.Nodes[5] as ContentNode;
             Assert.IsNotNull(node1);
             Assert.AreEqual(NodeType.Literal, node1.NodeType);
             Assert.AreEqual(" queen", node1.Content);
 
-            var node2 = node.Nodes[5] as ContentNode;
+            var node2 = node.Nodes[2] as ContentNode;
             Assert.IsNotNull(node2);
             Assert.AreEqual(NodeType.Literal, node2.NodeType);
             Assert.AreEqual("king", node2.Content);

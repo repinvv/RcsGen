@@ -69,6 +69,7 @@
     <Compile Include="SyntaxTree\States\ExpressionStates\ExpressionState.cs" />
     <Compile Include="SyntaxTree\States\IState.cs" />
     <Compile Include="SyntaxTree\States\KeywordStates\AllKeywordsState.cs" />
+    <Compile Include="SyntaxTree\States\KeywordStates\ExplicitWriteState.cs" />
     <Compile Include="SyntaxTree\States\KeywordStates\GotConfigState.cs" />
     <Compile Include="SyntaxTree\States\KeywordStates\GotForState.cs" />
     <Compile Include="SyntaxTree\States\KeywordStates\GotIfState.cs" />
