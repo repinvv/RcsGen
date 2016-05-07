@@ -7,32 +7,65 @@
     [TestClass]
     public class WriteExpressionsTest
     {
-        string source = @"@using namespace
-@(hail)king
-@hail queen
+        string source1 = "@(hail)king";
+        string source2 = @"@(hail
 ";
+        string source3 = @"@hail
+";
+        string source4 = "@hail queen";
+
         [TestMethod]
-        public void TwoTypesOfWriteExpression()
+        public void ExplicitWriteExpression()
         {
-            var node = Parser.Parse(source);
+            var doc = Parser.Parse(source1);
             
-            Assert.AreEqual(7, node.Nodes.Count);
-            Assert.AreEqual(NodeType.Config, node.Nodes[0].NodeType);
-            
-            TestWriteNode(node.Nodes[1] as ContentNode);
-            Assert.AreEqual(NodeType.Eol, node.Nodes[3].NodeType);
-            TestWriteNode(node.Nodes[4] as ContentNode);
-            Assert.AreEqual(NodeType.Eol, node.Nodes[6].NodeType);
+            Assert.AreEqual(3, doc.Nodes.Count);
+            TestWriteNode(doc.Nodes[0] as ContentNode);
 
-            var node1 = node.Nodes[5] as ContentNode;
-            Assert.IsNotNull(node1);
-            Assert.AreEqual(NodeType.Literal, node1.NodeType);
-            Assert.AreEqual(" queen", node1.Content);
+            var node = doc.Nodes[1] as ContentNode;
+            Assert.IsNotNull(node);
+            Assert.AreEqual(NodeType.Literal, node.NodeType);
+            Assert.AreEqual("king", node.Content);
 
-            var node2 = node.Nodes[2] as ContentNode;
-            Assert.IsNotNull(node2);
-            Assert.AreEqual(NodeType.Literal, node2.NodeType);
-            Assert.AreEqual("king", node2.Content);
+            Assert.AreEqual(NodeType.Eol, doc.Nodes[2].NodeType);
+        }
+
+        [TestMethod]
+        public void NotClosedExplicitWriteExpression()
+        {
+            var doc = Parser.Parse(source2);
+
+            Assert.AreEqual(2, doc.Nodes.Count);
+            TestWriteNode(doc.Nodes[0] as ContentNode);
+
+            Assert.AreEqual(NodeType.Eol, doc.Nodes[1].NodeType);
+        }
+
+        [TestMethod]
+        public void SimpleWriteExpression()
+        {
+            var doc = Parser.Parse(source3);
+
+            Assert.AreEqual(2, doc.Nodes.Count);
+            TestWriteNode(doc.Nodes[0] as ContentNode);
+
+            Assert.AreEqual(NodeType.Eol, doc.Nodes[1].NodeType);
+        }
+
+        [TestMethod]
+        public void SimpleWriteExpressionFollowedByText()
+        {
+            var doc = Parser.Parse(source4);
+
+            Assert.AreEqual(3, doc.Nodes.Count);
+            TestWriteNode(doc.Nodes[0] as ContentNode);
+
+            var node = doc.Nodes[1] as ContentNode;
+            Assert.IsNotNull(node);
+            Assert.AreEqual(NodeType.Literal, node.NodeType);
+            Assert.AreEqual(" queen", node.Content);
+
+            Assert.AreEqual(NodeType.Eol, doc.Nodes[2].NodeType);
         }
 
         private void TestWriteNode(ContentNode node)

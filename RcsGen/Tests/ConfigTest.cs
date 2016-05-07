@@ -45,7 +45,7 @@ sdafsadf
         public void ConfigNodeIsNotRecognizedAfterLiterals()
         {
             var node = Parser.Parse(sourceconfigliterals);
-            Assert.AreEqual(5, node.Nodes.Count);
+            Assert.AreEqual(6, node.Nodes.Count);
             var node1 = node.Nodes[0] as ConfigNode;
             TestConfigNode1(node1);
             var node2 = node.Nodes[1] as ContentNode;
@@ -60,8 +60,7 @@ sdafsadf
             var node3 = node.Nodes[4] as ContentNode;
             Assert.IsNotNull(node3);
             Assert.AreEqual(NodeType.Literal, node3.NodeType);
-            Assert.AreEqual("somenamespace ", node3.Content);
-            
+            Assert.AreEqual(" somenamespace ", node3.Content);
             
             Assert.AreEqual(NodeType.Eol, node.Nodes[5].NodeType);
         }

@@ -48,7 +48,8 @@
                     stateMachine.CurrentState = new CommentState(() => stateMachine.CurrentState = previous);
                     return;
                 case '(':
-                    stateMachine.CurrentState = new ExplicitWriteState(stateMachine, previous);
+                    stateMachine.CurrentState = new ExplicitWriteState(stateMachine, previous, nodes);
+                    return;
                 default:
                     stateMachine.CurrentState = allKeywords 
                         ? new AllKeywordsState(nodes, stateMachine, previous)

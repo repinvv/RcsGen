@@ -22,6 +22,21 @@
             switch (ch)
             {
                 case ' ':
+                    if (ProcessCommandKeywords(new string(symbols.ToArray())))
+                    {
+                        return;
+                    }
+
+                    nodes.Add(new ContentNode(new string(symbols.ToArray()), NodeType.WriteExpression));
+                    stateMachine.CurrentState = previous;
+                    previous.ProcessChar(ch);
+                    return;
+                case '\r':
+                case '\n':
+                    nodes.Add(new ContentNode(new string(symbols.ToArray()), NodeType.WriteExpression));
+                    nodes.Add(new Node(NodeType.Eol));
+                    stateMachine.CurrentState = previous;
+                    return;
                 case '(':
                     ProcessCommandKeywords(new string(symbols.ToArray()));
                     return;
@@ -38,19 +53,19 @@
 
         
 
-        protected void ProcessCommandKeywords(string keyword)
+        protected bool ProcessCommandKeywords(string keyword)
         {
             switch (keyword)
             {
                 case KeywordConstants.If:
                     var ifNode = new IfNode();
-                    return;
+                    return true;
                 case KeywordConstants.For:
                 case KeywordConstants.Foreach:
                     var forNode = new ForNode(keyword);
-                    return;
+                    return true;
                 default:
-                    return;
+                    return false;
             }
         }
     }
