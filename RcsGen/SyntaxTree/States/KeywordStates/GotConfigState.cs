@@ -31,7 +31,7 @@
                         nodes.Add(new ConfigNode(command, parameters));
                     }
 
-                    stateMachine.CurrentState = previous;
+                    stateMachine.State = previous;
                     return;
                 default: 
                     symbols.Add(ch);

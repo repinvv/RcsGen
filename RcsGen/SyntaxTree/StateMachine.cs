@@ -7,16 +7,16 @@
     {
         public StateMachine()
         {
-            CurrentState = new DocumentState(this, Document);
+            State = new DocumentState(this, Document);
         }
 
         public Document Document { get; } = new Document();
 
-        public IState CurrentState { get; set; }
+        public IState State { get; set; }
 
         public void ProcessChar(char ch)
         {
-            CurrentState.ProcessChar(ch);
+            State.ProcessChar(ch);
         }
     }
 }

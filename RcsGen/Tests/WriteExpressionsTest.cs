@@ -8,8 +8,6 @@
     public class WriteExpressionsTest
     {
         string source1 = "@(hail)king";
-        string source2 = @"@(hail
-";
         string source3 = @"@hail
 ";
         string source4 = "@hail queen";
@@ -28,17 +26,6 @@
             Assert.AreEqual("king", node.Content);
 
             Assert.AreEqual(NodeType.Eol, doc.Nodes[2].NodeType);
-        }
-
-        [TestMethod]
-        public void NotClosedExplicitWriteExpression()
-        {
-            var doc = Parser.Parse(source2);
-
-            Assert.AreEqual(2, doc.Nodes.Count);
-            TestWriteNode(doc.Nodes[0] as ContentNode);
-
-            Assert.AreEqual(NodeType.Eol, doc.Nodes[1].NodeType);
         }
 
         [TestMethod]

@@ -27,11 +27,11 @@
             {
                 case '@': 
                     nodes.Add(new ContentNode("@", NodeType.Literal));
-                    stateMachine.CurrentState = previous;
+                    stateMachine.State = previous;
                     return;
                 case ' ':
                     nodes.Add(new ContentNode("@ ", NodeType.Literal));
-                    stateMachine.CurrentState = previous;
+                    stateMachine.State = previous;
                     return;
                 case '"':
                     return; // todo
@@ -39,22 +39,22 @@
                 case '\n':
                     nodes.Add(new ContentNode("@", NodeType.Literal));
                     nodes.Add(new Node(NodeType.Eol));
-                    stateMachine.CurrentState = previous;
+                    stateMachine.State = previous;
                     return;
                 case '{':
-                    stateMachine.CurrentState = new ExpressionState(stateMachine, previous);
+                    stateMachine.State = new ExpressionState(stateMachine, previous);
                     return;
                 case '*':
-                    stateMachine.CurrentState = new CommentState(() => stateMachine.CurrentState = previous);
+                    stateMachine.State = new CommentState(() => stateMachine.State = previous);
                     return;
                 case '(':
-                    stateMachine.CurrentState = new ExplicitWriteState(stateMachine, previous, nodes);
+                    stateMachine.State = new ExplicitWriteState(stateMachine, previous, nodes);
                     return;
                 default:
-                    stateMachine.CurrentState = allKeywords 
+                    stateMachine.State = allKeywords 
                         ? new AllKeywordsState(nodes, stateMachine, previous)
                         : new KeywordsState(nodes, stateMachine, previous);
-                    stateMachine.CurrentState.ProcessChar(ch);
+                    stateMachine.State.ProcessChar(ch);
                     return;
             }
         }

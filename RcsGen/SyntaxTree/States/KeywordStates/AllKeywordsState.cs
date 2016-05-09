@@ -22,13 +22,13 @@
             switch (keyword)
             {
                 case KeywordConstants.Config.Inherits:
-                    stateMachine.CurrentState = new GotConfigState(ConfigCommand.Inherits, nodes, stateMachine, previous);
+                    stateMachine.State = new GotConfigState(ConfigCommand.Inherits, nodes, stateMachine, previous);
                     return true;
                 case KeywordConstants.Config.Using:
-                    stateMachine.CurrentState = new GotConfigState(ConfigCommand.Using, nodes, stateMachine, previous);
+                    stateMachine.State = new GotConfigState(ConfigCommand.Using, nodes, stateMachine, previous);
                     return true;
                 case KeywordConstants.Config.Visibility:
-                    stateMachine.CurrentState = new GotConfigState(ConfigCommand.Visibility, nodes, stateMachine, previous);
+                    stateMachine.State = new GotConfigState(ConfigCommand.Visibility, nodes, stateMachine, previous);
                     return true;
                 default:
                     return false;

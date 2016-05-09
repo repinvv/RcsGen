@@ -31,7 +31,7 @@
                 case '@':
                     TryAddSymbols();
                     bool allNodesAreConfig = document.Nodes.All(x => x.NodeType == NodeType.Config);
-                    stateMachine.CurrentState = new AtState(document.Nodes, stateMachine, this, allNodesAreConfig);
+                    stateMachine.State = new AtState(document.Nodes, stateMachine, this, allNodesAreConfig);
                     return;
                 default:
                     symbols.Add(ch);

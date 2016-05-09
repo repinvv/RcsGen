@@ -63,7 +63,17 @@
     <Compile Include="SyntaxTree\Nodes\ContentNode.cs" />
     <Compile Include="SyntaxTree\Parser.cs" />
     <Compile Include="SyntaxTree\StateMachine.cs" />
+    <Compile Include="SyntaxTree\States\BracketStates\ApostropheBracketState.cs" />
+    <Compile Include="SyntaxTree\States\BracketStates\AtBracketState.cs" />
+    <Compile Include="SyntaxTree\States\BracketStates\BracketState.cs" />
+    <Compile Include="SyntaxTree\States\BracketStates\BracketStateFactory.cs" />
+    <Compile Include="SyntaxTree\States\BracketStates\CurvedBracketState.cs" />
+    <Compile Include="SyntaxTree\States\BracketStates\EscapedQuotesBracketState.cs" />
+    <Compile Include="SyntaxTree\States\BracketStates\QuotesBracketState.cs" />
+    <Compile Include="SyntaxTree\States\BracketStates\RoundParenthesisState.cs" />
+    <Compile Include="SyntaxTree\States\IAccumulatingState.cs" />
     <Compile Include="SyntaxTree\States\AtState.cs" />
+    <Compile Include="SyntaxTree\States\BracketStates\GenericBracketState.cs" />
     <Compile Include="SyntaxTree\States\CommentState.cs" />
     <Compile Include="SyntaxTree\States\DocumentState.cs" />
     <Compile Include="SyntaxTree\States\ExpressionStates\ExpressionState.cs" />
@@ -77,6 +87,7 @@
     <Compile Include="Tests\CommentTest.cs" />
     <Compile Include="Tests\ConfigTest.cs" />
     <Compile Include="Tests\UnitTest1.cs" />
+    <Compile Include="Tests\WriteExpressionsComplexTest.cs" />
     <Compile Include="Tests\WriteExpressionsTest.cs" />
   </ItemGroup>
   <ItemGroup>

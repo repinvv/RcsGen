@@ -28,14 +28,14 @@
                     }
 
                     nodes.Add(new ContentNode(new string(symbols.ToArray()), NodeType.WriteExpression));
-                    stateMachine.CurrentState = previous;
+                    stateMachine.State = previous;
                     previous.ProcessChar(ch);
                     return;
                 case '\r':
                 case '\n':
                     nodes.Add(new ContentNode(new string(symbols.ToArray()), NodeType.WriteExpression));
                     nodes.Add(new Node(NodeType.Eol));
-                    stateMachine.CurrentState = previous;
+                    stateMachine.State = previous;
                     return;
                 case '(':
                     ProcessCommandKeywords(new string(symbols.ToArray()));
