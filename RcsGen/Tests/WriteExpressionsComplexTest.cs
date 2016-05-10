@@ -7,7 +7,7 @@
     [TestClass]
     public class WriteExpressionsComplexTest
     {
-        string source1 = "@(aaa(bbb).ccc<ddd>(new eee(){fff = \" }ggg\\\" \", hhh = ' ', iii = @\" )jjj \"}))king";
+        string source1 = "@(aaa(bbb).ccc<ddd>(new eee(){fff = \" }ggg\\\" \", hhh = ' ', iii = @\" )jjj \\\"}))king";
 
         [TestMethod]
         public void ComplexExplicitWriteExpression()
@@ -18,7 +18,7 @@
             var node = doc.Nodes[0] as ContentNode;
             Assert.IsNotNull(node);
             Assert.AreEqual(NodeType.WriteExpression, node.NodeType);
-            Assert.AreEqual("aaa(bbb).ccc<ddd>(new eee(){fff = \" }ggg\\\" \", hhh = ' ', iii = @\" )jjj \"})", node.Content);
+            Assert.AreEqual("aaa(bbb).ccc<ddd>(new eee(){fff = \" }ggg\\\" \", hhh = ' ', iii = @\" )jjj \\\"})", node.Content);
 
             node = doc.Nodes[1] as ContentNode;
             Assert.IsNotNull(node);

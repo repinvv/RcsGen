@@ -68,7 +68,7 @@
     <Compile Include="SyntaxTree\States\BracketStates\BracketState.cs" />
     <Compile Include="SyntaxTree\States\BracketStates\BracketStateFactory.cs" />
     <Compile Include="SyntaxTree\States\BracketStates\CurvedBracketState.cs" />
-    <Compile Include="SyntaxTree\States\BracketStates\EscapedQuotesBracketState.cs" />
+    <Compile Include="SyntaxTree\States\BracketStates\UnescapedQuotesBracketState.cs" />
     <Compile Include="SyntaxTree\States\BracketStates\QuotesBracketState.cs" />
     <Compile Include="SyntaxTree\States\BracketStates\RoundParenthesisState.cs" />
     <Compile Include="SyntaxTree\States\IAccumulatingState.cs" />
