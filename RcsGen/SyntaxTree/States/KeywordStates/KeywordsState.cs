@@ -2,8 +2,9 @@
 {
     using System.Collections.Generic;
     using RcsGen.SyntaxTree.Nodes;
+    using RcsGen.SyntaxTree.States.BracketStates;
 
-    internal class KeywordsState : IState
+    internal class KeywordsState : IAccumulatingState
     {
         protected readonly List<Node> nodes;
         protected readonly StateMachine stateMachine;
@@ -19,54 +20,54 @@
 
         public virtual void ProcessChar(char ch)
         {
+            string keyword;
             switch (ch)
             {
                 case ' ':
-                    if (ProcessCommandKeywords(new string(symbols.ToArray())))
+                    keyword = new string(symbols.ToArray());
+                    switch (keyword)
                     {
-                        return;
+                        case KeywordConstants.If:
+                            var ifNode = new IfNode();
+                            return;
+                        case KeywordConstants.For:
+                        case KeywordConstants.Foreach:
+                            return;
+                        default:
+                            nodes.Add(new ContentNode(new string(symbols.ToArray()), NodeType.WriteExpression));
+                            stateMachine.State = previous;
+                            previous.ProcessChar(ch);
+                            return;
                     }
-
-                    nodes.Add(new ContentNode(new string(symbols.ToArray()), NodeType.WriteExpression));
-                    stateMachine.State = previous;
-                    previous.ProcessChar(ch);
-                    return;
+                case '(':
+                    keyword = new string(symbols.ToArray());
+                    switch (keyword)
+                    {
+                        case KeywordConstants.If:
+                            var ifNode = new IfNode();
+                            return;
+                        case KeywordConstants.For:
+                        case KeywordConstants.Foreach:
+                            return;
+                        default:
+                            stateMachine.State = new RoundParenthesisState(stateMachine, this);
+                            return;
+                    }
                 case '\r':
                 case '\n':
                     nodes.Add(new ContentNode(new string(symbols.ToArray()), NodeType.WriteExpression));
                     nodes.Add(new Node(NodeType.Eol));
                     stateMachine.State = previous;
                     return;
-                case '(':
-                    ProcessCommandKeywords(new string(symbols.ToArray()));
-                    return;
                 case '<':
-                case '"':
-                case '\'':
-                case '{':
-                    return; // todo
+                    stateMachine.State = new GenericBracketState(stateMachine, this);
+                    return;
                 default:
                     symbols.Add(ch);
                     return;
             }
         }
 
-        
-
-        protected bool ProcessCommandKeywords(string keyword)
-        {
-            switch (keyword)
-            {
-                case KeywordConstants.If:
-                    var ifNode = new IfNode();
-                    return true;
-                case KeywordConstants.For:
-                case KeywordConstants.Foreach:
-                    var forNode = new ForNode(keyword);
-                    return true;
-                default:
-                    return false;
-            }
-        }
+        public void Accumulate(char ch) => symbols.Add(ch);
     }
 }
