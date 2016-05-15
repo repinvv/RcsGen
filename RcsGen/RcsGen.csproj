@@ -63,6 +63,7 @@
     <Compile Include="SyntaxTree\Nodes\ContentNode.cs" />
     <Compile Include="SyntaxTree\Parser.cs" />
     <Compile Include="SyntaxTree\StateMachine.cs" />
+    <Compile Include="SyntaxTree\States\AccumulatingState.cs" />
     <Compile Include="SyntaxTree\States\BracketStates\ApostropheBracketState.cs" />
     <Compile Include="SyntaxTree\States\BracketStates\AtBracketState.cs" />
     <Compile Include="SyntaxTree\States\BracketStates\BracketState.cs" />
@@ -80,12 +81,18 @@
     <Compile Include="SyntaxTree\States\IState.cs" />
     <Compile Include="SyntaxTree\States\KeywordStates\AllKeywordsState.cs" />
     <Compile Include="SyntaxTree\States\KeywordStates\ExplicitWriteState.cs" />
+    <Compile Include="SyntaxTree\States\KeywordStates\ForStates\AwaitState.cs" />
+    <Compile Include="SyntaxTree\States\KeywordStates\ForStates\ForConditionState.cs" />
     <Compile Include="SyntaxTree\States\KeywordStates\GotConfigState.cs" />
     <Compile Include="SyntaxTree\States\KeywordStates\GotForState.cs" />
     <Compile Include="SyntaxTree\States\KeywordStates\GotIfState.cs" />
     <Compile Include="SyntaxTree\States\KeywordStates\KeywordsState.cs" />
+    <Compile Include="Tests\CascadedForTest.cs" />
     <Compile Include="Tests\CommentTest.cs" />
     <Compile Include="Tests\ConfigTest.cs" />
+    <Compile Include="Tests\ForeachTest.cs" />
+    <Compile Include="Tests\ForTest.cs" />
+    <Compile Include="Tests\IfTest.cs" />
     <Compile Include="Tests\UnitTest1.cs" />
     <Compile Include="Tests\WriteExpressionsComplexTest.cs" />
     <Compile Include="Tests\WriteExpressionsTest.cs" />
@@ -95,6 +102,9 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="SyntaxTree\States\KeywordStates\IfStates\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

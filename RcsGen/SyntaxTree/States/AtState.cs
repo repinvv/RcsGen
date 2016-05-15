@@ -54,7 +54,7 @@
                     stateMachine.State = allKeywords 
                         ? new AllKeywordsState(nodes, stateMachine, previous)
                         : new KeywordsState(nodes, stateMachine, previous);
-                    stateMachine.State.ProcessChar(ch);
+                    stateMachine.ProcessChar(ch);
                     return;
             }
         }

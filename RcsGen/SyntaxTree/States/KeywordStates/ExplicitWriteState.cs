@@ -4,13 +4,12 @@
     using RcsGen.SyntaxTree.Nodes;
     using RcsGen.SyntaxTree.States.BracketStates;
 
-    internal class ExplicitWriteState : IAccumulatingState
+    internal class ExplicitWriteState : AccumulatingState
     {
         private readonly StateMachine stateMachine;
         private readonly IState previous;
         private readonly List<Node> nodes;
-        readonly List<char> symbols = new List<char>();
-        private BracketStateFactory factory;
+        private readonly BracketStateFactory factory;
 
         public ExplicitWriteState(StateMachine stateMachine, IState previous, List<Node> nodes)
         {
@@ -20,11 +19,11 @@
             factory = new BracketStateFactory(stateMachine, this, '<', '(');
         }
 
-        public void ProcessChar(char ch)
+        public override void ProcessChar(char ch)
         {
             if (ch == ')')
             {
-                nodes.Add(new ContentNode(new string(symbols.ToArray()), NodeType.WriteExpression));
+                nodes.Add(new ContentNode(Accumulated, NodeType.WriteExpression));
                 stateMachine.State = previous;
             }
             else
@@ -33,7 +32,5 @@
                 factory.TryBracket(ch);
             }
         }
-
-        public void Accumulate(char ch) => symbols.Add(ch);
     }
 }

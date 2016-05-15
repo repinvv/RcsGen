@@ -3,13 +3,13 @@
     using System.Collections.Generic;
     using RcsGen.SyntaxTree.Nodes;
     using RcsGen.SyntaxTree.States.BracketStates;
+    using RcsGen.SyntaxTree.States.KeywordStates.ForStates;
 
-    internal class KeywordsState : IAccumulatingState
+    internal class KeywordsState : AccumulatingState
     {
         protected readonly List<Node> nodes;
         protected readonly StateMachine stateMachine;
         protected readonly IState previous;
-        protected readonly List<char> symbols = new List<char>();
 
         public KeywordsState(List<Node> nodes, StateMachine stateMachine, IState previous)
         {
@@ -18,44 +18,56 @@
             this.previous = previous;
         }
 
-        public virtual void ProcessChar(char ch)
+        public override void ProcessChar(char ch)
         {
-            string keyword;
             switch (ch)
             {
+                case '"':
+                case ')':
+                case '}':
+                case ']':
+                case '\'':
+                    nodes.Add(new ContentNode(Accumulated, NodeType.WriteExpression));
+                    stateMachine.State = previous;
+                    previous.ProcessChar(ch);
+                    return;
                 case ' ':
-                    keyword = new string(symbols.ToArray());
-                    switch (keyword)
+                    switch (Accumulated)
                     {
                         case KeywordConstants.If:
                             var ifNode = new IfNode();
                             return;
                         case KeywordConstants.For:
+                            var forState = new ForConditionState(stateMachine, previous, KeywordConstants.For);
+                            stateMachine.State = new AwaitState(stateMachine, forState, previous, "(");
+                            return;
                         case KeywordConstants.Foreach:
                             return;
                         default:
-                            nodes.Add(new ContentNode(new string(symbols.ToArray()), NodeType.WriteExpression));
+                            nodes.Add(new ContentNode(Accumulated, NodeType.WriteExpression));
                             stateMachine.State = previous;
                             previous.ProcessChar(ch);
                             return;
                     }
                 case '(':
-                    keyword = new string(symbols.ToArray());
-                    switch (keyword)
+                    switch (Accumulated)
                     {
                         case KeywordConstants.If:
                             var ifNode = new IfNode();
                             return;
                         case KeywordConstants.For:
+                            stateMachine.State = new ForConditionState(stateMachine, previous, KeywordConstants.For);
+                            return;
                         case KeywordConstants.Foreach:
                             return;
                         default:
                             stateMachine.State = new RoundParenthesisState(stateMachine, this);
+                            Accumulate(ch);
                             return;
                     }
                 case '\r':
                 case '\n':
-                    nodes.Add(new ContentNode(new string(symbols.ToArray()), NodeType.WriteExpression));
+                    nodes.Add(new ContentNode(Accumulated, NodeType.WriteExpression));
                     nodes.Add(new Node(NodeType.Eol));
                     stateMachine.State = previous;
                     return;
@@ -63,11 +75,9 @@
                     stateMachine.State = new GenericBracketState(stateMachine, this);
                     return;
                 default:
-                    symbols.Add(ch);
+                    Accumulate(ch);
                     return;
             }
         }
-
-        public void Accumulate(char ch) => symbols.Add(ch);
     }
 }

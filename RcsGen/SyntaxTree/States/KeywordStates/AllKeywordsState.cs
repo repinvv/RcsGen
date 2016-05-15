@@ -11,7 +11,7 @@
 
         public override void ProcessChar(char ch)
         {
-            if (ch != ' ' || !ProcessConfigKeywords(new string(symbols.ToArray())))
+            if (ch != ' ' || !ProcessConfigKeywords(Accumulated))
             {
                 base.ProcessChar(ch);
             }

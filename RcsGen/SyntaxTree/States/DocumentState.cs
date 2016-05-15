@@ -4,11 +4,10 @@
     using System.Linq;
     using RcsGen.SyntaxTree.Nodes;
 
-    internal class DocumentState : IState
+    internal class DocumentState : AccumulatingState
     {
         private readonly StateMachine stateMachine;
         private readonly Document document;
-        private readonly List<char> symbols = new List<char>();
 
         public DocumentState(StateMachine stateMachine, Document document)
         {
@@ -16,7 +15,7 @@
             this.document = document;
         }
 
-        public void ProcessChar(char ch)
+        public override void ProcessChar(char ch)
         {
             switch (ch)
             {
@@ -34,15 +33,15 @@
                     stateMachine.State = new AtState(document.Nodes, stateMachine, this, allNodesAreConfig);
                     return;
                 default:
-                    symbols.Add(ch);
+                    Accumulate(ch);
                     return;
             }
         }
 
         private bool TryAddSymbols()
         {
-            var current = new string(symbols.ToArray());
-            symbols.Clear();
+            var current = Accumulated;
+            Clear();
             if (string.IsNullOrWhiteSpace(current))
             {
                 return false;

@@ -12,7 +12,7 @@
 
         public Document Document { get; } = new Document();
 
-        public IState State { get; set; }
+        public IState State { private get; set; }
 
         public void ProcessChar(char ch)
         {
