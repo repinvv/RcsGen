@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using RcsGen.SyntaxTree.Nodes;
     using RcsGen.SyntaxTree.States.BracketStates;
+    using RcsGen.SyntaxTree.States.ExpectingStates;
     using RcsGen.SyntaxTree.States.KeywordStates.ForStates;
 
     internal class KeywordsState : AccumulatingState
@@ -27,44 +28,16 @@
                 case '}':
                 case ']':
                 case '\'':
+                case ' ':
+                case '>':
                     nodes.Add(new ContentNode(Accumulated, NodeType.WriteExpression));
                     stateMachine.State = previous;
                     previous.ProcessChar(ch);
                     return;
-                case ' ':
-                    switch (Accumulated)
-                    {
-                        case KeywordConstants.If:
-                            var ifNode = new IfNode();
-                            return;
-                        case KeywordConstants.For:
-                            var forState = new ForConditionState(stateMachine, previous, KeywordConstants.For);
-                            stateMachine.State = new AwaitState(stateMachine, forState, previous, "(");
-                            return;
-                        case KeywordConstants.Foreach:
-                            return;
-                        default:
-                            nodes.Add(new ContentNode(Accumulated, NodeType.WriteExpression));
-                            stateMachine.State = previous;
-                            previous.ProcessChar(ch);
-                            return;
-                    }
                 case '(':
-                    switch (Accumulated)
-                    {
-                        case KeywordConstants.If:
-                            var ifNode = new IfNode();
-                            return;
-                        case KeywordConstants.For:
-                            stateMachine.State = new ForConditionState(stateMachine, previous, KeywordConstants.For);
-                            return;
-                        case KeywordConstants.Foreach:
-                            return;
-                        default:
-                            stateMachine.State = new RoundParenthesisState(stateMachine, this);
-                            Accumulate(ch);
-                            return;
-                    }
+                    stateMachine.State = new RoundParenthesisState(stateMachine, this);
+                    Accumulate(ch);
+                    return;
                 case '\r':
                 case '\n':
                     nodes.Add(new ContentNode(Accumulated, NodeType.WriteExpression));

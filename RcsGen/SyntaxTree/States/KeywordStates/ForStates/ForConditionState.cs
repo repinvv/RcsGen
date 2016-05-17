@@ -1,5 +1,7 @@
 ﻿namespace RcsGen.SyntaxTree.States.KeywordStates.ForStates
 {
+    using RcsGen.SyntaxTree.States.ExpectingStates;
+
     internal class ForConditionState : AccumulatingState
     {
         private readonly StateMachine stateMachine;
@@ -18,7 +20,7 @@
             if (ch == ')')
             {
                 var keyword = Accumulated;
-                var awaitState = new AwaitState(stateMachine, this, previous, "{");
+                //var awaitState = new AwaitState(stateMachine, this, previous, "{");
             }
         }
         

@@ -72,6 +72,11 @@
     <Compile Include="SyntaxTree\States\BracketStates\UnescapedQuotesBracketState.cs" />
     <Compile Include="SyntaxTree\States\BracketStates\QuotesBracketState.cs" />
     <Compile Include="SyntaxTree\States\BracketStates\RoundParenthesisState.cs" />
+    <Compile Include="SyntaxTree\States\ExpectingStates\ChainElementLink.cs" />
+    <Compile Include="SyntaxTree\States\ExpectingStates\AwaitState.cs" />
+    <Compile Include="SyntaxTree\States\ExpectingStates\Chain.cs" />
+    <Compile Include="SyntaxTree\States\ExpectingStates\ExpectState.cs" />
+    <Compile Include="SyntaxTree\States\ExpectingStates\IChainLink.cs" />
     <Compile Include="SyntaxTree\States\IAccumulatingState.cs" />
     <Compile Include="SyntaxTree\States\AtState.cs" />
     <Compile Include="SyntaxTree\States\BracketStates\GenericBracketState.cs" />
@@ -81,12 +86,12 @@
     <Compile Include="SyntaxTree\States\IState.cs" />
     <Compile Include="SyntaxTree\States\KeywordStates\AllKeywordsState.cs" />
     <Compile Include="SyntaxTree\States\KeywordStates\ExplicitWriteState.cs" />
-    <Compile Include="SyntaxTree\States\KeywordStates\ForStates\AwaitState.cs" />
     <Compile Include="SyntaxTree\States\KeywordStates\ForStates\ForConditionState.cs" />
     <Compile Include="SyntaxTree\States\KeywordStates\GotConfigState.cs" />
     <Compile Include="SyntaxTree\States\KeywordStates\GotForState.cs" />
     <Compile Include="SyntaxTree\States\KeywordStates\GotIfState.cs" />
     <Compile Include="SyntaxTree\States\KeywordStates\KeywordsState.cs" />
+    <Compile Include="SyntaxTree\States\KeywordStates\KeywordStateFactory.cs" />
     <Compile Include="Tests\CascadedForTest.cs" />
     <Compile Include="Tests\CommentTest.cs" />
     <Compile Include="Tests\ConfigTest.cs" />

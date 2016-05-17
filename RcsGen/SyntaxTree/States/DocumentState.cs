@@ -1,8 +1,10 @@
 ﻿namespace RcsGen.SyntaxTree.States
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using RcsGen.SyntaxTree.Nodes;
+    using RcsGen.SyntaxTree.States.KeywordStates;
 
     internal class DocumentState : AccumulatingState
     {
@@ -29,8 +31,17 @@
                     return;
                 case '@':
                     TryAddSymbols();
-                    bool allNodesAreConfig = document.Nodes.All(x => x.NodeType == NodeType.Config);
-                    stateMachine.State = new AtState(document.Nodes, stateMachine, this, allNodesAreConfig);
+                    Func<IState> reject = () => new AtState(document.Nodes, stateMachine, this);
+                    var factory = new KeywordStateFactory(stateMachine, reject, this);
+                    if (document.Nodes.All(x => x.NodeType == NodeType.Config))
+                    {
+                        factory.SetupAllKeywordsChain(document.Nodes);
+                    }
+                    else
+                    {
+                        factory.SetupKeywordsChain(document.Nodes);
+                    }
+                    
                     return;
                 default:
                     Accumulate(ch);
