@@ -12,7 +12,7 @@
             this.back = back;
         }
 
-        public void ProcessChar(char ch)
+        public void ProcessToken(string token)
         {
             switch (ch)
             {

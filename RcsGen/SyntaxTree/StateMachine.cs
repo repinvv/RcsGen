@@ -14,9 +14,9 @@
 
         public IState State { private get; set; }
 
-        public void ProcessChar(char ch)
+        public void ProcessToken(string token)
         {
-            State.ProcessChar(ch);
+            State.ProcessToken(token);
         }
     }
 }

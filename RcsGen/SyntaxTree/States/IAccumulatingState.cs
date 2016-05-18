@@ -2,6 +2,6 @@
 {
     internal interface IAccumulatingState : IState
     {
-        void Accumulate(char ch);
+        void Accumulate(string token);
     }
 }

@@ -15,7 +15,7 @@
             this.keyword = keyword;
         }
 
-        public override void ProcessChar(char ch)
+        public override void ProcessToken(string token)
         {
             if (ch == ')')
             {

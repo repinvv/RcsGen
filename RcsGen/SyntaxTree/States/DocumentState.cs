@@ -1,10 +1,8 @@
 ﻿namespace RcsGen.SyntaxTree.States
 {
-    using System;
-    using System.Collections.Generic;
     using System.Linq;
     using RcsGen.SyntaxTree.Nodes;
-    using RcsGen.SyntaxTree.States.KeywordStates;
+    using RcsGen.SyntaxTree.States.AtStates;
 
     internal class DocumentState : AccumulatingState
     {
@@ -17,39 +15,29 @@
             this.document = document;
         }
 
-        public override void ProcessChar(char ch)
+        public override void ProcessToken(string token)
         {
-            switch (ch)
+            switch (token)
             {
-                case '\r':
-                case '\n':
-                    if (TryAddSymbols())
+                case "\n":
+                    if (TryAddAccumulated())
                     {
                         document.Nodes.Add(new Node(NodeType.Eol));
                     }
 
                     return;
-                case '@':
-                    TryAddSymbols();
-                    Func<IState> reject = () => new AtState(document.Nodes, stateMachine, this);
-                    var factory = new KeywordStateFactory(stateMachine, reject, this);
-                    if (document.Nodes.All(x => x.NodeType == NodeType.Config))
-                    {
-                        factory.SetupAllKeywordsChain(document.Nodes);
-                    }
-                    else
-                    {
-                        factory.SetupKeywordsChain(document.Nodes);
-                    }
-                    
+                case "@":
+                    TryAddAccumulated();
+                    var allConfig = document.Nodes.All(x => x.NodeType == NodeType.Config);
+                    stateMachine.State = new AtState(document.Nodes, stateMachine, this, allConfig);
                     return;
                 default:
-                    Accumulate(ch);
+                    Accumulate(token);
                     return;
             }
         }
 
-        private bool TryAddSymbols()
+        private bool TryAddAccumulated()
         {
             var current = Accumulated;
             Clear();

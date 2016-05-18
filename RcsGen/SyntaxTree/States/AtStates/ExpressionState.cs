@@ -11,7 +11,7 @@
             this.previous = previous;
         }
 
-        public void ProcessChar(char ch)
+        public void ProcessToken(string token)
         { }
     }
 }

@@ -2,6 +2,6 @@
 {
     internal interface IState
     {
-        void ProcessChar(char ch);
+        void ProcessToken(string token);
     }
 }

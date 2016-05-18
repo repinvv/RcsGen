@@ -21,7 +21,7 @@
             this.setSuccessState = setSuccessState;
         }
 
-        public void ProcessChar(char ch)
+        public void ProcessToken(string token)
         {
             symbols.Add(ch);
             if (value[foundIndex] != ch)

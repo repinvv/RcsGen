@@ -4,14 +4,14 @@
 
     internal abstract class AccumulatingState : IAccumulatingState
     {
-        private readonly List<char> symbols = new List<char>();
+        private readonly List<string> tokens = new List<string>();
 
-        protected string Accumulated => new string(symbols.ToArray());
+        protected string Accumulated => string.Concat(tokens);
 
-        protected void Clear() => symbols.Clear();
+        protected void Clear() => tokens.Clear();
 
-        public abstract void ProcessChar(char ch);
+        public abstract void ProcessToken(string token);
 
-        public void Accumulate(char ch) => symbols.Add(ch);
+        public void Accumulate(string token) => tokens.Add(token);
     }
 }

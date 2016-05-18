@@ -19,7 +19,7 @@
             factory = new BracketStateFactory(stateMachine, this, '<', '(');
         }
 
-        public override void ProcessChar(char ch)
+        public override void ProcessToken(string token)
         {
             if (ch == ')')
             {

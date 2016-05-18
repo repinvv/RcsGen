@@ -18,7 +18,7 @@
             this.previous = previous;
         }
 
-        public override void ProcessChar(char ch)
+        public override void ProcessToken(string token)
         {
             switch (ch)
             {

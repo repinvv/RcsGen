@@ -16,7 +16,7 @@
             factory = new BracketStateFactory(stateMachine, this, allowed);
         }
 
-        public virtual void ProcessChar(char ch)
+        public virtual void ProcessToken(string token)
         {
             Accumulate(ch);
             if (ch == closing)
@@ -30,6 +30,6 @@
         }
         
 
-        public void Accumulate(char ch) => previous.Accumulate(ch);
+        public void Accumulate(string token) => previous.Accumulate(token);
     }
 }

@@ -11,7 +11,7 @@
             this.previous = previous;
         }
 
-        public void ProcessChar(char ch)
+        public void ProcessToken(string token)
         {
             if (ch == '"')
             {
@@ -21,10 +21,10 @@
             else
             {
                 stateMachine.State = previous;
-                previous.ProcessChar(ch);
+                previous.ProcessToken(token);
             }
         }
 
-        public void Accumulate(char ch) => previous.Accumulate(ch);
+        public void Accumulate(string token) => previous.Accumulate(token);
     }
 }

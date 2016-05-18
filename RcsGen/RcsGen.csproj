@@ -92,6 +92,7 @@
     <Compile Include="SyntaxTree\States\KeywordStates\GotIfState.cs" />
     <Compile Include="SyntaxTree\States\KeywordStates\KeywordsState.cs" />
     <Compile Include="SyntaxTree\States\KeywordStates\KeywordStateFactory.cs" />
+    <Compile Include="SyntaxTree\Tokenizer.cs" />
     <Compile Include="Tests\CascadedForTest.cs" />
     <Compile Include="Tests\CommentTest.cs" />
     <Compile Include="Tests\ConfigTest.cs" />

@@ -19,7 +19,7 @@
             this.previous = previous;
         }
 
-        public override void ProcessChar(char ch)
+        public override void ProcessToken(string token)
         {
             switch (ch)
             {
@@ -32,7 +32,7 @@
                 case '>':
                     nodes.Add(new ContentNode(Accumulated, NodeType.WriteExpression));
                     stateMachine.State = previous;
-                    previous.ProcessChar(ch);
+                    previous.ProcessToken(token);
                     return;
                 case '(':
                     stateMachine.State = new RoundParenthesisState(stateMachine, this);
