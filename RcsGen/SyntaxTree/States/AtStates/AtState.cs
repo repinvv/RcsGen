@@ -1,11 +1,8 @@
-﻿namespace RcsGen.SyntaxTree.States
+﻿namespace RcsGen.SyntaxTree.States.AtStates
 {
-    using System;
     using System.Collections.Generic;
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
     using RcsGen.SyntaxTree.Nodes;
-    using RcsGen.SyntaxTree.States.ExpressionStates;
-    using RcsGen.SyntaxTree.States.KeywordStates;
+    using RcsGen.SyntaxTree.States.AtStates.Keywords;
 
     internal class AtState : IState
     {
@@ -80,7 +77,7 @@
                 case KeywordConstants.Foreach:
                     return;
                 default:
-                    var state = new KeywordsState(nodes, stateMachine, previous);
+                    var state = new ImplicitWriteState(nodes, stateMachine, previous);
                     stateMachine.State = state;
                     state.ProcessToken(token);
                     return;

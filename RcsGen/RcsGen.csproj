@@ -78,20 +78,16 @@
     <Compile Include="SyntaxTree\States\ExpectingStates\ExpectState.cs" />
     <Compile Include="SyntaxTree\States\ExpectingStates\IChainLink.cs" />
     <Compile Include="SyntaxTree\States\IAccumulatingState.cs" />
-    <Compile Include="SyntaxTree\States\AtState.cs" />
+    <Compile Include="SyntaxTree\States\AtStates\AtState.cs" />
     <Compile Include="SyntaxTree\States\BracketStates\GenericBracketState.cs" />
     <Compile Include="SyntaxTree\States\CommentState.cs" />
     <Compile Include="SyntaxTree\States\DocumentState.cs" />
-    <Compile Include="SyntaxTree\States\ExpressionStates\ExpressionState.cs" />
+    <Compile Include="SyntaxTree\States\AtStates\ExpressionState.cs" />
     <Compile Include="SyntaxTree\States\IState.cs" />
-    <Compile Include="SyntaxTree\States\KeywordStates\AllKeywordsState.cs" />
-    <Compile Include="SyntaxTree\States\KeywordStates\ExplicitWriteState.cs" />
+    <Compile Include="SyntaxTree\States\AtStates\ExplicitWriteState.cs" />
     <Compile Include="SyntaxTree\States\KeywordStates\ForStates\ForConditionState.cs" />
-    <Compile Include="SyntaxTree\States\KeywordStates\GotConfigState.cs" />
-    <Compile Include="SyntaxTree\States\KeywordStates\GotForState.cs" />
-    <Compile Include="SyntaxTree\States\KeywordStates\GotIfState.cs" />
-    <Compile Include="SyntaxTree\States\KeywordStates\KeywordsState.cs" />
-    <Compile Include="SyntaxTree\States\KeywordStates\KeywordStateFactory.cs" />
+    <Compile Include="SyntaxTree\States\AtStates\Keywords\GotConfigState.cs" />
+    <Compile Include="SyntaxTree\States\AtStates\ImplicitWriteState.cs" />
     <Compile Include="SyntaxTree\Tokenizer.cs" />
     <Compile Include="Tests\CascadedForTest.cs" />
     <Compile Include="Tests\CommentTest.cs" />
@@ -110,6 +106,7 @@
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="SyntaxTree\States\ExpressionStates\" />
     <Folder Include="SyntaxTree\States\KeywordStates\IfStates\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

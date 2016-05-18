@@ -1,4 +1,4 @@
-﻿namespace RcsGen.SyntaxTree.States.KeywordStates
+﻿namespace RcsGen.SyntaxTree.States.AtStates.Keywords
 {
     using System.Collections.Generic;
     using RcsGen.SyntaxTree.Nodes;
@@ -20,10 +20,9 @@
 
         public override void ProcessToken(string token)
         {
-            switch (ch)
+            switch (token)
             {
-                case '\r':
-                case '\n':
+                case "\n":
                     var parameters = Accumulated.Trim();
                     if (!string.IsNullOrEmpty(parameters))
                     {

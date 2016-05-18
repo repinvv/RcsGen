@@ -1,4 +1,4 @@
-﻿namespace RcsGen.SyntaxTree.States.ExpressionStates
+﻿namespace RcsGen.SyntaxTree.States.AtStates
 {
     internal class ExpressionState : IState
     {

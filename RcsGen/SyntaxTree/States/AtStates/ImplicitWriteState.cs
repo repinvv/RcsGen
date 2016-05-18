@@ -1,18 +1,16 @@
-﻿namespace RcsGen.SyntaxTree.States.KeywordStates
+﻿namespace RcsGen.SyntaxTree.States.AtStates
 {
     using System.Collections.Generic;
     using RcsGen.SyntaxTree.Nodes;
     using RcsGen.SyntaxTree.States.BracketStates;
-    using RcsGen.SyntaxTree.States.ExpectingStates;
-    using RcsGen.SyntaxTree.States.KeywordStates.ForStates;
 
-    internal class KeywordsState : AccumulatingState
+    internal class ImplicitWriteState : AccumulatingState
     {
         protected readonly List<Node> nodes;
         protected readonly StateMachine stateMachine;
         protected readonly IState previous;
 
-        public KeywordsState(List<Node> nodes, StateMachine stateMachine, IState previous)
+        public ImplicitWriteState(List<Node> nodes, StateMachine stateMachine, IState previous)
         {
             this.nodes = nodes;
             this.stateMachine = stateMachine;
