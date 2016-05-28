@@ -14,12 +14,12 @@
 
         public void ProcessToken(string token)
         {
-            switch (ch)
+            switch (token)
             {
-                case '*':
+                case "*":
                     starred = true;
                     return;
-                case '@':
+                case "@":
                     if (starred)
                     {
                         back();

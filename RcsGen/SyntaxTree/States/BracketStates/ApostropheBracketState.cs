@@ -14,25 +14,24 @@
 
         public void ProcessToken(string token)
         {
-            Accumulate(ch);
+            Accumulate(token);
             if (escaped)
             {
                 escaped = false;
                 return;
             }
 
-            switch (ch)
+            switch (token)
             {
-                case '\\':
+                case "\\":
                     escaped = true;
                     break;
-                case '\'':
+                case "'":
                     stateMachine.State = previous;
                     break;
             }
         }
 
         public void Accumulate(string token) => previous.Accumulate(token);
-
     }
 }

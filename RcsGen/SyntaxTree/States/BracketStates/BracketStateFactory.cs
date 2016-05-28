@@ -6,43 +6,43 @@
     internal class BracketStateFactory
     {
         private readonly StateMachine stateMachine;
-        private readonly IEnumerable<char> allowed;
+        private readonly string[] allowed;
         private readonly IAccumulatingState state;
 
-        public static readonly char[] AllBrackets = { '<', '(', '{', '"', '\'', '@', '[' };
+        public static readonly string[] AllBrackets = { "<", "(", "{", "\"", "'", "@", "[" };
 
-        public BracketStateFactory(StateMachine stateMachine, IAccumulatingState state, params char[] allowed)
+        public BracketStateFactory(StateMachine stateMachine, IAccumulatingState state, params string[] allowed)
         {
             this.stateMachine = stateMachine;
             this.allowed = allowed;
             this.state = state;
         }
 
-        public bool TryBracket(char ch)
+        public bool TryBracket(string token)
         {
-            if (!allowed.Contains(ch))
+            if (!allowed.Contains(token))
             {
                 return false;
             }
 
-            switch (ch)
+            switch (token)
             {
-                case '@':
+                case "@":
                     stateMachine.State = new AtBracketState(stateMachine, state);
                     return true;
-                case '<':
+                case "<":
                     stateMachine.State = new GenericBracketState(stateMachine, state);
                     return true;
-                case '(':
+                case "(":
                     stateMachine.State = new RoundParenthesisState(stateMachine, state);
                     return true;
-                case '{':
+                case "{":
                     stateMachine.State = new CurvedBracketState(stateMachine, state);
                     return true;
-                case '\'':
+                case "'":
                     stateMachine.State = new ApostropheBracketState(stateMachine, state);
                     return true;
-                case '"':
+                case "\"":
                     stateMachine.State = new QuotesBracketState(stateMachine, state);
                     return true;
                 default:

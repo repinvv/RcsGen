@@ -1,6 +1,5 @@
 ﻿namespace RcsGen.SyntaxTree.States.KeywordStates.ForStates
 {
-    using RcsGen.SyntaxTree.States.ExpectingStates;
 
     internal class ForConditionState : AccumulatingState
     {
@@ -17,7 +16,7 @@
 
         public override void ProcessToken(string token)
         {
-            if (ch == ')')
+            if (token == ")")
             {
                 var keyword = Accumulated;
                 //var awaitState = new AwaitState(stateMachine, this, previous, "{");

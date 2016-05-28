@@ -4,11 +4,11 @@
     {
         private readonly StateMachine stateMachine;
         private readonly IAccumulatingState previous;
-        private readonly char closing;
+        private readonly string closing;
         private readonly BracketStateFactory factory;
 
         protected BracketState(StateMachine stateMachine, 
-            IAccumulatingState previous, char closing, params char[] allowed)
+            IAccumulatingState previous, string closing, params string[] allowed)
         {
             this.stateMachine = stateMachine;
             this.previous = previous;
@@ -18,14 +18,14 @@
 
         public virtual void ProcessToken(string token)
         {
-            Accumulate(ch);
-            if (ch == closing)
+            Accumulate(token);
+            if (token == closing)
             {
                 stateMachine.State = previous;
             }
             else
             {
-                factory.TryBracket(ch);
+                factory.TryBracket(token);
             }
         }
         

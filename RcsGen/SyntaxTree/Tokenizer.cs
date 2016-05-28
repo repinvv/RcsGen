@@ -14,7 +14,8 @@
             '"', '\'',
             '@', '\\',
             '\n', ' ',
-            '*'
+            '*', ',',
+            ';'
         };
 
         public static List<string> GetTokens(string source)
@@ -39,6 +40,12 @@
                 {
                     chars.Add(ch);
                 }
+            }
+
+            if (chars.Any())
+            {
+                tokens.Add(new string(chars.ToArray()));
+                chars.Clear();
             }
 
             return tokens;

@@ -3,7 +3,7 @@
     internal class RoundParenthesisState : BracketState
     {
         public RoundParenthesisState(StateMachine stateMachine, IAccumulatingState previous)
-            : base(stateMachine, previous, ')', BracketStateFactory.AllBrackets)
+            : base(stateMachine, previous, ")", BracketStateFactory.AllBrackets)
         {
         }
     }

@@ -1,5 +1,6 @@
 ﻿namespace RcsGen.SyntaxTree
 {
+    using System.Linq;
     using RcsGen.SyntaxTree.Nodes;
 
     internal static class Parser
@@ -8,12 +9,14 @@
         {
             var tokens = Tokenizer.GetTokens(source);
             var stateMachine = new StateMachine();
-            foreach (var ch in source)
+            foreach (var token in tokens)
             {
-                stateMachine.ProcessChar(ch);
+                stateMachine.ProcessToken(token);
             }
-
-            stateMachine.ProcessChar('\r');
+            if (tokens.Last() != "\n")
+            {
+                stateMachine.ProcessToken("\n");
+            }
 
             return stateMachine.Document;
         }

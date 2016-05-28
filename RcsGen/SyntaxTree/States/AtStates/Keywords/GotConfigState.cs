@@ -32,7 +32,7 @@
                     stateMachine.State = previous;
                     return;
                 default: 
-                    Accumulate(ch);
+                    Accumulate(token);
                     return;
             }
         }

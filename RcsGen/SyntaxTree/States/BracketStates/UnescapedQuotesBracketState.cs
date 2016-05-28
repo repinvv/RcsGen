@@ -3,7 +3,7 @@
     internal class UnescapedQuotesBracketState : BracketState
     {
         public UnescapedQuotesBracketState(StateMachine stateMachine, IAccumulatingState previous) 
-            : base(stateMachine, previous, '"')
+            : base(stateMachine, previous, "\"")
         { }
     }
 }

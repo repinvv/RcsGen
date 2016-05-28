@@ -16,20 +16,20 @@
             this.stateMachine = stateMachine;
             this.previous = previous;
             this.nodes = nodes;
-            factory = new BracketStateFactory(stateMachine, this, '<', '(');
+            factory = new BracketStateFactory(stateMachine, this, "<", "(");
         }
 
         public override void ProcessToken(string token)
         {
-            if (ch == ')')
+            if (token == ")")
             {
                 nodes.Add(new ContentNode(Accumulated, NodeType.WriteExpression));
                 stateMachine.State = previous;
             }
             else
             {
-                Accumulate(ch);
-                factory.TryBracket(ch);
+                Accumulate(token);
+                factory.TryBracket(token);
             }
         }
     }

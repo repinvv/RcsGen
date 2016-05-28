@@ -13,10 +13,10 @@
 
         public void ProcessToken(string token)
         {
-            if (ch == '"')
+            if (token == "\"")
             {
                 stateMachine.State = new UnescapedQuotesBracketState(stateMachine, previous);
-                Accumulate(ch);
+                Accumulate(token);
             }
             else
             {

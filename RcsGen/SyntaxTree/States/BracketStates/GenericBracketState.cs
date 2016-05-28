@@ -3,7 +3,7 @@
     internal class GenericBracketState : BracketState
     {
         public GenericBracketState(StateMachine stateMachine, IAccumulatingState previous)
-            : base(stateMachine, previous, '>', '<')
+            : base(stateMachine, previous, ">", "<")
         {
         }
     }

@@ -19,34 +19,35 @@
 
         public override void ProcessToken(string token)
         {
-            switch (ch)
+            switch (token)
             {
-                case '"':
-                case ')':
-                case '}':
-                case ']':
-                case '\'':
-                case ' ':
-                case '>':
+                case "\"":
+                case ")":
+                case "}":
+                case "]":
+                case "'":
+                case " ":
+                case ">":
+                case ";":
+                case ",":
                     nodes.Add(new ContentNode(Accumulated, NodeType.WriteExpression));
                     stateMachine.State = previous;
                     previous.ProcessToken(token);
                     return;
-                case '(':
+                case "(":
                     stateMachine.State = new RoundParenthesisState(stateMachine, this);
-                    Accumulate(ch);
+                    Accumulate(token);
                     return;
-                case '\r':
-                case '\n':
+                case "\n":
                     nodes.Add(new ContentNode(Accumulated, NodeType.WriteExpression));
                     nodes.Add(new Node(NodeType.Eol));
                     stateMachine.State = previous;
                     return;
-                case '<':
+                case "<":
                     stateMachine.State = new GenericBracketState(stateMachine, this);
                     return;
                 default:
-                    Accumulate(ch);
+                    Accumulate(token);
                     return;
             }
         }

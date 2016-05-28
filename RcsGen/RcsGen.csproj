@@ -72,11 +72,6 @@
     <Compile Include="SyntaxTree\States\BracketStates\UnescapedQuotesBracketState.cs" />
     <Compile Include="SyntaxTree\States\BracketStates\QuotesBracketState.cs" />
     <Compile Include="SyntaxTree\States\BracketStates\RoundParenthesisState.cs" />
-    <Compile Include="SyntaxTree\States\ExpectingStates\ChainElementLink.cs" />
-    <Compile Include="SyntaxTree\States\ExpectingStates\AwaitState.cs" />
-    <Compile Include="SyntaxTree\States\ExpectingStates\Chain.cs" />
-    <Compile Include="SyntaxTree\States\ExpectingStates\ExpectState.cs" />
-    <Compile Include="SyntaxTree\States\ExpectingStates\IChainLink.cs" />
     <Compile Include="SyntaxTree\States\IAccumulatingState.cs" />
     <Compile Include="SyntaxTree\States\AtStates\AtState.cs" />
     <Compile Include="SyntaxTree\States\BracketStates\GenericBracketState.cs" />
