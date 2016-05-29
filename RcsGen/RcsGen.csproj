@@ -64,6 +64,8 @@
     <Compile Include="SyntaxTree\Parser.cs" />
     <Compile Include="SyntaxTree\StateMachine.cs" />
     <Compile Include="SyntaxTree\States\AccumulatingState.cs" />
+    <Compile Include="SyntaxTree\States\AtStates\ExpectState.cs" />
+    <Compile Include="SyntaxTree\States\AtStates\ForStates\ChildNodesState.cs" />
     <Compile Include="SyntaxTree\States\BracketStates\ApostropheBracketState.cs" />
     <Compile Include="SyntaxTree\States\BracketStates\AtBracketState.cs" />
     <Compile Include="SyntaxTree\States\BracketStates\BracketState.cs" />
@@ -80,8 +82,8 @@
     <Compile Include="SyntaxTree\States\AtStates\ExpressionState.cs" />
     <Compile Include="SyntaxTree\States\IState.cs" />
     <Compile Include="SyntaxTree\States\AtStates\ExplicitWriteState.cs" />
-    <Compile Include="SyntaxTree\States\KeywordStates\ForStates\ForConditionState.cs" />
-    <Compile Include="SyntaxTree\States\AtStates\Keywords\GotConfigState.cs" />
+    <Compile Include="SyntaxTree\States\AtStates\ForStates\ForConditionState.cs" />
+    <Compile Include="SyntaxTree\States\AtStates\ConfigStates\GotConfigState.cs" />
     <Compile Include="SyntaxTree\States\AtStates\ImplicitWriteState.cs" />
     <Compile Include="SyntaxTree\Tokenizer.cs" />
     <Compile Include="Tests\CascadedForTest.cs" />
@@ -101,8 +103,9 @@
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="SyntaxTree\States\AtStates\IfStates\" />
     <Folder Include="SyntaxTree\States\ExpressionStates\" />
-    <Folder Include="SyntaxTree\States\KeywordStates\IfStates\" />
+    <Folder Include="SyntaxTree\States\KeywordStates\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

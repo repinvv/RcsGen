@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using RcsGen.SyntaxTree.Nodes;
     using RcsGen.SyntaxTree.States.AtStates.Keywords;
+    using RcsGen.SyntaxTree.States.KeywordStates.ForStates;
 
     internal class AtState : IState
     {
@@ -48,6 +49,7 @@
                     return;
                 case " ":
                 case "\"":
+                case "\t":
                 case "<":
                 case ">":
                 case "[":
@@ -73,8 +75,12 @@
                     stateMachine.State = new ExplicitWriteState(stateMachine, previous, nodes);
                     return;
                 case KeywordConstants.If:
+                    var ifExpectState = new ExpectState(stateMachine, previous, "(");
+                    return;
                 case KeywordConstants.For:
                 case KeywordConstants.Foreach:
+                    stateMachine.Expect("(", previous)
+                        .SuccessState = new ForConditionState(stateMachine, previous, token, nodes);
                     return;
                 default:
                     var state = new ImplicitWriteState(nodes, stateMachine, previous);

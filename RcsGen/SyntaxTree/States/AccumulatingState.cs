@@ -4,7 +4,7 @@
 
     internal abstract class AccumulatingState : IAccumulatingState
     {
-        private readonly List<string> tokens = new List<string>();
+        protected readonly List<string> tokens = new List<string>();
 
         protected string Accumulated => string.Concat(tokens);
 

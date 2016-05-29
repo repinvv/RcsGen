@@ -15,7 +15,7 @@
             '@', '\\',
             '\n', ' ',
             '*', ',',
-            ';'
+            ';', '\t'
         };
 
         public static List<string> GetTokens(string source)

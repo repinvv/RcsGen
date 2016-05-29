@@ -30,6 +30,7 @@
                 case ">":
                 case ";":
                 case ",":
+                case "\t":
                     nodes.Add(new ContentNode(Accumulated, NodeType.WriteExpression));
                     stateMachine.State = previous;
                     previous.ProcessToken(token);
