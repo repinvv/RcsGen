@@ -34,22 +34,22 @@
                     nodes.Add(new ContentNode(Accumulated, NodeType.WriteExpression));
                     stateMachine.State = previous;
                     previous.ProcessToken(token);
-                    return;
+                    break;
                 case "(":
                     stateMachine.State = new RoundParenthesisState(stateMachine, this);
                     Accumulate(token);
-                    return;
+                    break;
                 case "\n":
                     nodes.Add(new ContentNode(Accumulated, NodeType.WriteExpression));
                     nodes.Add(new Node(NodeType.Eol));
                     stateMachine.State = previous;
-                    return;
+                    break;
                 case "<":
                     stateMachine.State = new GenericBracketState(stateMachine, this);
-                    return;
+                    break;
                 default:
                     Accumulate(token);
-                    return;
+                    break;
             }
         }
     }

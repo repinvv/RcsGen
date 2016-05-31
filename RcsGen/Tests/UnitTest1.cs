@@ -1,4 +1,4 @@
-﻿namespace RcsGen
+﻿namespace RcsGen.Tests
 {
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using RcsGen.SyntaxTree;

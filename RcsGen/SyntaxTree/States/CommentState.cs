@@ -18,17 +18,17 @@
             {
                 case "*":
                     starred = true;
-                    return;
+                    break;
                 case "@":
                     if (starred)
                     {
                         back();
                     }
 
-                    return;
+                    break;
                 default:
                     starred = false;
-                    return;
+                    break;
             }
         }
     }

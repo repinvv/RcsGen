@@ -1,4 +1,4 @@
-﻿namespace RcsGen.SyntaxTree.States.AtStates.Keywords
+﻿namespace RcsGen.SyntaxTree.States.AtStates.ConfigStates
 {
     using System.Collections.Generic;
     using RcsGen.SyntaxTree.Nodes;
@@ -30,10 +30,10 @@
                     }
 
                     stateMachine.State = previous;
-                    return;
+                    break;
                 default: 
                     Accumulate(token);
-                    return;
+                    break;
             }
         }
     }

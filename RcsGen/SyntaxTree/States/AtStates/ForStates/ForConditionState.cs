@@ -1,10 +1,9 @@
-﻿namespace RcsGen.SyntaxTree.States.KeywordStates.ForStates
+﻿namespace RcsGen.SyntaxTree.States.AtStates.ForStates
 {
     using System.Collections.Generic;
     using RcsGen.SyntaxTree.Nodes;
-    using RcsGen.SyntaxTree.States.AtStates;
-    using RcsGen.SyntaxTree.States.AtStates.ForStates;
     using RcsGen.SyntaxTree.States.BracketStates;
+    using RcsGen.SyntaxTree.States.NodesStates;
 
     internal class ForConditionState : AccumulatingState
     {
@@ -35,7 +34,7 @@
             var childNodes = new List<Node>();
             stateMachine
                 .Expect("{", previous)
-                .SuccessState = new ChildNodesState(stateMachine, childNodes)
+                .SuccessState = new SingleLineChildNodesState(stateMachine, childNodes)
                                 {
                                     ReturnAction = () =>
                                     {

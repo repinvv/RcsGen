@@ -53,6 +53,8 @@
     <Compile Include="RcsGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SyntaxTree\KeywordConstants.cs" />
+    <Compile Include="SyntaxTree\States\NodesStates\MultiLineAccumulatedState.cs" />
+    <Compile Include="SyntaxTree\States\NodesStates\NodesState.cs" />
     <Compile Include="SyntaxTree\Nodes\ConfigCommand.cs" />
     <Compile Include="SyntaxTree\Nodes\ConfigNode.cs" />
     <Compile Include="SyntaxTree\Nodes\Document.cs" />
@@ -65,7 +67,7 @@
     <Compile Include="SyntaxTree\StateMachine.cs" />
     <Compile Include="SyntaxTree\States\AccumulatingState.cs" />
     <Compile Include="SyntaxTree\States\AtStates\ExpectState.cs" />
-    <Compile Include="SyntaxTree\States\AtStates\ForStates\ChildNodesState.cs" />
+    <Compile Include="SyntaxTree\States\NodesStates\SingleLineChildNodesState.cs" />
     <Compile Include="SyntaxTree\States\BracketStates\ApostropheBracketState.cs" />
     <Compile Include="SyntaxTree\States\BracketStates\AtBracketState.cs" />
     <Compile Include="SyntaxTree\States\BracketStates\BracketState.cs" />
@@ -78,7 +80,7 @@
     <Compile Include="SyntaxTree\States\AtStates\AtState.cs" />
     <Compile Include="SyntaxTree\States\BracketStates\GenericBracketState.cs" />
     <Compile Include="SyntaxTree\States\CommentState.cs" />
-    <Compile Include="SyntaxTree\States\DocumentState.cs" />
+    <Compile Include="SyntaxTree\States\NodesStates\DocumentState.cs" />
     <Compile Include="SyntaxTree\States\AtStates\ExpressionState.cs" />
     <Compile Include="SyntaxTree\States\IState.cs" />
     <Compile Include="SyntaxTree\States\AtStates\ExplicitWriteState.cs" />

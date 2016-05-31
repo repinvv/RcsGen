@@ -1,16 +1,20 @@
 ﻿namespace RcsGen.SyntaxTree
 {
+    using System.Collections.Generic;
     using RcsGen.SyntaxTree.Nodes;
     using RcsGen.SyntaxTree.States;
+    using RcsGen.SyntaxTree.States.NodesStates;
 
     internal class StateMachine
     {
+        private readonly List<Node> nodes = new List<Node>();
+
         public StateMachine()
         {
-            State = new DocumentState(this, Document);
+            State = new DocumentState(this, nodes);
         }
 
-        public Document Document { get; } = new Document();
+        public Document Document => new Document(nodes);
 
         public IState State { private get; set; }
 

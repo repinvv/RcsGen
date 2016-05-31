@@ -39,14 +39,14 @@
                 case "\n":
                 case "\t":
                     Accumulate(token);
-                    return;
+                    break;
                 default:
                     stateMachine.State = rejectState;
                     foreach (var t in tokens)
                     {
                         stateMachine.ProcessToken(t);
                     }
-                    return;
+                    break;
             }
         }
     }

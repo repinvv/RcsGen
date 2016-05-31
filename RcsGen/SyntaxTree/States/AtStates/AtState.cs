@@ -2,8 +2,8 @@
 {
     using System.Collections.Generic;
     using RcsGen.SyntaxTree.Nodes;
-    using RcsGen.SyntaxTree.States.AtStates.Keywords;
-    using RcsGen.SyntaxTree.States.KeywordStates.ForStates;
+    using RcsGen.SyntaxTree.States.AtStates.ConfigStates;
+    using RcsGen.SyntaxTree.States.AtStates.ForStates;
 
     internal class AtState : IState
     {
@@ -12,7 +12,7 @@
         private readonly IState previous;
         private readonly bool allConfig;
 
-        public AtState(List<Node> nodes, StateMachine stateMachine, IState previous, bool allConfig)
+        public AtState(List<Node> nodes, StateMachine stateMachine, IState previous, bool allConfig = false)
         {
             this.nodes = nodes;
             this.stateMachine = stateMachine;
@@ -46,7 +46,7 @@
                 case "@": 
                     nodes.Add(new ContentNode("@", NodeType.Literal));
                     stateMachine.State = previous;
-                    return;
+                    break;
                 case " ":
                 case "\"":
                 case "\t":
@@ -57,36 +57,36 @@
                 case ")":
                 case "}":
                 case "'":
-                    nodes.Add(new ContentNode("@" + token, NodeType.Literal));
                     stateMachine.State = previous;
-                    return;
+                    previous.ProcessToken(token);
+                    break;
                 case "\n":
                     nodes.Add(new ContentNode("@", NodeType.Literal));
                     nodes.Add(new Node(NodeType.Eol));
                     stateMachine.State = previous;
-                    return;
+                    break;
                 case "{":
                     stateMachine.State = new ExpressionState(stateMachine, previous);
-                    return;
+                    break;
                 case "*":
                     stateMachine.State = new CommentState(() => stateMachine.State = previous);
-                    return;
+                    break;
                 case "(":
                     stateMachine.State = new ExplicitWriteState(stateMachine, previous, nodes);
-                    return;
+                    break;
                 case KeywordConstants.If:
                     var ifExpectState = new ExpectState(stateMachine, previous, "(");
-                    return;
+                    break;
                 case KeywordConstants.For:
                 case KeywordConstants.Foreach:
                     stateMachine.Expect("(", previous)
                         .SuccessState = new ForConditionState(stateMachine, previous, token, nodes);
-                    return;
+                    break;
                 default:
                     var state = new ImplicitWriteState(nodes, stateMachine, previous);
                     stateMachine.State = state;
                     state.ProcessToken(token);
-                    return;
+                    break;
             }
         }
     }

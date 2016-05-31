@@ -27,13 +27,29 @@
         }";
 
         [TestMethod]
-        public void SimpleOneLineFor()
+        public void EnclosedOneLineFor()
         {
             var node = Parser.Parse(source);
-            Assert.AreEqual(1, node.Nodes.Count);
+            Assert.AreEqual(2, node.Nodes.Count);
             var forNode = (ForNode)node.Nodes[0];
             TestForNode(forNode);
+            TestForNodeChild(forNode);
+            Assert.AreEqual(NodeType.Eol, node.Nodes[1].NodeType);
+        }
 
+        [TestMethod]
+        public void SpacedOneLineFor()
+        {
+            var node = Parser.Parse(source4);
+            Assert.AreEqual(2, node.Nodes.Count);
+            var forNode = (ForNode)node.Nodes[0];
+            TestForNode(forNode);
+            TestForNodeChild(forNode);
+            Assert.AreEqual(NodeType.Eol, node.Nodes[1].NodeType);
+        }
+
+        private static void TestForNodeChild(ForNode forNode)
+        {
             Assert.AreEqual(1, forNode.ChildNodes.Count);
             var childNode = (ContentNode)forNode.ChildNodes[0];
             Assert.AreEqual(NodeType.Literal, childNode.NodeType);
