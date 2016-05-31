@@ -14,17 +14,13 @@
     }";
         string source3 = @"@for(smth)
         {
-        smthMore}
+    smthMore}
         }";
 
         string source4 = "@for (smth) {smthMore}";
         string source5 = @"@for (smth) {
     smthMore}
     }";
-        string source6 = @"@for (smth)
-        {
-        smthMore}
-        }";
 
         [TestMethod]
         public void EnclosedOneLineFor()
@@ -46,6 +42,48 @@
             TestForNode(forNode);
             TestForNodeChild(forNode);
             Assert.AreEqual(NodeType.Eol, node.Nodes[1].NodeType);
+        }
+
+        [TestMethod]
+        public void EnclosedForWithEgyptBraces()
+        {
+            var node = Parser.Parse(source2);
+            Assert.AreEqual(2, node.Nodes.Count);
+            var forNode = (ForNode)node.Nodes[0];
+            TestForNode(forNode);
+            TestForNodeMultiLineChildren(forNode);
+            Assert.AreEqual(NodeType.Eol, node.Nodes[1].NodeType);
+        }
+
+        [TestMethod]
+        public void EnclosedForWithSharpBraces()
+        {
+            var node = Parser.Parse(source3);
+            Assert.AreEqual(2, node.Nodes.Count);
+            var forNode = (ForNode)node.Nodes[0];
+            TestForNode(forNode);
+            TestForNodeMultiLineChildren(forNode);
+            Assert.AreEqual(NodeType.Eol, node.Nodes[1].NodeType);
+        }
+
+        [TestMethod]
+        public void SpacedForWithEgyptBraces()
+        {
+            var node = Parser.Parse(source5);
+            Assert.AreEqual(2, node.Nodes.Count);
+            var forNode = (ForNode)node.Nodes[0];
+            TestForNode(forNode);
+            TestForNodeMultiLineChildren(forNode);
+            Assert.AreEqual(NodeType.Eol, node.Nodes[1].NodeType);
+        }
+
+        private void TestForNodeMultiLineChildren(ForNode forNode)
+        {
+            Assert.AreEqual(2, forNode.ChildNodes.Count);
+            var childNode = (ContentNode)forNode.ChildNodes[0];
+            Assert.AreEqual(NodeType.Literal, childNode.NodeType);
+            Assert.AreEqual("    smthMore}", childNode.Content);
+            Assert.AreEqual(NodeType.Eol, forNode.ChildNodes[1].NodeType);
         }
 
         private static void TestForNodeChild(ForNode forNode)
