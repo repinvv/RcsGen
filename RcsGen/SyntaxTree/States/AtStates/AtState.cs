@@ -28,16 +28,15 @@
                 switch (token)
                 {
                     case KeywordConstants.Config.Inherits:
-                        stateMachine.State =
-                            new GotConfigState(ConfigCommand.Inherits, nodes, stateMachine, previous);
+                        var inheritState = new InheritsState(nodes, stateMachine, previous);
+                        stateMachine.Expect("(", previous)
+                                    .SuccessState = inheritState;
                         return;
                     case KeywordConstants.Config.Using:
-                        stateMachine.State =
-                            new GotConfigState(ConfigCommand.Using, nodes, stateMachine, previous);
+                        stateMachine.State = new UsingState(nodes, stateMachine, previous);
                         return;
                     case KeywordConstants.Config.Visibility:
-                        stateMachine.State =
-                            new GotConfigState(ConfigCommand.Visibility, nodes, stateMachine, previous);
+                        stateMachine.State = new VisibilityState(nodes, stateMachine, previous);
                         return;
                 }
             }

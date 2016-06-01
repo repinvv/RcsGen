@@ -1,18 +1,19 @@
 ﻿namespace RcsGen.SyntaxTree.States.AtStates.ConfigStates
 {
+    using System;
     using System.Collections.Generic;
+    using System.Linq;
     using RcsGen.SyntaxTree.Nodes;
+    using RcsGen.SyntaxTree.Nodes.ConfigNodes;
 
-    internal class GotConfigState : AccumulatingState
+    internal class UsingState : AccumulatingState
     {
-        private readonly ConfigCommand command;
         private readonly List<Node> nodes;
         private readonly StateMachine stateMachine;
         private readonly IState previous;
 
-        public GotConfigState(ConfigCommand command, List<Node> nodes, StateMachine stateMachine, IState previous)
+        public UsingState(List<Node> nodes, StateMachine stateMachine, IState previous)
         {
-            this.command = command;
             this.nodes = nodes;
             this.stateMachine = stateMachine;
             this.previous = previous;
@@ -23,22 +24,28 @@
             switch (token)
             {
                 case "\n":
-                    Finish();
+                    CreateNode();
                     stateMachine.State = previous;
                     break;
-                default: 
+                default:
                     Accumulate(token);
                     break;
             }
         }
 
-        public override void Finish()
+        public void CreateNode()
         {
-            var parameters = Accumulated.Trim();
-            if (!string.IsNullOrEmpty(parameters))
+            var usingParams = Accumulated
+                .Trim()
+                .Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
+                .ToList();
+
+            if (usingParams.Any())
             {
-                nodes.Add(new ConfigNode(command, parameters));
+                nodes.Add(new UsingNode(usingParams));
             }
         }
+
+        public override void Finish() { }
     }
 }

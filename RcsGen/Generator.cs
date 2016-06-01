@@ -2,7 +2,7 @@
 {
     using RcsGen.SyntaxTree;
 
-    internal static class Generator
+    public static class Generator
     {
         public static string Generate(string inputFile, string nameSpace)
         {
