@@ -1,12 +1,12 @@
 ﻿namespace RcsGen.SyntaxTree.States.AtStates
 {
-    internal class ExpectState : AccumulatingState
+    internal class ExpectAtSameLineState : AccumulatingState
     {
         private readonly StateMachine stateMachine;
         private readonly IState rejectState;
         private readonly string expecting;
 
-        public ExpectState(StateMachine stateMachine, IState rejectState, string expecting)
+        public ExpectAtSameLineState(StateMachine stateMachine, IState rejectState, string expecting)
         {
             this.stateMachine = stateMachine;
             this.rejectState = rejectState;
@@ -26,7 +26,6 @@
             switch (token)
             {
                 case " ":
-                case "\n":
                 case "\t":
                     Accumulate(token);
                     break;

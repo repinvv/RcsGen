@@ -33,17 +33,23 @@
         {
             switch (token)
             {
-                case ")":
                 case "\n":
                     AddParameter();
                     nodes.Add(new InheritsNode(baseClass, parameters));
                     stateMachine.State = previous;
                     break;
+                case ")":
+                    AddParameter();
+                    nodes.Add(new InheritsNode(baseClass, parameters));
+                    stateMachine.ExpectAtSameLine("\n", previous)
+                                .SuccessState = previous;
+                    break;
                 case " ":
                 case ",":
                     AddParameter();
-                    stateMachine.State =
-                        new InheritsParameterTypeState(stateMachine, previous, parameters, baseClass, nodes);
+                    var typeState = new InheritsParameterTypeState(stateMachine, previous, parameters, baseClass, nodes);
+                    stateMachine.State = new SkipSpacesState(stateMachine, typeState);
+                        
                     break;
                 default: 
                     Accumulate(token);

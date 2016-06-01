@@ -36,8 +36,11 @@
                     stateMachine.State = previous;
                     break;
                 case " ":
-                    stateMachine.State = 
-                        new InheritsParameterNameState(stateMachine, previous, parameters, baseClass, Accumulated, nodes);
+                    var nameState = new InheritsParameterNameState(stateMachine, previous, parameters, baseClass, Accumulated, nodes);
+                    stateMachine.State = new SkipSpacesState(stateMachine, nameState);
+                    break;
+                default:
+                    Accumulate(token);
                     break;
             }
         }

@@ -24,7 +24,9 @@
                 case "@":
                     AddAccumulated();
                     var allConfig = nodes.All(x => x.NodeType == NodeType.Config);
-                    stateMachine.State = new AtState(nodes, stateMachine, this, allConfig);
+                    stateMachine.State = allConfig
+                        ? new AtConfigState(nodes, stateMachine, this)
+                        : new AtState(nodes, stateMachine, this);
                     break;
                 default:
                     Accumulate(token);

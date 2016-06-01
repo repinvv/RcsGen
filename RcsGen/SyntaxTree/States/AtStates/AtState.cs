@@ -11,36 +11,16 @@
         private readonly List<Node> nodes;
         private readonly StateMachine stateMachine;
         private readonly IState previous;
-        private readonly bool allConfig;
 
-        public AtState(List<Node> nodes, StateMachine stateMachine, IState previous, bool allConfig = false)
+        public AtState(List<Node> nodes, StateMachine stateMachine, IState previous)
         {
             this.nodes = nodes;
             this.stateMachine = stateMachine;
             this.previous = previous;
-            this.allConfig = allConfig;
         }
 
-        public void ProcessToken(string token)
+        public virtual void ProcessToken(string token)
         {
-            if (allConfig)
-            {
-                switch (token)
-                {
-                    case KeywordConstants.Config.Inherits:
-                        var inheritState = new InheritsState(nodes, stateMachine, previous);
-                        stateMachine.Expect("(", previous)
-                                    .SuccessState = inheritState;
-                        return;
-                    case KeywordConstants.Config.Using:
-                        stateMachine.State = new UsingState(nodes, stateMachine, previous);
-                        return;
-                    case KeywordConstants.Config.Visibility:
-                        stateMachine.State = new VisibilityState(nodes, stateMachine, previous);
-                        return;
-                }
-            }
-
             switch (token)
             {
                 case "@": 

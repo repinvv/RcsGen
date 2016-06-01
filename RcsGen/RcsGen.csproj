@@ -56,11 +56,15 @@
     <Compile Include="SyntaxTree\Nodes\ConfigNodes\InheritsNode.cs" />
     <Compile Include="SyntaxTree\Nodes\ConfigNodes\UsingNode.cs" />
     <Compile Include="SyntaxTree\Nodes\ConfigNodes\VisibilityNode.cs" />
+    <Compile Include="SyntaxTree\States\AtStates\AtConfigState.cs" />
     <Compile Include="SyntaxTree\States\AtStates\ConfigStates\InheritsParameterNameState.cs" />
     <Compile Include="SyntaxTree\States\AtStates\ConfigStates\InheritsParameterTypeState.cs" />
     <Compile Include="SyntaxTree\States\AtStates\ConfigStates\InheritsState.cs" />
+    <Compile Include="SyntaxTree\States\AtStates\ConfigStates\SkipSpacesState.cs" />
     <Compile Include="SyntaxTree\States\AtStates\ConfigStates\UsingState.cs" />
     <Compile Include="SyntaxTree\States\AtStates\ConfigStates\VisibilityState.cs" />
+    <Compile Include="SyntaxTree\States\AtStates\ExpectAtSameLineState.cs" />
+    <Compile Include="SyntaxTree\States\AtStates\ExpectExtension.cs" />
     <Compile Include="SyntaxTree\States\AtStates\IfStates\CreateIfState.cs" />
     <Compile Include="SyntaxTree\States\AtStates\IfStates\ElseState.cs" />
     <Compile Include="SyntaxTree\States\AtStates\IfStates\IfConditionState.cs" />
