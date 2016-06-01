@@ -23,17 +23,21 @@
             switch (token)
             {
                 case "\n":
-                    var parameters = Accumulated.Trim();
-                    if (!string.IsNullOrEmpty(parameters))
-                    {
-                        nodes.Add(new ConfigNode(command, parameters));
-                    }
-
+                    Finish();
                     stateMachine.State = previous;
                     break;
                 default: 
                     Accumulate(token);
                     break;
+            }
+        }
+
+        public override void Finish()
+        {
+            var parameters = Accumulated.Trim();
+            if (!string.IsNullOrEmpty(parameters))
+            {
+                nodes.Add(new ConfigNode(command, parameters));
             }
         }
     }

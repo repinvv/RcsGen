@@ -31,7 +31,7 @@
                 case ";":
                 case ",":
                 case "\t":
-                    nodes.Add(new ContentNode(Accumulated, NodeType.WriteExpression));
+                    Finish();
                     stateMachine.State = previous;
                     previous.ProcessToken(token);
                     break;
@@ -40,7 +40,7 @@
                     Accumulate(token);
                     break;
                 case "\n":
-                    nodes.Add(new ContentNode(Accumulated, NodeType.WriteExpression));
+                    Finish();
                     nodes.Add(new Node(NodeType.Eol));
                     stateMachine.State = previous;
                     break;
@@ -51,6 +51,11 @@
                     Accumulate(token);
                     break;
             }
+        }
+
+        public override void Finish()
+        {
+            nodes.Add(new ContentNode(Accumulated, NodeType.WriteExpression));
         }
     }
 }

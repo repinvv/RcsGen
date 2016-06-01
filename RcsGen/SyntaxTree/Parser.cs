@@ -13,10 +13,8 @@
             {
                 stateMachine.ProcessToken(token);
             }
-            if (tokens.Last() != "\n")
-            {
-                stateMachine.ProcessToken("\n");
-            }
+
+            stateMachine.Finish();
 
             return stateMachine.Document;
         }

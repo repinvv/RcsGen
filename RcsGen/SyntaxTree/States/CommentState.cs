@@ -31,5 +31,7 @@
                     break;
             }
         }
+
+        public void Finish() { }
     }
 }

@@ -23,7 +23,7 @@
         {
             if (token == ")")
             {
-                nodes.Add(new ContentNode(Accumulated, NodeType.WriteExpression));
+                Finish();
                 stateMachine.State = previous;
             }
             else
@@ -31,6 +31,11 @@
                 Accumulate(token);
                 factory.TryBracket(token);
             }
+        }
+
+        public override void Finish()
+        {
+            nodes.Add(new ContentNode(Accumulated, NodeType.WriteExpression));
         }
     }
 }

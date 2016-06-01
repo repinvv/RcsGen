@@ -4,15 +4,24 @@
 
     internal class IfNode : Node
     {
-        public IfNode() : base(NodeType.If)
+        public IfNode(string condition, List<Node> ifNodes) : base(NodeType.If)
         {
-            
+            Condition = condition;
+            IfNodes = ifNodes;
+            ElseNodes = new List<Node>();
         }
 
-        public string Condition { get; set; }
+        public IfNode(string condition, List<Node> ifNodes, List<Node> elseNodes) : base(NodeType.If)
+        {
+            Condition = condition;
+            IfNodes = ifNodes;
+            ElseNodes = elseNodes;
+        }
 
-        public List<Node> IfNodes { get; } = new List<Node>();
+        public string Condition { get; }
 
-        public List<Node> ElseNodes { get; } = new List<Node>();
+        public List<Node> IfNodes { get; }
+
+        public List<Node> ElseNodes { get; }
     }
 }

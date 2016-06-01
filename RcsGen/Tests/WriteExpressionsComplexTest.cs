@@ -14,7 +14,7 @@
         {
             var doc = Parser.Parse(source1);
 
-            Assert.AreEqual(3, doc.Nodes.Count);
+            Assert.AreEqual(2, doc.Nodes.Count);
             var node = doc.Nodes[0] as ContentNode;
             Assert.IsNotNull(node);
             Assert.AreEqual(NodeType.WriteExpression, node.NodeType);
@@ -24,8 +24,6 @@
             Assert.IsNotNull(node);
             Assert.AreEqual(NodeType.Literal, node.NodeType);
             Assert.AreEqual("king", node.Content);
-
-            Assert.AreEqual(NodeType.Eol, doc.Nodes[2].NodeType);
         }
     }
 }

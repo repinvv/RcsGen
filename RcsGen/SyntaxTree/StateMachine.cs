@@ -19,5 +19,10 @@
         public IState State { private get; set; }
 
         public void ProcessToken(string token) => State.ProcessToken(token);
+
+        public void Finish()
+        {
+            State.Finish();
+        }
     }
 }

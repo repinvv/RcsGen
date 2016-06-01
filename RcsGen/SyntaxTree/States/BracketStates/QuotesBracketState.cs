@@ -32,6 +32,8 @@
             }
         }
 
+        public void Finish() => previous.Finish();
+
         public void Accumulate(string token) => previous.Accumulate(token);
     }
 }

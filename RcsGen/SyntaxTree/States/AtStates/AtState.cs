@@ -4,6 +4,7 @@
     using RcsGen.SyntaxTree.Nodes;
     using RcsGen.SyntaxTree.States.AtStates.ConfigStates;
     using RcsGen.SyntaxTree.States.AtStates.ForStates;
+    using RcsGen.SyntaxTree.States.AtStates.IfStates;
 
     internal class AtState : IState
     {
@@ -75,7 +76,8 @@
                     stateMachine.State = new ExplicitWriteState(stateMachine, previous, nodes);
                     break;
                 case KeywordConstants.If:
-                    var ifExpectState = new ExpectState(stateMachine, previous, "(");
+                    stateMachine.Expect("(", previous)
+                        .SuccessState = new IfConditionState(stateMachine, previous, nodes);
                     break;
                 case KeywordConstants.For:
                 case KeywordConstants.Foreach:
@@ -89,5 +91,7 @@
                     break;
             }
         }
+
+        public void Finish() { }
     }
 }

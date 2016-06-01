@@ -41,12 +41,18 @@
                     Accumulate(token);
                     break;
                 default:
-                    stateMachine.State = rejectState;
-                    foreach (var t in tokens)
-                    {
-                        stateMachine.ProcessToken(t);
-                    }
+                    Accumulate(token);
+                    Finish();
                     break;
+            }
+        }
+
+        public override void Finish()
+        {
+            stateMachine.State = rejectState;
+            foreach (var t in tokens)
+            {
+                stateMachine.ProcessToken(t);
             }
         }
     }

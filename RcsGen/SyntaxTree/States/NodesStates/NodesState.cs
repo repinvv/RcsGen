@@ -55,5 +55,10 @@
                 && nodes.Last().NodeType != NodeType.Eol 
                 && nodes.Last().NodeType != NodeType.Config;
         }
+
+        public override void Finish()
+        {
+            AddAccumulated();
+        }
     }
 }

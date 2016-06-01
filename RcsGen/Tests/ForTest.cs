@@ -26,55 +26,50 @@
         public void EnclosedOneLineFor()
         {
             var node = Parser.Parse(source);
-            Assert.AreEqual(2, node.Nodes.Count);
+            Assert.AreEqual(1, node.Nodes.Count);
             var forNode = (ForNode)node.Nodes[0];
             TestForNode(forNode);
             TestForNodeChild(forNode);
-            Assert.AreEqual(NodeType.Eol, node.Nodes[1].NodeType);
         }
 
         [TestMethod]
         public void SpacedOneLineFor()
         {
             var node = Parser.Parse(source4);
-            Assert.AreEqual(2, node.Nodes.Count);
+            Assert.AreEqual(1, node.Nodes.Count);
             var forNode = (ForNode)node.Nodes[0];
             TestForNode(forNode);
             TestForNodeChild(forNode);
-            Assert.AreEqual(NodeType.Eol, node.Nodes[1].NodeType);
         }
 
         [TestMethod]
         public void EnclosedForWithEgyptBraces()
         {
             var node = Parser.Parse(source2);
-            Assert.AreEqual(2, node.Nodes.Count);
+            Assert.AreEqual(1, node.Nodes.Count);
             var forNode = (ForNode)node.Nodes[0];
             TestForNode(forNode);
             TestForNodeMultiLineChildren(forNode);
-            Assert.AreEqual(NodeType.Eol, node.Nodes[1].NodeType);
         }
 
         [TestMethod]
         public void EnclosedForWithSharpBraces()
         {
             var node = Parser.Parse(source3);
-            Assert.AreEqual(2, node.Nodes.Count);
+            Assert.AreEqual(1, node.Nodes.Count);
             var forNode = (ForNode)node.Nodes[0];
             TestForNode(forNode);
             TestForNodeMultiLineChildren(forNode);
-            Assert.AreEqual(NodeType.Eol, node.Nodes[1].NodeType);
         }
 
         [TestMethod]
         public void SpacedForWithEgyptBraces()
         {
             var node = Parser.Parse(source5);
-            Assert.AreEqual(2, node.Nodes.Count);
+            Assert.AreEqual(1, node.Nodes.Count);
             var forNode = (ForNode)node.Nodes[0];
             TestForNode(forNode);
             TestForNodeMultiLineChildren(forNode);
-            Assert.AreEqual(NodeType.Eol, node.Nodes[1].NodeType);
         }
 
         private void TestForNodeMultiLineChildren(ForNode forNode)

@@ -18,15 +18,13 @@
         {
             var doc = Parser.Parse(source1);
             
-            Assert.AreEqual(3, doc.Nodes.Count);
+            Assert.AreEqual(2, doc.Nodes.Count);
             TestWriteNode(doc.Nodes[0] as ContentNode);
 
             var node = doc.Nodes[1] as ContentNode;
             Assert.IsNotNull(node);
             Assert.AreEqual(NodeType.Literal, node.NodeType);
             Assert.AreEqual("king", node.Content);
-
-            Assert.AreEqual(NodeType.Eol, doc.Nodes[2].NodeType);
         }
 
         [TestMethod]
@@ -45,7 +43,7 @@
         {
             var doc = Parser.Parse(source2);
 
-            Assert.AreEqual(4, doc.Nodes.Count);
+            Assert.AreEqual(3, doc.Nodes.Count);
             var node = (ContentNode)doc.Nodes[0];
             Assert.AreEqual(NodeType.Literal, node.NodeType);
             Assert.AreEqual("someFunc(", node.Content);
@@ -57,8 +55,6 @@
             node = (ContentNode)doc.Nodes[2];
             Assert.AreEqual(NodeType.Literal, node.NodeType);
             Assert.AreEqual(").hello", node.Content);
-
-            Assert.AreEqual(NodeType.Eol, doc.Nodes[3].NodeType);
         }
 
         [TestMethod]
@@ -66,15 +62,13 @@
         {
             var doc = Parser.Parse(source4);
 
-            Assert.AreEqual(3, doc.Nodes.Count);
+            Assert.AreEqual(2, doc.Nodes.Count);
             TestWriteNode(doc.Nodes[0] as ContentNode);
 
             var node = doc.Nodes[1] as ContentNode;
             Assert.IsNotNull(node);
             Assert.AreEqual(NodeType.Literal, node.NodeType);
             Assert.AreEqual(" queen", node.Content);
-
-            Assert.AreEqual(NodeType.Eol, doc.Nodes[2].NodeType);
         }
 
         private void TestWriteNode(ContentNode node)

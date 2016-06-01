@@ -12,6 +12,8 @@
 
         public abstract void ProcessToken(string token);
 
+        public abstract void Finish();
+
         public void Accumulate(string token) => tokens.Add(token);
     }
 }
