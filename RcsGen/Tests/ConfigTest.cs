@@ -39,7 +39,7 @@
         [TestMethod]
         public void ParametrizedInheritsSpaced()
         {
-            var doc = Parser.Parse(inheritsWithParams);
+            var doc = Parser.Parse(inheritsWithParams2);
             Assert.AreEqual(1, doc.Nodes.Count);
             TestParametrizedInherits((InheritsNode)doc.Nodes[0]);
         }

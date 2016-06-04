@@ -26,7 +26,7 @@
             // any output returned from IVsSingleFileGenerator.Generate() is returned through  
             // memory allocated via CoTaskMemAlloc(). Therefore, we have to convert the 
             // byte[] array returned from GenerateCode() into an unmanaged blob.  
-            var output = Generator.Generate(bstrInputFileContents, wszDefaultNamespace);
+            var output = new Generator().Generate(bstrInputFileContents, wszDefaultNamespace, wszInputFilePath);
             var bytes = Encoding.ASCII.GetBytes(output);
             int outputLength = bytes.Length;
             rgbOutputFileContents[0] = Marshal.AllocCoTaskMem(outputLength);

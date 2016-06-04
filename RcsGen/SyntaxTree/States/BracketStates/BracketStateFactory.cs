@@ -45,6 +45,9 @@
                 case "\"":
                     stateMachine.State = new QuotesBracketState(stateMachine, state);
                     return true;
+                case "[":
+                    stateMachine.State = new SquareBracketState(stateMachine, state);
+                    return true;
                 default:
                     return false;
             }

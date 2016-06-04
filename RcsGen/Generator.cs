@@ -1,13 +1,16 @@
 ﻿namespace RcsGen
 {
+    using RcsGen.Generation;
     using RcsGen.SyntaxTree;
 
-    public static class Generator
+    public class Generator
     {
-        public static string Generate(string inputFile, string nameSpace)
+        public string Generate(string inputFile, string nameSpace, string fileName)
         {
-            var tree = Parser.Parse(inputFile);
-            return "//text";
+            var document = Parser.Parse(inputFile);
+            var config = GenerationConfig.GetGenerationConfig(document);
+            var className = ClassNaming.GetClassName(fileName);
+            return FileGenerator.Generate(document, config, nameSpace, className);
         }
     }
 }

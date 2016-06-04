@@ -16,7 +16,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\output\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -49,14 +49,37 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Generation\BasicMethodsGenerator.cs" />
+    <Compile Include="Generation\ClassGenerator.cs" />
+    <Compile Include="Generation\ClassNaming.cs" />
+    <Compile Include="Generation\Config.cs" />
+    <Compile Include="Generation\ConstructorGenerator.cs" />
+    <Compile Include="Generation\FileGenerator.cs" />
+    <Compile Include="Generation\GenerationConfig.cs" />
+    <Compile Include="Generation\GenState.cs" />
+    <Compile Include="Generation\NodesGenerator.cs" />
+    <Compile Include="Generation\StringGenerator.cs" />
+    <Compile Include="Generation\UsingsGenerator.cs" />
     <Compile Include="Generator.cs" />
     <Compile Include="RcsGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SyntaxTree\KeywordConstants.cs" />
+    <Compile Include="SyntaxTree\Nodes\ConfigNodes\ConfigCommand.cs" />
+    <Compile Include="SyntaxTree\Nodes\ConfigNodes\ConfigNode.cs" />
     <Compile Include="SyntaxTree\Nodes\ConfigNodes\InheritsNode.cs" />
     <Compile Include="SyntaxTree\Nodes\ConfigNodes\UsingNode.cs" />
     <Compile Include="SyntaxTree\Nodes\ConfigNodes\VisibilityNode.cs" />
+    <Compile Include="SyntaxTree\Nodes\ContentNode.cs" />
+    <Compile Include="SyntaxTree\Nodes\Document.cs" />
+    <Compile Include="SyntaxTree\Nodes\ForNode.cs" />
+    <Compile Include="SyntaxTree\Nodes\IfNode.cs" />
+    <Compile Include="SyntaxTree\Nodes\Node.cs" />
+    <Compile Include="SyntaxTree\Nodes\NodeType.cs" />
+    <Compile Include="SyntaxTree\Parser.cs" />
+    <Compile Include="SyntaxTree\StateMachine.cs" />
+    <Compile Include="SyntaxTree\States\AccumulatingState.cs" />
     <Compile Include="SyntaxTree\States\AtStates\AtConfigState.cs" />
+    <Compile Include="SyntaxTree\States\AtStates\AtState.cs" />
     <Compile Include="SyntaxTree\States\AtStates\ConfigStates\InheritsParameterNameState.cs" />
     <Compile Include="SyntaxTree\States\AtStates\ConfigStates\InheritsParameterTypeState.cs" />
     <Compile Include="SyntaxTree\States\AtStates\ConfigStates\InheritsState.cs" />
@@ -65,49 +88,38 @@
     <Compile Include="SyntaxTree\States\AtStates\ConfigStates\VisibilityState.cs" />
     <Compile Include="SyntaxTree\States\AtStates\ExpectAtSameLineState.cs" />
     <Compile Include="SyntaxTree\States\AtStates\ExpectExtension.cs" />
+    <Compile Include="SyntaxTree\States\AtStates\ExpectState.cs" />
+    <Compile Include="SyntaxTree\States\AtStates\ExplicitWriteState.cs" />
+    <Compile Include="SyntaxTree\States\AtStates\ExpressionState.cs" />
+    <Compile Include="SyntaxTree\States\AtStates\ForStates\ForConditionState.cs" />
     <Compile Include="SyntaxTree\States\AtStates\IfStates\CreateIfState.cs" />
     <Compile Include="SyntaxTree\States\AtStates\IfStates\ElseState.cs" />
     <Compile Include="SyntaxTree\States\AtStates\IfStates\IfConditionState.cs" />
-    <Compile Include="SyntaxTree\States\NodesStates\MultiLineAccumulatedState.cs" />
-    <Compile Include="SyntaxTree\States\NodesStates\NodesState.cs" />
-    <Compile Include="SyntaxTree\Nodes\ConfigNodes\ConfigCommand.cs" />
-    <Compile Include="SyntaxTree\Nodes\ConfigNodes\ConfigNode.cs" />
-    <Compile Include="SyntaxTree\Nodes\Document.cs" />
-    <Compile Include="SyntaxTree\Nodes\ForNode.cs" />
-    <Compile Include="SyntaxTree\Nodes\IfNode.cs" />
-    <Compile Include="SyntaxTree\Nodes\Node.cs" />
-    <Compile Include="SyntaxTree\Nodes\NodeType.cs" />
-    <Compile Include="SyntaxTree\Nodes\ContentNode.cs" />
-    <Compile Include="SyntaxTree\Parser.cs" />
-    <Compile Include="SyntaxTree\StateMachine.cs" />
-    <Compile Include="SyntaxTree\States\AccumulatingState.cs" />
-    <Compile Include="SyntaxTree\States\AtStates\ExpectState.cs" />
-    <Compile Include="SyntaxTree\States\NodesStates\SingleLineChildNodesState.cs" />
+    <Compile Include="SyntaxTree\States\AtStates\ImplicitWriteState.cs" />
     <Compile Include="SyntaxTree\States\BracketStates\ApostropheBracketState.cs" />
     <Compile Include="SyntaxTree\States\BracketStates\AtBracketState.cs" />
     <Compile Include="SyntaxTree\States\BracketStates\BracketState.cs" />
     <Compile Include="SyntaxTree\States\BracketStates\BracketStateFactory.cs" />
     <Compile Include="SyntaxTree\States\BracketStates\CurvedBracketState.cs" />
-    <Compile Include="SyntaxTree\States\BracketStates\UnescapedQuotesBracketState.cs" />
+    <Compile Include="SyntaxTree\States\BracketStates\GenericBracketState.cs" />
     <Compile Include="SyntaxTree\States\BracketStates\QuotesBracketState.cs" />
     <Compile Include="SyntaxTree\States\BracketStates\RoundParenthesisState.cs" />
-    <Compile Include="SyntaxTree\States\IAccumulatingState.cs" />
-    <Compile Include="SyntaxTree\States\AtStates\AtState.cs" />
-    <Compile Include="SyntaxTree\States\BracketStates\GenericBracketState.cs" />
+    <Compile Include="SyntaxTree\States\BracketStates\SquareBracketState.cs" />
+    <Compile Include="SyntaxTree\States\BracketStates\UnescapedQuotesBracketState.cs" />
     <Compile Include="SyntaxTree\States\CommentState.cs" />
-    <Compile Include="SyntaxTree\States\NodesStates\DocumentState.cs" />
-    <Compile Include="SyntaxTree\States\AtStates\ExpressionState.cs" />
+    <Compile Include="SyntaxTree\States\IAccumulatingState.cs" />
     <Compile Include="SyntaxTree\States\IState.cs" />
-    <Compile Include="SyntaxTree\States\AtStates\ExplicitWriteState.cs" />
-    <Compile Include="SyntaxTree\States\AtStates\ForStates\ForConditionState.cs" />
-    <Compile Include="SyntaxTree\States\AtStates\ImplicitWriteState.cs" />
+    <Compile Include="SyntaxTree\States\NodesStates\DocumentState.cs" />
+    <Compile Include="SyntaxTree\States\NodesStates\MultiLineAccumulatedState.cs" />
+    <Compile Include="SyntaxTree\States\NodesStates\NodesState.cs" />
+    <Compile Include="SyntaxTree\States\NodesStates\SingleLineChildNodesState.cs" />
     <Compile Include="SyntaxTree\Tokenizer.cs" />
     <Compile Include="Tests\CascadedForTest.cs" />
     <Compile Include="Tests\CommentTest.cs" />
     <Compile Include="Tests\ConfigTest.cs" />
     <Compile Include="Tests\ForTest.cs" />
     <Compile Include="Tests\IfTest.cs" />
-    <Compile Include="Tests\UnitTest1.cs" />
+    <Compile Include="Tests\ManualTest.cs" />
     <Compile Include="Tests\WriteExpressionsComplexTest.cs" />
     <Compile Include="Tests\WriteExpressionsTest.cs" />
   </ItemGroup>
