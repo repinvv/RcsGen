@@ -5,28 +5,25 @@
     using RcsGen.SyntaxTree.Nodes;
     using RcsGen.SyntaxTree.Nodes.ConfigNodes;
 
-    internal class InheritsParameterNameState : AccumulatingState
+    internal class ParameterNameState : AccumulatingState
     {
         private readonly StateMachine stateMachine;
-        private readonly IState previous;
         private readonly List<Tuple<string, string>> parameters;
-        private readonly string baseClass;
+        private readonly Action createNode;
+        private readonly IState previous;
         private readonly string parameterType;
-        private readonly List<Node> nodes;
 
-        public InheritsParameterNameState(StateMachine stateMachine,
-            IState previous,
+        public ParameterNameState(StateMachine stateMachine,
             List<Tuple<string, string>> parameters,
-            string baseClass,
-            string parameterType,
-            List<Node> nodes)
+            Action createNode,
+            IState previous,
+            string parameterType)
         {
             this.stateMachine = stateMachine;
-            this.previous = previous;
             this.parameters = parameters;
-            this.baseClass = baseClass;
+            this.createNode = createNode;
+            this.previous = previous;
             this.parameterType = parameterType;
-            this.nodes = nodes;
         }
 
         public override void ProcessToken(string token)
@@ -35,21 +32,20 @@
             {
                 case "\n":
                     AddParameter();
-                    nodes.Add(new InheritsNode(baseClass, parameters));
+                    createNode();
                     stateMachine.State = previous;
                     break;
                 case ")":
                     AddParameter();
-                    nodes.Add(new InheritsNode(baseClass, parameters));
+                    createNode();
                     stateMachine.ExpectAtSameLine("\n", previous)
                                 .SuccessState = previous;
                     break;
                 case " ":
                 case ",":
                     AddParameter();
-                    var typeState = new InheritsParameterTypeState(stateMachine, previous, parameters, baseClass, nodes);
+                    var typeState = new ParameterTypeState(stateMachine, parameters, createNode, previous);
                     stateMachine.State = new SkipSpacesState(stateMachine, typeState);
-                        
                     break;
                 default: 
                     Accumulate(token);

@@ -5,25 +5,22 @@
     using RcsGen.SyntaxTree.Nodes;
     using RcsGen.SyntaxTree.Nodes.ConfigNodes;
 
-    internal class InheritsParameterTypeState : AccumulatingState
+    internal class ParameterTypeState : AccumulatingState
     {
         private readonly StateMachine stateMachine;
-        private readonly IState previous;
         private readonly List<Tuple<string, string>> parameters;
-        private readonly string baseClass;
-        private readonly List<Node> nodes;
+        private readonly Action createNode;
+        private readonly IState previous;
 
-        public InheritsParameterTypeState(StateMachine stateMachine, 
-            IState previous, 
+        public ParameterTypeState(StateMachine stateMachine,
             List<Tuple<string,string>> parameters,
-            string baseClass,
-            List<Node> nodes)
+            Action createNode,
+            IState previous)
         {
             this.stateMachine = stateMachine;
-            this.previous = previous;
             this.parameters = parameters;
-            this.baseClass = baseClass;
-            this.nodes = nodes;
+            this.createNode = createNode;
+            this.previous = previous;
         }
 
         public override void ProcessToken(string token)
@@ -32,11 +29,11 @@
             {
                 case ")":
                 case "\n":
-                    nodes.Add(new InheritsNode(baseClass, parameters));
+                    createNode();
                     stateMachine.State = previous;
                     break;
                 case " ":
-                    var nameState = new InheritsParameterNameState(stateMachine, previous, parameters, baseClass, Accumulated, nodes);
+                    var nameState = new ParameterNameState(stateMachine, parameters, createNode, previous, Accumulated);
                     stateMachine.State = new SkipSpacesState(stateMachine, nameState);
                     break;
                 default:

@@ -5,6 +5,7 @@
         public static void GenerateBasicMembers(this StringGenerator sg)
         {
             sg.AppendLine("private readonly StringBuilder sb = new StringBuilder();");
+            sg.AppendLine("private readonly string executed;");
             sg.AppendLine();
             sg.AppendLine("private void WriteLiteral(string text)");
             sg.Braces(x => x.GenerateWriteLiteralContent());
@@ -13,7 +14,7 @@
             sg.Braces(x=> x.GenerateWriteContent());
             sg.AppendLine();
             sg.AppendLine("public override string ToString()");
-            sg.Braces("return sb.ToString();");
+            sg.Braces("return executed;");
         }
 
         private static void GenerateWriteLiteralContent(this StringGenerator sg)

@@ -32,6 +32,15 @@
                 case KeywordConstants.Config.Visibility:
                     stateMachine.State = new VisibilityState(nodes, stateMachine, previous);
                     break;
+                case KeywordConstants.Config.Implements:
+                    stateMachine.State = new ImplementsState(nodes, stateMachine, previous);
+                    break;
+                case KeywordConstants.Config.Constructor:
+                    stateMachine.State = new ConstructorParametersState(stateMachine, previous, nodes);
+                    break;
+                case KeywordConstants.Config.Member:
+                    stateMachine.State = new MemberState(stateMachine, previous, nodes);
+                    break;
                 default:
                     base.ProcessToken(token);
                     break;

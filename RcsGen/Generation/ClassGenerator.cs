@@ -21,27 +21,39 @@
 
         private static void GenerateClassContents(this StringGenerator sg, Document document, Config config, string className)
         {
+            sg.GenerateConstructor(config, className);
+            sg.AppendLine();
+
             if (config.InheritsNode == null)
             {
                 sg.GenerateBasicMembers();
+                sg.AppendLine();
+                sg.AppendLine("public string Execute()");
             }
             else
             {
-                sg.GenerateConstructor(config.InheritsNode, className);
+                sg.AppendLine("public override string Execute()");
             }
 
-            sg.AppendLine();
-            sg.AppendLine("public override void Execute()");
-            sg.Braces(x => sg.GenerateExecute(document));
+            sg.Braces(x => sg.GenerateExecute(document, config));
         }
 
-        private static void GenerateExecute(this StringGenerator sg, Document document)
+        private static void GenerateExecute(this StringGenerator sg, Document document, Config config)
         {
             var nodes = document.Nodes.Where(x => x.NodeType != NodeType.Config);
             var genState = new GenState();
             foreach (var node in nodes)
             {
                 sg.GenerateNode(node, genState);
+            }
+            sg.AppendLine();
+            if (config.InheritsNode == null)
+            {
+                sg.AppendLine("return executed = sb.ToString();");
+            }
+            else
+            {
+                sg.AppendLine("return ToString();");
             }
         }
     }

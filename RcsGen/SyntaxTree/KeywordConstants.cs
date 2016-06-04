@@ -17,6 +17,12 @@
             public const string Using = "using";
 
             public const string Visibility = "visibility";
+
+            public const string Implements = "implements";
+
+            public const string Constructor = "constructor";
+
+            public const string Member = "member";
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace RcsGen.SyntaxTree.Nodes
+﻿namespace RcsGen.SyntaxTree.Nodes.ConfigNodes
 {
     internal abstract class ConfigNode : Node
     {

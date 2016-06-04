@@ -46,7 +46,7 @@
                     stateMachine.State = previous;
                     break;
                 case "{":
-                    stateMachine.State = new ExpressionState(stateMachine, previous);
+                    stateMachine.State = new ExpressionState(stateMachine, previous, nodes);
                     break;
                 case "*":
                     stateMachine.State = new CommentState(() => stateMachine.State = previous);

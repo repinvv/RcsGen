@@ -1,18 +1,24 @@
 ﻿namespace RcsGen.Tests
 {
+    using System;
+    using System.Collections.Generic;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using RcsGen.SyntaxTree;
     using RcsGen.SyntaxTree.Nodes;
     using RcsGen.SyntaxTree.Nodes.ConfigNodes;
 
     [TestClass]
-    public class ConfigTest
+    public class ConfigInheritsTest
     {
         string inherits = @"@inherits SomeClass
 ";
         string inheritsWithParams = @"@inherits SomeClass(MyClass myClass, OtherClass otherClass)
 ";
         string inheritsWithParams2 = @"@inherits SomeClass (MyClass myClass, OtherClass otherClass)
+";
+        string constructorParams = @"@constructor(MyClass myClass, OtherClass otherClass)
+";
+        string constructorParams2 = @"@constructor (MyClass myClass, OtherClass otherClass)
 ";
 
         [TestMethod]
@@ -50,11 +56,39 @@
             Assert.AreEqual(ConfigCommand.Inherits, node.ConfigCommand);
             Assert.AreEqual("SomeClass", node.BaseClass);
             Assert.AreEqual(2, node.ConstructorParameters.Count);
+            TestParams(node.ConstructorParameters);
+        }
 
-            Assert.AreEqual("MyClass", node.ConstructorParameters[0].Item1);
-            Assert.AreEqual("myClass", node.ConstructorParameters[0].Item2);
-            Assert.AreEqual("OtherClass", node.ConstructorParameters[1].Item1);
-            Assert.AreEqual("otherClass", node.ConstructorParameters[1].Item2);
+        private void TestConstructorNode(ConstructorParametersNode node)
+        {
+            Assert.AreEqual(NodeType.Config, node.NodeType);
+            Assert.AreEqual(ConfigCommand.ConstructorParameters, node.ConfigCommand);
+            Assert.AreEqual(2, node.ConstructorParameters.Count);
+            TestParams(node.ConstructorParameters);
+        }
+
+        private void TestParams(List<Tuple<string, string>> parameters)
+        {
+            Assert.AreEqual("MyClass", parameters[0].Item1);
+            Assert.AreEqual("myClass", parameters[0].Item2);
+            Assert.AreEqual("OtherClass", parameters[1].Item1);
+            Assert.AreEqual("otherClass", parameters[1].Item2);
+        }
+        
+        [TestMethod]
+        public void ConstructorParametersSimpleTest()
+        {
+            var doc = Parser.Parse(constructorParams);
+            Assert.AreEqual(1, doc.Nodes.Count);
+            TestConstructorNode((ConstructorParametersNode)doc.Nodes[0]);
+        }
+
+        [TestMethod]
+        public void ConstructorParametersSpacedTest()
+        {
+            var doc = Parser.Parse(constructorParams2);
+            Assert.AreEqual(1, doc.Nodes.Count);
+            TestConstructorNode((ConstructorParametersNode)doc.Nodes[0]);
         }
     }
 }

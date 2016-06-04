@@ -66,7 +66,10 @@
     <Compile Include="SyntaxTree\KeywordConstants.cs" />
     <Compile Include="SyntaxTree\Nodes\ConfigNodes\ConfigCommand.cs" />
     <Compile Include="SyntaxTree\Nodes\ConfigNodes\ConfigNode.cs" />
+    <Compile Include="SyntaxTree\Nodes\ConfigNodes\ConstructorParametersNode.cs" />
+    <Compile Include="SyntaxTree\Nodes\ConfigNodes\ImplementsNode.cs" />
     <Compile Include="SyntaxTree\Nodes\ConfigNodes\InheritsNode.cs" />
+    <Compile Include="SyntaxTree\Nodes\ConfigNodes\MemberNode.cs" />
     <Compile Include="SyntaxTree\Nodes\ConfigNodes\UsingNode.cs" />
     <Compile Include="SyntaxTree\Nodes\ConfigNodes\VisibilityNode.cs" />
     <Compile Include="SyntaxTree\Nodes\ContentNode.cs" />
@@ -80,8 +83,11 @@
     <Compile Include="SyntaxTree\States\AccumulatingState.cs" />
     <Compile Include="SyntaxTree\States\AtStates\AtConfigState.cs" />
     <Compile Include="SyntaxTree\States\AtStates\AtState.cs" />
-    <Compile Include="SyntaxTree\States\AtStates\ConfigStates\InheritsParameterNameState.cs" />
-    <Compile Include="SyntaxTree\States\AtStates\ConfigStates\InheritsParameterTypeState.cs" />
+    <Compile Include="SyntaxTree\States\AtStates\ConfigStates\MemberState.cs" />
+    <Compile Include="SyntaxTree\States\AtStates\ConfigStates\ConstructorParametersState.cs" />
+    <Compile Include="SyntaxTree\States\AtStates\ConfigStates\ImplementsState.cs" />
+    <Compile Include="SyntaxTree\States\AtStates\ConfigStates\ParameterNameState.cs" />
+    <Compile Include="SyntaxTree\States\AtStates\ConfigStates\ParameterTypeState.cs" />
     <Compile Include="SyntaxTree\States\AtStates\ConfigStates\InheritsState.cs" />
     <Compile Include="SyntaxTree\States\AtStates\ConfigStates\SkipSpacesState.cs" />
     <Compile Include="SyntaxTree\States\AtStates\ConfigStates\UsingState.cs" />
@@ -116,9 +122,10 @@
     <Compile Include="SyntaxTree\Tokenizer.cs" />
     <Compile Include="Tests\CascadedForTest.cs" />
     <Compile Include="Tests\CommentTest.cs" />
-    <Compile Include="Tests\ConfigTest.cs" />
+    <Compile Include="Tests\ConfigInheritsTest.cs" />
     <Compile Include="Tests\ForTest.cs" />
     <Compile Include="Tests\IfTest.cs" />
+    <Compile Include="Tests\ConfigsTests.cs" />
     <Compile Include="Tests\ManualTest.cs" />
     <Compile Include="Tests\WriteExpressionsComplexTest.cs" />
     <Compile Include="Tests\WriteExpressionsTest.cs" />

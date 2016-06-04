@@ -5,8 +5,9 @@
 
     internal static class ConstructorGenerator
     {
-        public static void GenerateConstructor(this StringGenerator sg, InheritsNode node, string className)
+        public static void GenerateConstructor(this StringGenerator sg, Config config, string className)
         {
+            var node = config.InheritsNode;
             sg.AppendLine($"public {className}({GetConstructorParams(node)})");
             if (node.ConstructorParameters.Any())
             {

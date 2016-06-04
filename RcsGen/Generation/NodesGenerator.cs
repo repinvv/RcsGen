@@ -44,6 +44,9 @@
                     sg.AppendLine("else");
                     sg.Braces(x => x.GenerateChildNodes(ifNode.ElseNodes, genState));
                     break;
+                case NodeType.CodeExpression:
+                    sg.AppendLine(((ContentNode)node).Content);
+                    break;
             }
         }
 
