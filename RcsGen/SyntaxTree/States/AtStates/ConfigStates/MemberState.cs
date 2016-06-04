@@ -24,18 +24,8 @@
 
         public override void ProcessToken(string token)
         {
-            if (token != "{" && !opened)
-            {
-                stateMachine.State = previous;
-                previous.ProcessToken(token);
-                return;
-            }
-
             switch (token)
             {
-                case "{":
-                    opened = true;
-                    break;
                 case "}":
                     nodes.Add(new MemberNode(Accumulated));
                     stateMachine.ExpectAtSameLine("\n", previous)

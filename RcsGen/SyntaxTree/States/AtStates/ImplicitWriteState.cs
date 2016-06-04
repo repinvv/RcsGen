@@ -33,6 +33,7 @@
                 case ";":
                 case ",":
                 case "\t":
+                case "=":
                     Finish();
                     stateMachine.State = previous;
                     previous.ProcessToken(token);

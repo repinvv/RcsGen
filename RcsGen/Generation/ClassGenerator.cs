@@ -1,40 +1,31 @@
 ﻿namespace RcsGen.Generation
 {
+    using System;
     using System.Linq;
     using RcsGen.SyntaxTree.Nodes;
-    using RcsGen.SyntaxTree.Nodes.ConfigNodes;
 
     internal static class ClassGenerator
     {
-        private static string GetInheritLine(this InheritsNode inheritsNode)
-        {
-            return " : " + inheritsNode.BaseClass;
-        }
-
         public static void GenerateClass(this StringGenerator sg, Document document, Config config, string className)
         {
             sg.GenerateUsings(config);
-            var inherits = config.InheritsNode?.GetInheritLine();
-            sg.AppendLine($"{config.Visibility} class {className}{inherits}");
+            sg.AppendLine("[System.CodeDom.Compiler.GeneratedCode(\"SharpRazor\", \"1.0.0.0\")]");
+            sg.AppendLine($"{config.Visibility} class {className}{config.GetInheritLine()}");
             sg.Braces(x => x.GenerateClassContents(document, config, className));
         }
 
         private static void GenerateClassContents(this StringGenerator sg, Document document, Config config, string className)
         {
             sg.GenerateConstructor(config, className);
-            sg.AppendLine();
 
             if (config.InheritsNode == null)
             {
                 sg.GenerateBasicMembers();
-                sg.AppendLine();
-                sg.AppendLine("public string Execute()");
-            }
-            else
-            {
-                sg.AppendLine("public override string Execute()");
             }
 
+            config.Members.ForEach(x => sg.AppendLine(x + Environment.NewLine));
+            var overrideString = config.InheritsNode == null ? string.Empty : "override ";
+            sg.AppendLine($"public {overrideString}string Execute()");
             sg.Braces(x => sg.GenerateExecute(document, config));
         }
 
@@ -47,14 +38,9 @@
                 sg.GenerateNode(node, genState);
             }
             sg.AppendLine();
-            if (config.InheritsNode == null)
-            {
-                sg.AppendLine("return executed = sb.ToString();");
-            }
-            else
-            {
-                sg.AppendLine("return ToString();");
-            }
+            sg.AppendLine(config.InheritsNode == null
+                ? "return executed = sb.ToString();"
+                : "return ToString();");
         }
     }
 }

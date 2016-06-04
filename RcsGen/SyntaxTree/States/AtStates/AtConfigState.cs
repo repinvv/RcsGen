@@ -39,7 +39,9 @@
                     stateMachine.State = new ConstructorParametersState(stateMachine, previous, nodes);
                     break;
                 case KeywordConstants.Config.Member:
-                    stateMachine.State = new MemberState(stateMachine, previous, nodes);
+                    stateMachine
+                        .ExpectAtSameLine("{", previous)
+                        .SuccessState = new MemberState(stateMachine, previous, nodes);
                     break;
                 default:
                     base.ProcessToken(token);

@@ -6,9 +6,10 @@
     [TestClass]
     public class ManualTest
     {
-        string source = @"@using Models
-@visibility Internal 
+        string source = @"@using Models System.Collections.Generic
+@visibility internal 
 @inherits TemplateBase<List<EntityModel>>
+@member{public string FileName { get; set; }}
 @{FileName = Options.ContextName;}
 namespace @Options.OutputNamespace
 {
@@ -16,12 +17,10 @@ namespace @Options.OutputNamespace
 
     public partial class @Options.ContextName
 	{
-    @foreach(var model in Model)
-	{
-		@Resolve.With(model).Run<ContextTableLine>()
-    }
+    @foreach(var model in Model){@Resolve.With(model).Run<ContextTableLine>()}
 	}	
-}";
+}
+";
         [TestMethod]
         public void A_ManualTest()
         {

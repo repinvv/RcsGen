@@ -7,7 +7,7 @@
 
     internal class VisibilityState : AccumulatingState
     {
-        private static readonly string[] visibilityModifiers = new[] { "public", "private", "protected" };
+        private static readonly string[] visibilityModifiers = new[] { "public", "internal" };
         private readonly List<Node> nodes;
         private readonly StateMachine stateMachine;
         private readonly IState previous;

@@ -4,8 +4,9 @@
     {
         public static void GenerateBasicMembers(this StringGenerator sg)
         {
+            sg.AppendLine("#region basic members");
             sg.AppendLine("private readonly StringBuilder sb = new StringBuilder();");
-            sg.AppendLine("private readonly string executed;");
+            sg.AppendLine("private string executed;");
             sg.AppendLine();
             sg.AppendLine("private void WriteLiteral(string text)");
             sg.Braces(x => x.GenerateWriteLiteralContent());
@@ -15,6 +16,8 @@
             sg.AppendLine();
             sg.AppendLine("public override string ToString()");
             sg.Braces("return executed;");
+            sg.AppendLine("#endregion");
+            sg.AppendLine();
         }
 
         private static void GenerateWriteLiteralContent(this StringGenerator sg)

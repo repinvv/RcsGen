@@ -7,9 +7,10 @@ Windows Registry Editor Version 5.00
 
 "Class"="RcsGen.RcsGenerator"
 
-"Assembly"="RcsGen, Version=1.0.0.0, Culture=neutral, PublicKeyToken=8fb75e1dbc3f5ced, processorArchitecture=MSIL"
+"Assembly"="SharpRazor, Version=1.0.0.0, Culture=neutral, PublicKeyToken=8fb75e1dbc3f5ced, processorArchitecture=MSIL"
 
-[HKEY_CURRENT_USER\Software\Microsoft\VisualStudio\14.0_Config\Generators\{FAE04EC1-301F-11D3-BF4B-00C04F79EFBC}\RcsGen]
+[HKEY_CURRENT_USER\Software\Microsoft\VisualStudio\14.0_Config\Generators\{FAE04EC1-301F-11D3-BF4B-00C04F79EFBC}\SharpRazor]
 
 "CLSID"="{D03CB851-1B73-4447-9DD7-26FD3CFF03A9}"
 "GeneratesDesignTimeSource"=dword:00000001
+

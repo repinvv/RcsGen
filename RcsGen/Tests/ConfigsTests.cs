@@ -14,17 +14,16 @@
         string usings = @"@using Some.Namespace SomeName.Space
 ";
 
-        string visibility = @"@visibility private
+        string visibility = @"@visibility internal
 ";
 
-        string member = @"@member{someRandomCode({
-})}
+        string member = @"@member{public string FileName { get; set; }}
 ";
 
         [TestMethod]
         public void MemberTest()
         {
-            var memberContent = "someRandomCode({\n})";
+            var memberContent = "public string FileName { get; set; }";
             var doc = Parser.Parse(member);
             Assert.AreEqual(1, doc.Nodes.Count);
             var node = (MemberNode)doc.Nodes[0];
@@ -40,7 +39,7 @@
             Assert.AreEqual(NodeType.Config, doc.Nodes[0].NodeType);
             var node = (VisibilityNode)doc.Nodes[0];
             Assert.AreEqual(ConfigCommand.Visibility, node.ConfigCommand);
-            Assert.AreEqual("private", node.Visibility);
+            Assert.AreEqual("internal", node.Visibility);
         }
 
         [TestMethod]
