@@ -26,8 +26,8 @@
         {
             var doc = Parser.Parse(inherits);
 
-            Assert.AreEqual(1, doc.Nodes.Count);
-            var node = (InheritsNode)doc.Nodes[0];
+            Assert.AreEqual(1, doc.Nodes.Nodes.Count);
+            var node = (InheritsNode)doc.Nodes.Nodes[0];
             Assert.AreEqual(NodeType.Config, node.NodeType);
             Assert.AreEqual(ConfigCommand.Inherits, node.ConfigCommand);
             Assert.AreEqual("SomeClass", node.BaseClass);
@@ -38,16 +38,16 @@
         public void ParametrizedInherits()
         {
             var doc = Parser.Parse(inheritsWithParams);
-            Assert.AreEqual(1, doc.Nodes.Count);
-            TestParametrizedInherits((InheritsNode)doc.Nodes[0]);
+            Assert.AreEqual(1, doc.Nodes.Nodes.Count);
+            TestParametrizedInherits((InheritsNode)doc.Nodes.Nodes[0]);
         }
 
         [TestMethod]
         public void ParametrizedInheritsSpaced()
         {
             var doc = Parser.Parse(inheritsWithParams2);
-            Assert.AreEqual(1, doc.Nodes.Count);
-            TestParametrizedInherits((InheritsNode)doc.Nodes[0]);
+            Assert.AreEqual(1, doc.Nodes.Nodes.Count);
+            TestParametrizedInherits((InheritsNode)doc.Nodes.Nodes[0]);
         }
 
         private void TestParametrizedInherits(InheritsNode node)
@@ -79,16 +79,16 @@
         public void ConstructorParametersSimpleTest()
         {
             var doc = Parser.Parse(constructorParams);
-            Assert.AreEqual(1, doc.Nodes.Count);
-            TestConstructorNode((ConstructorParametersNode)doc.Nodes[0]);
+            Assert.AreEqual(1, doc.Nodes.Nodes.Count);
+            TestConstructorNode((ConstructorParametersNode)doc.Nodes.Nodes[0]);
         }
 
         [TestMethod]
         public void ConstructorParametersSpacedTest()
         {
             var doc = Parser.Parse(constructorParams2);
-            Assert.AreEqual(1, doc.Nodes.Count);
-            TestConstructorNode((ConstructorParametersNode)doc.Nodes[0]);
+            Assert.AreEqual(1, doc.Nodes.Nodes.Count);
+            TestConstructorNode((ConstructorParametersNode)doc.Nodes.Nodes[0]);
         }
     }
 }

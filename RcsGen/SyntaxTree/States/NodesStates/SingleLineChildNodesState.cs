@@ -9,7 +9,7 @@
     {
         private readonly StateMachine stateMachine;
 
-        public SingleLineChildNodesState(StateMachine stateMachine, List<Node> nodes) : base(nodes)
+        public SingleLineChildNodesState(StateMachine stateMachine, NodeStore nodes) : base(nodes)
         {
             this.stateMachine = stateMachine;
         }
@@ -29,7 +29,7 @@
                     ReturnAction();
                     break;
                 case "\n":
-                    AddAccumulatedWithEol(nodes);
+                    AddAccumulatedWithEol();
                     stateMachine.State = new MultiLineChildNodesState(stateMachine, nodes, ReturnAction);
                     break;
                 default:

@@ -3,17 +3,19 @@ using RcsGen.SyntaxTree.Nodes;
 
 namespace RcsGen.SyntaxTree.States.AtStates.IfStates
 {
+    using System.Linq;
+
     internal class CreateIfState : IState
     {
         private readonly StateMachine stateMachine;
         private string condition;
-        private List<Node> ifNodes;
-        private readonly List<Node> parentNodes;
+        private NodeStore ifNodes;
+        private readonly NodeStore parentNodes;
         private readonly IState previous;
 
         public CreateIfState(StateMachine stateMachine,
-            string condition, List<Node> ifNodes,
-            List<Node> parentNodes, 
+            string condition, NodeStore ifNodes,
+            NodeStore parentNodes, 
             IState previous)
         {
             this.stateMachine = stateMachine;
@@ -31,7 +33,8 @@ namespace RcsGen.SyntaxTree.States.AtStates.IfStates
 
         public void Finish()
         {
-            parentNodes.Add(new IfNode(condition, ifNodes));
+            var hasEol = ifNodes.Nodes.Any(x => x.NodeType == NodeType.Eol);
+            parentNodes.Add(new IfNode(condition, ifNodes), hasEol);
             stateMachine.State = previous;
         }
     }

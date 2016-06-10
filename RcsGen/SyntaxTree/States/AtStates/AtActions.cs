@@ -10,9 +10,9 @@
     {
         private readonly StateMachine stateMachine;
         private readonly IState previous;
-        private readonly List<Node> nodes;
+        private readonly NodeStore nodes;
 
-        public AtActions(StateMachine stateMachine, IState previous, List<Node> nodes)
+        public AtActions(StateMachine stateMachine, IState previous, NodeStore nodes)
         {
             this.stateMachine = stateMachine;
             this.previous = previous;

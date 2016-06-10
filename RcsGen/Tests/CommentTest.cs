@@ -19,7 +19,7 @@ sdafsadf
         public void CommentedTextShouldNotProduceAnything()
         {
             var node = Parser.Parse(source);
-            Assert.AreEqual(0, node.Nodes.Count);
+            Assert.AreEqual(0, node.Nodes.Nodes.Count);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿namespace RcsGen.Tests
 {
+    using System.Linq;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using RcsGen.SyntaxTree;
     using RcsGen.SyntaxTree.Nodes;
@@ -19,47 +20,47 @@
         public void CascadedOneLineForAndIf()
         {
             var node = Parser.Parse(source);
-            Assert.AreEqual(1, node.Nodes.Count);
+            Assert.AreEqual(1, node.Nodes.Nodes.Count());
 
-            var forNode = (ForNode)node.Nodes[0];
+            var forNode = (ForNode)node.Nodes.Nodes.First();
             TestRootForNode(forNode);
-            Assert.AreEqual(1, forNode.ChildNodes.Count);
+            Assert.AreEqual(1, forNode.ChildNodes.Nodes.Count());
 
-            forNode = (ForNode)forNode.ChildNodes[0];
+            forNode = (ForNode)forNode.ChildNodes.Nodes.First();
             TestChildForNode(forNode);
-            Assert.AreEqual(1, forNode.ChildNodes.Count);
+            Assert.AreEqual(1, forNode.ChildNodes.Nodes.Count());
 
-            var ifNode = (IfNode)forNode.ChildNodes[0];
+            var ifNode = (IfNode)forNode.ChildNodes.Nodes.First();
             TestIfNode(ifNode);
-            Assert.AreEqual(1, ifNode.IfNodes.Count);
-            Assert.AreEqual(0, ifNode.ElseNodes.Count);
-            Assert.AreEqual(NodeType.Literal, ifNode.IfNodes[0].NodeType);
-            Assert.AreEqual("inside", ((ContentNode)ifNode.IfNodes[0]).Content);
+            Assert.AreEqual(1, ifNode.IfNodes.Nodes.Count());
+            Assert.AreEqual(0, ifNode.ElseNodes.Nodes.Count());
+            Assert.AreEqual(NodeType.Literal, ifNode.IfNodes.Nodes.First().NodeType);
+            Assert.AreEqual("inside", ((ContentNode)ifNode.IfNodes.Nodes.First()).Content);
         }
 
         [TestMethod]
         public void CascadedMultiLineForAndIf()
         {
             var node = Parser.Parse(source2);
-            Assert.AreEqual(1, node.Nodes.Count);
+            Assert.AreEqual(1, node.Nodes.Nodes.Count());
 
-            var forNode = (ForNode)node.Nodes[0];
+            var forNode = (ForNode)node.Nodes.Nodes.First();
             TestRootForNode(forNode);
-            Assert.AreEqual(2, forNode.ChildNodes.Count);
-            Assert.AreEqual(NodeType.Eol, forNode.ChildNodes[1].NodeType);
+            Assert.AreEqual(2, forNode.ChildNodes.Nodes.Count());
+            Assert.AreEqual(NodeType.Eol, forNode.ChildNodes.Nodes[1].NodeType);
 
-            forNode = (ForNode)forNode.ChildNodes[0];
+            forNode = (ForNode)forNode.ChildNodes.Nodes[0];
             TestChildForNode(forNode);
-            Assert.AreEqual(2, forNode.ChildNodes.Count);
-            Assert.AreEqual(NodeType.Eol, forNode.ChildNodes[1].NodeType);
+            Assert.AreEqual(2, forNode.ChildNodes.Nodes.Count);
+            Assert.AreEqual(NodeType.Eol, forNode.ChildNodes.Nodes[1].NodeType);
 
-            var ifNode =(IfNode)forNode.ChildNodes[0];
+            var ifNode =(IfNode)forNode.ChildNodes.Nodes[0];
             TestIfNode(ifNode);
-            Assert.AreEqual(2, ifNode.IfNodes.Count);
-            Assert.AreEqual(0, ifNode.ElseNodes.Count);
-            Assert.AreEqual(NodeType.Eol, ifNode.IfNodes[1].NodeType);
-            Assert.AreEqual(NodeType.Literal, ifNode.IfNodes[0].NodeType);
-            Assert.AreEqual("        inside", ((ContentNode)ifNode.IfNodes[0]).Content);
+            Assert.AreEqual(2, ifNode.IfNodes.Nodes.Count);
+            Assert.AreEqual(0, ifNode.ElseNodes.Nodes.Count);
+            Assert.AreEqual(NodeType.Eol, ifNode.IfNodes.Nodes[1].NodeType);
+            Assert.AreEqual(NodeType.Literal, ifNode.IfNodes.Nodes[0].NodeType);
+            Assert.AreEqual("        inside", ((ContentNode)ifNode.IfNodes.Nodes[0]).Content);
         }
 
         private void TestIfNode(IfNode ifNode)

@@ -8,7 +8,7 @@
     {
         public static Config GetGenerationConfig(Document document)
         {
-            var configNodes = document.Nodes
+            var configNodes = document.Nodes.Nodes
                                       .Where(x => x.NodeType == NodeType.Config)
                                       .Cast<ConfigNode>()
                                       .ToList();

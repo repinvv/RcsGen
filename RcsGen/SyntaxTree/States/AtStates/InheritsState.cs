@@ -7,11 +7,11 @@
 
     internal class InheritsState : AccumulatingState
     {
-        private readonly List<Node> nodes;
+        private readonly NodeStore nodes;
         private readonly StateMachine stateMachine;
         private readonly IState previous;
 
-        public InheritsState(StateMachine stateMachine, IState previous, List<Node> nodes)
+        public InheritsState(StateMachine stateMachine, IState previous, NodeStore nodes)
         {
             this.nodes = nodes;
             this.stateMachine = stateMachine;

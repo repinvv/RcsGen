@@ -4,11 +4,11 @@
 
     internal class Document : Node
     {
-        public Document(List<Node> nodes) : base(NodeType.Document)
+        public Document(NodeStore nodes) : base(NodeType.Document)
         {
             Nodes = nodes;
         }
 
-        public List<Node> Nodes { get; }
+        public NodeStore Nodes { get; }
     }
 }

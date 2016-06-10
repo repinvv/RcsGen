@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using RcsGen.SyntaxTree;
     using RcsGen.SyntaxTree.Nodes;
 
     internal static class NodesGenerator
@@ -36,7 +37,7 @@
                     var ifNode = (IfNode)node;
                     sg.AppendLine($"if ({ifNode.Condition})");
                     sg.Braces(x => x.GenerateChildNodes(ifNode.IfNodes, genState, config));
-                    if (!ifNode.ElseNodes.Any())
+                    if (!ifNode.ElseNodes.Nodes.Any())
                     {
                         break;
                     }
@@ -54,11 +55,14 @@
         }
 
         private static void GenerateChildNodes(this StringGenerator sg,
-            List<Node> nodes, 
+            NodeStore nodes, 
             GenState genState, 
             Config config)
         {
-            nodes.ForEach(x => sg.GenerateNode(x, genState, config));
+            foreach (var node in nodes.Nodes)
+            {
+                sg.GenerateNode(node, genState, config);
+            }
         }
     }
 }

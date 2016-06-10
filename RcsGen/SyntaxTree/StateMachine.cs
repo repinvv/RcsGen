@@ -7,7 +7,7 @@
 
     internal class StateMachine
     {
-        private readonly List<Node> nodes = new List<Node>();
+        private readonly NodeStore nodes = new NodeStore();
 
         public StateMachine()
         {

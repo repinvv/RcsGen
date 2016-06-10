@@ -9,7 +9,7 @@
     {
         private readonly StateMachine stateMachine;
 
-        public DocumentState(StateMachine stateMachine, List<Node> nodes) : base(nodes)
+        public DocumentState(StateMachine stateMachine, NodeStore nodes) : base(nodes)
         {
             this.stateMachine = stateMachine;
         }
@@ -19,11 +19,11 @@
             switch (token)
             {
                 case "\n":
-                    AddAccumulatedWithEol(nodes);
+                    AddAccumulatedWithEol();
                     break;
                 case "@":
                     AddAccumulated();
-                    var allConfig = nodes.All(x => x.NodeType == NodeType.Config);
+                    var allConfig = nodes.Nodes.All(x => x.NodeType == NodeType.Config);
                     stateMachine.State = allConfig
                         ? (IState)new AtConfigState(stateMachine, this, nodes)
                         : new AtState(stateMachine, this, nodes);

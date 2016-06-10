@@ -25,8 +25,8 @@
         {
             var memberContent = "public string FileName { get; set; }";
             var doc = Parser.Parse(member);
-            Assert.AreEqual(1, doc.Nodes.Count);
-            var node = (MemberNode)doc.Nodes[0];
+            Assert.AreEqual(1, doc.Nodes.Nodes.Count);
+            var node = (MemberNode)doc.Nodes.Nodes[0];
             Assert.AreEqual(ConfigCommand.Member, node.ConfigCommand);
             Assert.AreEqual(memberContent, node.Member);
         }
@@ -35,9 +35,9 @@
         public void VisibilityTest()
         {
             var doc = Parser.Parse(visibility);
-            Assert.AreEqual(1, doc.Nodes.Count);
-            Assert.AreEqual(NodeType.Config, doc.Nodes[0].NodeType);
-            var node = (VisibilityNode)doc.Nodes[0];
+            Assert.AreEqual(1, doc.Nodes.Nodes.Count);
+            Assert.AreEqual(NodeType.Config, doc.Nodes.Nodes[0].NodeType);
+            var node = (VisibilityNode)doc.Nodes.Nodes[0];
             Assert.AreEqual(ConfigCommand.Visibility, node.ConfigCommand);
             Assert.AreEqual("internal", node.Visibility);
         }
@@ -47,9 +47,9 @@
         {
             var ifaces = new[] { "SomeInterface", "SomeInterface2" };
             var doc = Parser.Parse(implements);
-            Assert.AreEqual(1, doc.Nodes.Count);
-            Assert.AreEqual(NodeType.Config, doc.Nodes[0].NodeType);
-            var node = (ImplementsNode)doc.Nodes[0];
+            Assert.AreEqual(1, doc.Nodes.Nodes.Count);
+            Assert.AreEqual(NodeType.Config, doc.Nodes.Nodes[0].NodeType);
+            var node = (ImplementsNode)doc.Nodes.Nodes[0];
             Assert.AreEqual(ConfigCommand.Implements, node.ConfigCommand);
             CollectionAssert.AreEquivalent(ifaces, node.Interfaces);
         }
@@ -59,9 +59,9 @@
         {
             var namespaces = new[] { "Some.Namespace", "SomeName.Space" };
             var doc = Parser.Parse(usings);
-            Assert.AreEqual(1, doc.Nodes.Count);
-            Assert.AreEqual(NodeType.Config, doc.Nodes[0].NodeType);
-            var node = (UsingNode)doc.Nodes[0];
+            Assert.AreEqual(1, doc.Nodes.Nodes.Count);
+            Assert.AreEqual(NodeType.Config, doc.Nodes.Nodes[0].NodeType);
+            var node = (UsingNode)doc.Nodes.Nodes[0];
             Assert.AreEqual(ConfigCommand.Using, node.ConfigCommand);
             CollectionAssert.AreEquivalent(namespaces, node.Usings);
         }

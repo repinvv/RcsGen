@@ -18,10 +18,10 @@
         {
             var doc = Parser.Parse(source1);
             
-            Assert.AreEqual(2, doc.Nodes.Count);
-            TestWriteNode(doc.Nodes[0] as ContentNode);
+            Assert.AreEqual(2, doc.Nodes.Nodes.Count);
+            TestWriteNode(doc.Nodes.Nodes[0] as ContentNode);
 
-            var node = doc.Nodes[1] as ContentNode;
+            var node = doc.Nodes.Nodes[1] as ContentNode;
             Assert.IsNotNull(node);
             Assert.AreEqual(NodeType.Literal, node.NodeType);
             Assert.AreEqual("king", node.Content);
@@ -32,10 +32,10 @@
         {
             var doc = Parser.Parse(source3);
 
-            Assert.AreEqual(2, doc.Nodes.Count);
-            TestWriteNode(doc.Nodes[0] as ContentNode);
+            Assert.AreEqual(2, doc.Nodes.Nodes.Count);
+            TestWriteNode(doc.Nodes.Nodes[0] as ContentNode);
 
-            Assert.AreEqual(NodeType.Eol, doc.Nodes[1].NodeType);
+            Assert.AreEqual(NodeType.Eol, doc.Nodes.Nodes[1].NodeType);
         }
 
         [TestMethod]
@@ -43,16 +43,16 @@
         {
             var doc = Parser.Parse(source2);
 
-            Assert.AreEqual(3, doc.Nodes.Count);
-            var node = (ContentNode)doc.Nodes[0];
+            Assert.AreEqual(3, doc.Nodes.Nodes.Count);
+            var node = (ContentNode)doc.Nodes.Nodes[0];
             Assert.AreEqual(NodeType.Literal, node.NodeType);
             Assert.AreEqual("someFunc(", node.Content);
 
-            node = (ContentNode)doc.Nodes[1];
+            node = (ContentNode)doc.Nodes.Nodes[1];
             Assert.AreEqual(NodeType.WriteExpression, node.NodeType);
             Assert.AreEqual("someArg(sayHello)", node.Content);
 
-            node = (ContentNode)doc.Nodes[2];
+            node = (ContentNode)doc.Nodes.Nodes[2];
             Assert.AreEqual(NodeType.Literal, node.NodeType);
             Assert.AreEqual(").hello", node.Content);
         }
@@ -62,10 +62,10 @@
         {
             var doc = Parser.Parse(source4);
 
-            Assert.AreEqual(2, doc.Nodes.Count);
-            TestWriteNode(doc.Nodes[0] as ContentNode);
+            Assert.AreEqual(2, doc.Nodes.Nodes.Count);
+            TestWriteNode(doc.Nodes.Nodes[0] as ContentNode);
 
-            var node = doc.Nodes[1] as ContentNode;
+            var node = doc.Nodes.Nodes[1] as ContentNode;
             Assert.IsNotNull(node);
             Assert.AreEqual(NodeType.Literal, node.NodeType);
             Assert.AreEqual(" queen", node.Content);

@@ -13,9 +13,9 @@
         private static readonly string[] VisibilityModifiers = { "public", "internal" };
         private readonly StateMachine stateMachine;
         private readonly IState previous;
-        private readonly List<Node> nodes;
+        private readonly NodeStore nodes;
 
-        public AtConfigActions(StateMachine stateMachine, IState previous, List<Node> nodes)
+        public AtConfigActions(StateMachine stateMachine, IState previous, NodeStore nodes)
         {
             this.stateMachine = stateMachine;
             this.previous = previous;

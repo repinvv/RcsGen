@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     using RcsGen.SyntaxTree.Nodes;
     using RcsGen.SyntaxTree.States.AtStates;
 
@@ -11,12 +12,11 @@
         private readonly Action returnAction;
         int lastEol;
 
-        public MultiLineChildNodesState(StateMachine stateMachine, List<Node> nodes, Action returnAction) 
+        public MultiLineChildNodesState(StateMachine stateMachine, NodeStore nodes, Action returnAction) 
             : base(nodes)
         {
             this.stateMachine = stateMachine;
             this.returnAction = returnAction;
-            lastEol = nodes.Count;
         }
 
         public override void ProcessToken(string token)
@@ -28,7 +28,7 @@
                     stateMachine.State = new AtState(stateMachine, this, nodes);
                     break;
                 case "}":
-                    if (OnlySpaces())
+                    if (string.IsNullOrWhiteSpace(Accumulated) && nodes.LineStart)
                     {
                         returnAction();
                     }
@@ -39,18 +39,12 @@
                     
                     break;
                 case "\n":
-                    AddAccumulatedWithEol(nodes);
-                    lastEol = nodes.Count;
+                    AddAccumulatedWithEol();
                     break;
                 default:
                     Accumulate(token);
                     break;
             }
-        }
-
-        private bool OnlySpaces()
-        {
-            return string.IsNullOrWhiteSpace(Accumulated) && nodes.Count == lastEol;
         }
     }
 }

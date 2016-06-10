@@ -7,9 +7,9 @@
 
     internal abstract class NodesState : AccumulatingState
     {
-        protected readonly List<Node> nodes;
+        protected readonly NodeStore nodes;
 
-        protected NodesState(List<Node> nodes)
+        protected NodesState(NodeStore nodes)
         {
             this.nodes = nodes;
         }
@@ -25,7 +25,7 @@
             }
         }
 
-        protected void AddAccumulatedWithEol(List<Node> list)
+        protected void AddAccumulatedWithEol()
         {
             var current = Accumulated;
             Clear();
@@ -36,7 +36,7 @@
                 return;
             }
 
-            if (!NodesHaveContent(nodes))
+            if (!NodesHaveContent())
             {
                 return;
             }
@@ -49,11 +49,11 @@
             nodes.Add(new Node(NodeType.Eol));
         }
 
-        private bool NodesHaveContent(List<Node> list)
+        private bool NodesHaveContent()
         {
-            return nodes.Any() 
-                && nodes.Last().NodeType != NodeType.Eol 
-                && nodes.Last().NodeType != NodeType.Config;
+            return nodes.Nodes.Any() 
+                && nodes.Nodes.Last().NodeType != NodeType.Eol 
+                && nodes.Nodes.Last().NodeType != NodeType.Config;
         }
 
         public override void Finish()

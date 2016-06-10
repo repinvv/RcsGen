@@ -4,7 +4,7 @@
 
     internal class ForNode : Node
     {
-        public ForNode(string keyword, string condition, List<Node> childNodes) : base(NodeType.For)
+        public ForNode(string keyword, string condition, NodeStore childNodes) : base(NodeType.For)
         {
             Keyword = keyword;
             Condition = condition;
@@ -15,6 +15,6 @@
 
         public string Condition { get; }
 
-        public List<Node> ChildNodes { get; }
+        public NodeStore ChildNodes { get; }
     }
 }

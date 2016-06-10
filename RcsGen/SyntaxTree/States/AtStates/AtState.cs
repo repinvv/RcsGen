@@ -9,7 +9,7 @@
         private readonly AtActions actions;
         private readonly Dictionary<string, Action<string>> actionsDict;
 
-        public AtState(StateMachine stateMachine, IState previous, List<Node> nodes)
+        public AtState(StateMachine stateMachine, IState previous, NodeStore nodes)
         {
             actions = new AtActions(stateMachine, previous, nodes);
             actionsDict = new Dictionary<string, Action<string>>

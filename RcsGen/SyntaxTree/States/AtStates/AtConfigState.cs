@@ -9,7 +9,7 @@
         private readonly AtState atState;
         private readonly Dictionary<string, Action> actionsDict;
 
-        public AtConfigState(StateMachine stateMachine, IState previous, List<Node> nodes) 
+        public AtConfigState(StateMachine stateMachine, IState previous, NodeStore nodes) 
         {
             var actions = new AtConfigActions(stateMachine, previous, nodes);
             atState = new AtState(stateMachine, previous, nodes);

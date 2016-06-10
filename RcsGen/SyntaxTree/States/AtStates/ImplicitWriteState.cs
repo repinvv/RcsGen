@@ -6,12 +6,12 @@
 
     internal class ImplicitWriteState : AccumulatingState
     {
-        protected readonly List<Node> nodes;
+        protected readonly NodeStore nodes;
         protected readonly StateMachine stateMachine;
         protected readonly IState previous;
         private readonly BracketStateFactory factory;
 
-        public ImplicitWriteState(List<Node> nodes, StateMachine stateMachine, IState previous)
+        public ImplicitWriteState(NodeStore nodes, StateMachine stateMachine, IState previous)
         {
             this.nodes = nodes;
             this.stateMachine = stateMachine;

@@ -66,6 +66,7 @@
     <Compile Include="RcsGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SyntaxTree\KeywordConstants.cs" />
+    <Compile Include="SyntaxTree\NodeStore.cs" />
     <Compile Include="SyntaxTree\Nodes\ConfigNodes\ConfigCommand.cs" />
     <Compile Include="SyntaxTree\Nodes\ConfigNodes\ConfigNode.cs" />
     <Compile Include="SyntaxTree\Nodes\ConfigNodes\ConstructorParametersNode.cs" />

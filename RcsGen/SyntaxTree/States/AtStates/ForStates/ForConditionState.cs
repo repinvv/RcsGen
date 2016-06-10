@@ -1,6 +1,7 @@
 ﻿namespace RcsGen.SyntaxTree.States.AtStates.ForStates
 {
     using System.Collections.Generic;
+    using System.Linq;
     using RcsGen.SyntaxTree.Nodes;
     using RcsGen.SyntaxTree.States.BracketStates;
     using RcsGen.SyntaxTree.States.NodesStates;
@@ -10,10 +11,13 @@
         private readonly StateMachine stateMachine;
         private readonly IState previous;
         private readonly string keyword;
-        private readonly List<Node> nodes;
+        private readonly NodeStore nodes;
         private readonly BracketStateFactory factory;
 
-        public ForConditionState(StateMachine stateMachine, IState previous, string keyword, List<Node> nodes)
+        public ForConditionState(StateMachine stateMachine, 
+            IState previous, 
+            string keyword, 
+            NodeStore nodes)
         {
             this.stateMachine = stateMachine;
             this.previous = previous;
@@ -31,14 +35,15 @@
                 return;
             }
 
-            var childNodes = new List<Node>();
+            var childNodes = new NodeStore();
             stateMachine
                 .Expect("{", previous)
                 .SuccessState = new SingleLineChildNodesState(stateMachine, childNodes)
                                 {
                                     ReturnAction = () =>
                                     {
-                                        nodes.Add(new ForNode(keyword, Accumulated, childNodes));
+                                        var hasEol = childNodes.Nodes.Any(x => x.NodeType == NodeType.Eol);
+                                        nodes.Add(new ForNode(keyword, Accumulated, childNodes), hasEol);
                                         stateMachine.State = previous;
                                     }
                                 };

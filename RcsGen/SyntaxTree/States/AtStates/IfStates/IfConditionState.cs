@@ -9,10 +9,10 @@
     {
         private readonly StateMachine stateMachine;
         private readonly IState previous;
-        private readonly List<Node> nodes;
+        private readonly NodeStore nodes;
         private readonly BracketStateFactory factory;
 
-        public IfConditionState(StateMachine stateMachine, IState previous, List<Node> nodes)
+        public IfConditionState(StateMachine stateMachine, IState previous, NodeStore nodes)
         {
             this.stateMachine = stateMachine;
             this.previous = previous;
@@ -29,7 +29,7 @@
                 return;
             }
 
-            var ifNodes = new List<Node>();
+            var ifNodes = new NodeStore();
             stateMachine
                 .Expect("{", previous)
                 .SuccessState = new SingleLineChildNodesState(stateMachine, ifNodes)

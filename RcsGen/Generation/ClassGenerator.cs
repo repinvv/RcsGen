@@ -31,7 +31,7 @@
 
         private static void GenerateExecute(this StringGenerator sg, Document document, Config config)
         {
-            var nodes = document.Nodes.Where(x => x.NodeType != NodeType.Config);
+            var nodes = document.Nodes.Nodes.Where(x => x.NodeType != NodeType.Config);
             var genState = new GenState();
             foreach (var node in nodes)
             {
