@@ -25,8 +25,8 @@
                     AddAccumulated();
                     var allConfig = nodes.All(x => x.NodeType == NodeType.Config);
                     stateMachine.State = allConfig
-                        ? new AtConfigState(nodes, stateMachine, this)
-                        : new AtState(nodes, stateMachine, this);
+                        ? (IState)new AtConfigState(stateMachine, this, nodes)
+                        : new AtState(stateMachine, this, nodes);
                     break;
                 default:
                     Accumulate(token);

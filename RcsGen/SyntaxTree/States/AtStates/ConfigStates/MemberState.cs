@@ -11,7 +11,6 @@
         private readonly StateMachine stateMachine;
         private readonly IState previous;
         private readonly List<Node> nodes;
-        private bool opened;
         private readonly BracketStateFactory factory;
 
         public MemberState(StateMachine stateMachine, IState previous, List<Node> nodes)

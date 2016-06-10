@@ -1,52 +1,37 @@
 ﻿namespace RcsGen.SyntaxTree.States.AtStates
 {
+    using System;
     using System.Collections.Generic;
     using RcsGen.SyntaxTree.Nodes;
-    using RcsGen.SyntaxTree.States.AtStates.ConfigStates;
 
-    internal class AtConfigState : AtState
+    internal class AtConfigState : IState
     {
-        private readonly List<Node> nodes;
-        private readonly StateMachine stateMachine;
-        private readonly IState previous;
+        private readonly AtState atState;
+        private readonly Dictionary<string, Action> actionsDict;
 
-        public AtConfigState(List<Node> nodes, StateMachine stateMachine, IState previous) 
-            : base(nodes, stateMachine, previous)
+        public AtConfigState(StateMachine stateMachine, IState previous, List<Node> nodes) 
         {
-            this.nodes = nodes;
-            this.stateMachine = stateMachine;
-            this.previous = previous;
+            var actions = new AtConfigActions(stateMachine, previous, nodes);
+            atState = new AtState(stateMachine, previous, nodes);
+            actionsDict = new Dictionary<string, Action>
+                          {
+                              { KeywordConstants.Config.Inherits, actions.GotoInherits },
+                              { KeywordConstants.Config.Using, actions.GotoUsing },
+                              { KeywordConstants.Config.Visibility, actions.GotoVisibility },
+                              { KeywordConstants.Config.Implements, actions.GotoImplements },
+                              { KeywordConstants.Config.Constructor, actions.GotoConstructor },
+                              { KeywordConstants.Config.Member, actions.GotoMember },
+                              { KeywordConstants.Config.Partial, actions.GotoPartial }
+                          };
         }
 
-        public override void ProcessToken(string token)
+        public void ProcessToken(string token)
         {
-            switch (token)
-            {
-                case KeywordConstants.Config.Inherits:
-                    var inheritState = new InheritsState(nodes, stateMachine, previous);
-                    stateMachine.State = new SkipSpacesState(stateMachine, inheritState);
-                    break;
-                case KeywordConstants.Config.Using:
-                    stateMachine.State = new UsingState(nodes, stateMachine, previous);
-                    break;
-                case KeywordConstants.Config.Visibility:
-                    stateMachine.State = new VisibilityState(nodes, stateMachine, previous);
-                    break;
-                case KeywordConstants.Config.Implements:
-                    stateMachine.State = new ImplementsState(nodes, stateMachine, previous);
-                    break;
-                case KeywordConstants.Config.Constructor:
-                    stateMachine.State = new ConstructorParametersState(stateMachine, previous, nodes);
-                    break;
-                case KeywordConstants.Config.Member:
-                    stateMachine
-                        .ExpectAtSameLine("{", previous)
-                        .SuccessState = new MemberState(stateMachine, previous, nodes);
-                    break;
-                default:
-                    base.ProcessToken(token);
-                    break;
-            }
+            var action = actionsDict.SafeGet(token, () => atState.ProcessToken(token));
+            action();
         }
+
+        public void Finish()
+        { }
     }
 }

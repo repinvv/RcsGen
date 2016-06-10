@@ -10,10 +10,10 @@
         private readonly List<Node> nodes;
         private readonly StateMachine stateMachine;
         private readonly IState previous;
-        private List<Tuple<string, string>> parameters;
-        private Action createNode;
+        private readonly List<Tuple<string, string>> parameters;
+        private readonly Action createNode;
 
-        public InheritsState(List<Node> nodes, StateMachine stateMachine, IState previous)
+        public InheritsState(StateMachine stateMachine, IState previous, List<Node> nodes)
         {
             this.nodes = nodes;
             this.stateMachine = stateMachine;

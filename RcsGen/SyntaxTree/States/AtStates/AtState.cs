@@ -7,12 +7,12 @@
     internal class AtState : IState
     {
         private readonly AtActions actions;
-        private readonly Dictionary<string, Action<string>> dict;
+        private readonly Dictionary<string, Action<string>> actionsDict;
 
-        public AtState(List<Node> nodes, StateMachine stateMachine, IState previous)
+        public AtState(StateMachine stateMachine, IState previous, List<Node> nodes)
         {
             actions = new AtActions(stateMachine, previous, nodes);
-            dict = new Dictionary<string, Action<string>>
+            actionsDict = new Dictionary<string, Action<string>>
                    {
                        { "@", actions.CreateLiteral },
                        { " ", actions.SkipAtAndReenterToken },
@@ -37,7 +37,7 @@
 
         public virtual void ProcessToken(string token)
         {
-            var action = dict.SafeGet(token, actions.GotoImplicitWrite);
+            var action = actionsDict.SafeGet(token, actions.GotoImplicitWrite);
             action(token);
         }
 

@@ -25,7 +25,7 @@
             {
                 case "@":
                     AddAccumulated();
-                    stateMachine.State = new AtState(nodes, stateMachine, this);
+                    stateMachine.State = new AtState(stateMachine, this, nodes);
                     break;
                 case "}":
                     if (OnlySpaces())
