@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HelpfulExtensions.cs" />
     <Compile Include="Generation\BasicMethodsGenerator.cs" />
     <Compile Include="Generation\ClassGenerator.cs" />
     <Compile Include="Generation\ClassNaming.cs" />
@@ -93,16 +94,17 @@
     <Compile Include="SyntaxTree\States\AtStates\ConfigStates\SkipSpacesState.cs" />
     <Compile Include="SyntaxTree\States\AtStates\ConfigStates\UsingState.cs" />
     <Compile Include="SyntaxTree\States\AtStates\ConfigStates\VisibilityState.cs" />
-    <Compile Include="SyntaxTree\States\AtStates\ExpectAtSameLineState.cs" />
-    <Compile Include="SyntaxTree\States\AtStates\ExpectExtension.cs" />
-    <Compile Include="SyntaxTree\States\AtStates\ExpectState.cs" />
-    <Compile Include="SyntaxTree\States\AtStates\ExplicitWriteState.cs" />
-    <Compile Include="SyntaxTree\States\AtStates\ExpressionState.cs" />
+    <Compile Include="SyntaxTree\States\AtStates\ContentState.cs" />
+    <Compile Include="SyntaxTree\States\AtStates\Expect\ExpectAtSameLineState.cs" />
+    <Compile Include="SyntaxTree\States\AtStates\Expect\ExpectExtension.cs" />
+    <Compile Include="SyntaxTree\States\AtStates\Expect\ExpectState.cs" />
     <Compile Include="SyntaxTree\States\AtStates\ForStates\ForConditionState.cs" />
     <Compile Include="SyntaxTree\States\AtStates\IfStates\CreateIfState.cs" />
     <Compile Include="SyntaxTree\States\AtStates\IfStates\ElseState.cs" />
     <Compile Include="SyntaxTree\States\AtStates\IfStates\IfConditionState.cs" />
     <Compile Include="SyntaxTree\States\AtStates\ImplicitWriteState.cs" />
+    <Compile Include="SyntaxTree\States\AtStates\AtActions.cs" />
+    <Compile Include="SyntaxTree\States\AtStates\UnexpectedCheckStateDecorator.cs" />
     <Compile Include="SyntaxTree\States\BracketStates\ApostropheBracketState.cs" />
     <Compile Include="SyntaxTree\States\BracketStates\AtBracketState.cs" />
     <Compile Include="SyntaxTree\States\BracketStates\BracketState.cs" />
@@ -137,10 +139,7 @@
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="SyntaxTree\States\ExpressionStates\" />
-    <Folder Include="SyntaxTree\States\KeywordStates\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>"c:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.6 Tools\gacutil.exe" /if $(TargetPath)</PostBuildEvent>

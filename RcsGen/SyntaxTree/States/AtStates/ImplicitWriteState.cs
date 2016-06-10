@@ -23,6 +23,7 @@
         {
             switch (token)
             {
+                case "@":
                 case "\"":
                 case ")":
                 case "}":
