@@ -24,7 +24,7 @@
 
             public const string Member = "member";
 
-            public const string Partial = "partial";
+            public const string PartialPattern = "partialPattern";
         }
     }
 }

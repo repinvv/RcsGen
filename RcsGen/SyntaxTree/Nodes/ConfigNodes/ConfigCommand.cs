@@ -7,6 +7,7 @@
         Inherits,
         Implements,
         ConstructorParameters,
-        Member
+        Member,
+        PartialPattern
     }
 }

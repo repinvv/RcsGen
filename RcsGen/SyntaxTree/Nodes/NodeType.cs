@@ -4,6 +4,7 @@
     {
         Document,
         Literal,
+        Partial,
         WriteExpression,
         CodeExpression,
         Config,

@@ -72,6 +72,7 @@
     <Compile Include="SyntaxTree\Nodes\ConfigNodes\ImplementsNode.cs" />
     <Compile Include="SyntaxTree\Nodes\ConfigNodes\InheritsNode.cs" />
     <Compile Include="SyntaxTree\Nodes\ConfigNodes\MemberNode.cs" />
+    <Compile Include="SyntaxTree\Nodes\ConfigNodes\PartialPatternNode.cs" />
     <Compile Include="SyntaxTree\Nodes\ConfigNodes\UsingNode.cs" />
     <Compile Include="SyntaxTree\Nodes\ConfigNodes\VisibilityNode.cs" />
     <Compile Include="SyntaxTree\Nodes\ContentNode.cs" />
@@ -86,14 +87,8 @@
     <Compile Include="SyntaxTree\States\AtStates\AtConfigActions.cs" />
     <Compile Include="SyntaxTree\States\AtStates\AtConfigState.cs" />
     <Compile Include="SyntaxTree\States\AtStates\AtState.cs" />
-    <Compile Include="SyntaxTree\States\AtStates\ConfigStates\MemberState.cs" />
-    <Compile Include="SyntaxTree\States\AtStates\ConfigStates\ConstructorParametersState.cs" />
-    <Compile Include="SyntaxTree\States\AtStates\ConfigStates\ImplementsState.cs" />
-    <Compile Include="SyntaxTree\States\AtStates\ConfigStates\ParameterNameState.cs" />
-    <Compile Include="SyntaxTree\States\AtStates\ConfigStates\ParameterTypeState.cs" />
-    <Compile Include="SyntaxTree\States\AtStates\ConfigStates\InheritsState.cs" />
-    <Compile Include="SyntaxTree\States\AtStates\ConfigStates\SkipSpacesState.cs" />
-    <Compile Include="SyntaxTree\States\AtStates\ConfigStates\VisibilityState.cs" />
+    <Compile Include="SyntaxTree\States\AtStates\InheritsState.cs" />
+    <Compile Include="SyntaxTree\States\AtStates\SkipSpacesState.cs" />
     <Compile Include="SyntaxTree\States\AtStates\ContentState.cs" />
     <Compile Include="SyntaxTree\States\AtStates\Expect\ExpectAtSameLineState.cs" />
     <Compile Include="SyntaxTree\States\AtStates\Expect\ExpectExtension.cs" />
@@ -105,7 +100,7 @@
     <Compile Include="SyntaxTree\States\AtStates\ImplicitWriteState.cs" />
     <Compile Include="SyntaxTree\States\AtStates\AtActions.cs" />
     <Compile Include="SyntaxTree\States\AtStates\StateExtensions.cs" />
-    <Compile Include="SyntaxTree\States\AtStates\UnexpectedCheckStateDecorator.cs" />
+    <Compile Include="SyntaxTree\States\AtStates\Unexpected.cs" />
     <Compile Include="SyntaxTree\States\BracketStates\ApostropheBracketState.cs" />
     <Compile Include="SyntaxTree\States\BracketStates\AtBracketState.cs" />
     <Compile Include="SyntaxTree\States\BracketStates\BracketState.cs" />

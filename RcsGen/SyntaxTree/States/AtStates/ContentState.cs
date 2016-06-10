@@ -6,14 +6,22 @@
 
     internal class ContentState : AccumulatingState
     {
+        private readonly StateMachine stateMachine;
         private readonly string closing;
         private readonly Action<string> close;
+        private readonly IState closingState;
         private readonly BracketStateFactory factory;
 
-        public ContentState(StateMachine stateMachine, string closing, Action<string> close, params string[] allowed)
+        public ContentState(StateMachine stateMachine, 
+            string closing, 
+            Action<string> close, 
+            IState closingState, 
+            params string[] allowed)
         {
+            this.stateMachine = stateMachine;
             this.closing = closing;
             this.close = close;
+            this.closingState = closingState;
             factory = new BracketStateFactory(stateMachine, this, allowed);
         }
 
@@ -21,7 +29,8 @@
         {
             if (token == closing)
             {
-                close(Accumulated);
+                Finish();
+                stateMachine.State = closingState;
                 return;
             }
 

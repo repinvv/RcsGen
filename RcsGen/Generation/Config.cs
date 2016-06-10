@@ -16,5 +16,7 @@
         public ConstructorParametersNode ConstructorParametersNode { get; set; }
 
         public string Visibility { get; set; }
+
+        public string PartialPattern { get; set; }
     }
 }

@@ -21,7 +21,7 @@
                               { KeywordConstants.Config.Implements, actions.GotoImplements },
                               { KeywordConstants.Config.Constructor, actions.GotoConstructor },
                               { KeywordConstants.Config.Member, actions.GotoMember },
-                              { KeywordConstants.Config.Partial, actions.GotoPartial }
+                              { KeywordConstants.Config.PartialPattern, actions.GotoPartial }
                           };
         }
 

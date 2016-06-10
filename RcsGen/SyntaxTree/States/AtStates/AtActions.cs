@@ -25,23 +25,17 @@
             stateMachine.State = previous;
         }
 
-        public void CreateCodeExpression(string content)
-        {
-            nodes.Add(new ContentNode(content, NodeType.CodeExpression));
-            stateMachine.State = previous;
-        }
+        public void CreateCodeExpression(string content) 
+            => nodes.Add(new ContentNode(content, NodeType.CodeExpression));
 
-        public void GotoCodeExpression()
-            => stateMachine.State = new ContentState(stateMachine, "}", CreateCodeExpression, AllBrackets);
+        public void GotoCodeExpression() => stateMachine
+            .State = new ContentState(stateMachine, "}", CreateCodeExpression, previous, AllBrackets);
 
         public void CreateWriteExpression(string content)
-        {
-            nodes.Add(new ContentNode(content, NodeType.WriteExpression));
-            stateMachine.State = previous;
-        }
+            => nodes.Add(new ContentNode(content, NodeType.WriteExpression));
 
-        public void GotoExplicitWriteExpression()
-            => stateMachine.State = new ContentState(stateMachine, ")", CreateWriteExpression, "<", "(");
+        public void GotoExplicitWriteExpression() => stateMachine
+            .State = new ContentState(stateMachine, ")", CreateWriteExpression, previous, "<", "(");
 
         public void SkipAtAndReenterToken(string token)
         {
@@ -76,5 +70,11 @@
             stateMachine.State = state;
             state.ProcessToken(token);
         }
+
+        private void CreatePartialNode(string content) 
+            => nodes.Add(new ContentNode(content, NodeType.Partial));
+
+        public void GotoPartial() 
+            => stateMachine.State = new ContentState(stateMachine, "]", CreatePartialNode, previous, AllBrackets);
     }
 }

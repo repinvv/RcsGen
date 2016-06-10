@@ -30,7 +30,8 @@
                 .LastOrDefault(x => x.ConfigCommand == ConfigCommand.ConstructorParameters);
             var visibilityNode = configNodes
                 .LastOrDefault(x => x.ConfigCommand == ConfigCommand.Visibility) as VisibilityNode;
-
+            var partialNode = configNodes
+                .LastOrDefault(x => x.ConfigCommand == ConfigCommand.Visibility) as PartialPatternNode;
             return new Config
                    {
                        Usings = usings.ToList(),
@@ -38,7 +39,8 @@
                        Interfaces = ifaces,
                        ConstructorParametersNode = constructorNode as ConstructorParametersNode,
                        InheritsNode = inheritsNode as InheritsNode,
-                       Visibility = visibilityNode?.Visibility ?? "internal"
+                       Visibility = visibilityNode?.Visibility ?? "internal",
+                       PartialPattern = partialNode?.Pattern ?? "new {0}.Execute()"
                    };
 
         }

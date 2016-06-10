@@ -10,17 +10,16 @@
         private readonly List<Node> nodes;
         private readonly StateMachine stateMachine;
         private readonly IState previous;
-        private readonly List<Tuple<string, string>> parameters;
-        private readonly Action createNode;
 
         public InheritsState(StateMachine stateMachine, IState previous, List<Node> nodes)
         {
             this.nodes = nodes;
             this.stateMachine = stateMachine;
             this.previous = previous;
-            parameters = new List<Tuple<string, string>>();
-            createNode = () => nodes.Add(new InheritsNode(Accumulated, parameters));
         }
+
+        private void CreateNode(string content)
+            => nodes.Add(new InheritsNode(Accumulated, content.CreateParameters()));
 
         public override void ProcessToken(string token)
         {
@@ -36,18 +35,24 @@
 
                     break;
                 case "(":
-                    stateMachine.State = new ParameterTypeState(stateMachine, parameters, createNode, previous);
+                    stateMachine.State = CreateContentState();
                     break;
                 case " ":
                     stateMachine
                         .ExpectAtSameLine("(", previous)
-                        .SuccessState = new ParameterTypeState(stateMachine, parameters, createNode, previous);
+                        .SuccessState = CreateContentState();
                     break;
                 default:
                     Accumulate(token);
                     break;
             }
         }
+
+        private IState CreateContentState()
+            => new Unexpected(() => stateMachine.State = previous, "\n")
+               {
+                   State = new ContentState(stateMachine, ")", CreateNode, previous)
+               };
 
         public override void Finish() { }
     }

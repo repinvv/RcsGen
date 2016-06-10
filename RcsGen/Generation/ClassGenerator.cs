@@ -35,8 +35,9 @@
             var genState = new GenState();
             foreach (var node in nodes)
             {
-                sg.GenerateNode(node, genState);
+                sg.GenerateNode(node, genState, config);
             }
+
             sg.AppendLine();
             sg.AppendLine(config.InheritsNode == null
                 ? "return executed = sb.ToString();"

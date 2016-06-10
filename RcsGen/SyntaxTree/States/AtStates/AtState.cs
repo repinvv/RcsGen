@@ -13,26 +13,26 @@
         {
             actions = new AtActions(stateMachine, previous, nodes);
             actionsDict = new Dictionary<string, Action<string>>
-                   {
-                       { "@", actions.CreateLiteral },
-                       { " ", actions.SkipAtAndReenterToken },
-                       { "\"", actions.SkipAtAndReenterToken },
-                       { "\t", actions.SkipAtAndReenterToken },
-                       { "<", actions.SkipAtAndReenterToken },
-                       { ">", actions.SkipAtAndReenterToken },
-                       { "[", actions.SkipAtAndReenterToken },
-                       { "]", actions.SkipAtAndReenterToken },
-                       { ")", actions.SkipAtAndReenterToken },
-                       { "}", actions.SkipAtAndReenterToken },
-                       { "'", actions.SkipAtAndReenterToken },
-                       { "\n", t => actions.CreateAtTokenWithEol() },
-                       { "{", t => actions.GotoCodeExpression() },
-                       { "*", t => actions.GotoComment() },
-                       { "(", t => actions.GotoExplicitWriteExpression() },
-                       { KeywordConstants.If, t => actions.GotoIf() },
-                       { KeywordConstants.For, actions.GotoFor },
-                       { KeywordConstants.Foreach, actions.GotoFor },
-                   };
+                          {
+                              { "@", actions.CreateLiteral },
+                              { " ", actions.SkipAtAndReenterToken },
+                              { "\"", actions.SkipAtAndReenterToken },
+                              { "\t", actions.SkipAtAndReenterToken },
+                              { "<", actions.SkipAtAndReenterToken },
+                              { ">", actions.SkipAtAndReenterToken },
+                              { "]", actions.SkipAtAndReenterToken },
+                              { ")", actions.SkipAtAndReenterToken },
+                              { "}", actions.SkipAtAndReenterToken },
+                              { "'", actions.SkipAtAndReenterToken },
+                              { "\n", t => actions.CreateAtTokenWithEol() },
+                              { "{", t => actions.GotoCodeExpression() },
+                              { "*", t => actions.GotoComment() },
+                              { "(", t => actions.GotoExplicitWriteExpression() },
+                              { "[", t => actions.GotoPartial() },
+                              { KeywordConstants.If, t => actions.GotoIf() },
+                              { KeywordConstants.For, actions.GotoFor },
+                              { KeywordConstants.Foreach, actions.GotoFor },
+                          };
         }
 
         public virtual void ProcessToken(string token)

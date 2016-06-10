@@ -6,7 +6,7 @@
 
     internal static class NodesGenerator
     {
-        public static void GenerateNode(this StringGenerator sg, Node node, GenState genState)
+        public static void GenerateNode(this StringGenerator sg, Node node, GenState genState, Config config)
         {
             var eol = genState.GeneratedEol;
             genState.GeneratedEol = false;
@@ -30,27 +30,35 @@
                 case NodeType.For:
                     var forNode = (ForNode)node;
                     sg.AppendLine($"{forNode.Keyword} ({forNode.Condition})");
-                    sg.Braces(x => x.GenerateChildNodes(forNode.ChildNodes, genState));
+                    sg.Braces(x => x.GenerateChildNodes(forNode.ChildNodes, genState, config));
                     break;
                 case NodeType.If:
                     var ifNode = (IfNode)node;
                     sg.AppendLine($"if ({ifNode.Condition})");
-                    sg.Braces(x => x.GenerateChildNodes(ifNode.IfNodes, genState));
+                    sg.Braces(x => x.GenerateChildNodes(ifNode.IfNodes, genState, config));
                     if (!ifNode.ElseNodes.Any())
                     {
                         break;
                     }
 
                     sg.AppendLine("else");
-                    sg.Braces(x => x.GenerateChildNodes(ifNode.ElseNodes, genState));
+                    sg.Braces(x => x.GenerateChildNodes(ifNode.ElseNodes, genState, config));
                     break;
                 case NodeType.CodeExpression:
                     sg.AppendLine(((ContentNode)node).Content);
                     break;
+                case NodeType.Partial:
+                    sg.AppendLine($"Write({string.Format(config.PartialPattern, ((ContentNode)node).Content)});");
+                    break;
             }
         }
 
-        private static void GenerateChildNodes(this StringGenerator sg, List<Node> childNodes, GenState genState)
-            => childNodes.ForEach(x=> sg.GenerateNode(x, genState));
+        private static void GenerateChildNodes(this StringGenerator sg,
+            List<Node> nodes, 
+            GenState genState, 
+            Config config)
+        {
+            nodes.ForEach(x => sg.GenerateNode(x, genState, config));
+        }
     }
 }
