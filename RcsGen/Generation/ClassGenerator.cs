@@ -32,12 +32,8 @@
         private static void GenerateExecute(this StringGenerator sg, Document document, Config config)
         {
             var nodes = document.Nodes.Nodes.Where(x => x.NodeType != NodeType.Config);
-            var genState = new GenState();
-            foreach (var node in nodes)
-            {
-                sg.GenerateNode(node, genState, config);
-            }
 
+            sg.GenerateNodes(nodes, config);
             sg.AppendLine();
             sg.AppendLine(config.InheritsNode == null
                 ? "return executed = sb.ToString();"

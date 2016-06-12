@@ -76,6 +76,10 @@
         public void GotoPartial() 
             => stateMachine.State = new ContentState(stateMachine, "]", CreatePartialNode, previous, AllBrackets);
 
-        public void CreateNewLine() => nodes.Add(new Node(NodeType.ForceEol));
+        public void CreateNewLine()
+        {
+            nodes.Add(new Node(NodeType.ForceEol));
+            stateMachine.State = previous;
+        }
     }
 }

@@ -17,13 +17,13 @@
         string visibility = @"@visibility internal
 ";
 
-        string member = @"@member{public string FileName { get; set; }}
+        string member = @"@member{public override string FileName { get; set; }}
 ";
 
         [TestMethod]
         public void MemberTest()
         {
-            var memberContent = "public string FileName { get; set; }";
+            var memberContent = "public override string FileName { get; set; }";
             var doc = Parser.Parse(member);
             Assert.AreEqual(1, doc.Nodes.Nodes.Count);
             var node = (MemberNode)doc.Nodes.Nodes[0];

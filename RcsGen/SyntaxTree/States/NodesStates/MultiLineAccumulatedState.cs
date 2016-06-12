@@ -10,7 +10,6 @@
     {
         private readonly StateMachine stateMachine;
         private readonly Action returnAction;
-        int lastEol;
 
         public MultiLineChildNodesState(StateMachine stateMachine, 
             NodeStore nodes,

@@ -1,28 +1,21 @@
 ﻿namespace RcsGen.SyntaxTree
 {
     using System.Collections.Generic;
+    using System.Linq;
     using RcsGen.SyntaxTree.Nodes;
+    using RcsGen.SyntaxTree.States;
+    using RcsGen.SyntaxTree.States.AtStates;
 
     internal class NodeStore
     {
-        private bool lineStart = true;
-        private bool spaces;
         private readonly List<Node> nodes = new List<Node>();
 
         public IReadOnlyList<Node> Nodes => nodes;
-        public bool LineStart => lineStart;
 
-        public void Add(Node node, bool removeSpace = false)
+        public bool LineStart => !nodes.Any() || nodes.Last().IsEol();
+
+        public void Add(Node node)
         {
-            if (spaces && removeSpace)
-            {
-                nodes.RemoveAt(nodes.Count - 1);
-            }
-
-            spaces = lineStart &&
-                     node.NodeType == NodeType.Literal &&
-                     string.IsNullOrWhiteSpace(((ContentNode)node).Content);
-            lineStart = node.NodeType == NodeType.Eol || node.NodeType == NodeType.ForceEol;
             nodes.Add(node);
         }
     }

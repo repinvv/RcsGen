@@ -7,10 +7,8 @@
 
     internal static class NodesGenerator
     {
-        public static void GenerateNode(this StringGenerator sg, Node node, GenState genState, Config config)
+        public static void GenerateNode(this StringGenerator sg, Node node, Config config)
         {
-            var eol = genState.GeneratedEol;
-            genState.GeneratedEol = false;
             switch (node.NodeType)
             {
                 case NodeType.Literal:
@@ -18,15 +16,10 @@
                     sg.AppendLine($"WriteLiteral(\"{content.Content}\");");
                     break;
                 case NodeType.ForceEol:
-                    genState.GeneratedEol = true;
                     sg.AppendLine("WriteLiteral(Environment.NewLine);");
                     break;
                 case NodeType.Eol:
-                    genState.GeneratedEol = true;
-                    if (!eol)
-                    {
-                        sg.AppendLine("WriteLiteral(Environment.NewLine);");
-                    }
+                    sg.AppendLine("WriteLiteral(Environment.NewLine);");
                     break;
                 case NodeType.WriteExpression:
                     var expr = (ContentNode)node;
@@ -35,19 +28,19 @@
                 case NodeType.For:
                     var forNode = (ForNode)node;
                     sg.AppendLine($"{forNode.Keyword} ({forNode.Condition})");
-                    sg.Braces(x => x.GenerateChildNodes(forNode.ChildNodes, genState, config));
+                    sg.Braces(x => x.GenerateNodes(forNode.ChildNodes.Nodes, config));
                     break;
                 case NodeType.If:
                     var ifNode = (IfNode)node;
                     sg.AppendLine($"if ({ifNode.Condition})");
-                    sg.Braces(x => x.GenerateChildNodes(ifNode.IfNodes, genState, config));
+                    sg.Braces(x => x.GenerateNodes(ifNode.IfNodes.Nodes, config));
                     if (!ifNode.ElseNodes.Nodes.Any())
                     {
                         break;
                     }
 
                     sg.AppendLine("else");
-                    sg.Braces(x => x.GenerateChildNodes(ifNode.ElseNodes, genState, config));
+                    sg.Braces(x => x.GenerateNodes(ifNode.ElseNodes.Nodes, config));
                     break;
                 case NodeType.CodeExpression:
                     sg.AppendLine(((ContentNode)node).Content);
@@ -58,15 +51,37 @@
             }
         }
 
-        private static void GenerateChildNodes(this StringGenerator sg,
-            NodeStore nodes, 
-            GenState genState, 
-            Config config)
+        private static bool IsSuppressed(this Node node)
         {
-            foreach (var node in nodes.Nodes)
+            return node.NodeType == NodeType.Eol
+                   || (node.NodeType == NodeType.Literal
+                       && string.IsNullOrWhiteSpace(((ContentNode)node).Content));
+        }
+
+        public static void GenerateNodes(this StringGenerator sg, IEnumerable<Node> nodes, Config config)
+        {
+            foreach (var line in nodes.GroupLines())
             {
-                sg.GenerateNode(node, genState, config);
+                if (ShouldSuppressEmptyEntries(line))
+                {
+                    foreach (var node in line.Where(x=>!x.IsSuppressed()))
+                    {
+                        sg.GenerateNode(node, config);
+                    }
+                }
+                else
+                {
+                    foreach (var node in line)
+                    {
+                        sg.GenerateNode(node, config);
+                    }
+                }
             }
+        }
+
+        private static bool ShouldSuppressEmptyEntries(List<Node> line)
+        {
+            return line.Any(x=>x.IsSuppressionNode());
         }
     }
 }

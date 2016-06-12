@@ -33,8 +33,7 @@ namespace RcsGen.SyntaxTree.States.AtStates.IfStates
 
         private void CreateIf()
         {
-            var hasEol = ifNodes.HasEol();
-            parentNodes.Add(new IfNode(condition, ifNodes), hasEol);
+            parentNodes.Add(new IfNode(condition, ifNodes));
             stateMachine.State = previous;
         }
 

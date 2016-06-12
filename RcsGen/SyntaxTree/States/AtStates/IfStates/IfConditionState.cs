@@ -51,8 +51,7 @@
 
         public override void Finish()
         {
-            var hasEol = ifNodes.HasEol();
-            nodes.Add(new IfNode(Accumulated, ifNodes), hasEol);
+            nodes.Add(new IfNode(Accumulated, ifNodes));
             previous.Finish();
         }
     }

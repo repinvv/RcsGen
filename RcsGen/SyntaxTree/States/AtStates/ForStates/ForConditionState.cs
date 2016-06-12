@@ -49,8 +49,7 @@
 
         private void CreateNode()
         {
-            var hasEol = childNodes.HasEol();
-            nodes.Add(new ForNode(keyword, Accumulated, childNodes), hasEol);
+            nodes.Add(new ForNode(keyword, Accumulated, childNodes));
             stateMachine.State = previous;
         }
 

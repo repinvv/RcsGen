@@ -49,6 +49,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Generation\LinesGrouping.cs" />
+    <Compile Include="Generation\Nodes.cs" />
     <Compile Include="HelpfulExtensions.cs" />
     <Compile Include="Generation\BasicMethodsGenerator.cs" />
     <Compile Include="Generation\ClassGenerator.cs" />
@@ -57,7 +59,6 @@
     <Compile Include="Generation\ConstructorGenerator.cs" />
     <Compile Include="Generation\FileGenerator.cs" />
     <Compile Include="Generation\GenerationConfig.cs" />
-    <Compile Include="Generation\GenState.cs" />
     <Compile Include="Generation\InheritsGenerator.cs" />
     <Compile Include="Generation\NodesGenerator.cs" />
     <Compile Include="Generation\StringGenerator.cs" />
@@ -100,7 +101,7 @@
     <Compile Include="SyntaxTree\States\AtStates\IfStates\IfConditionState.cs" />
     <Compile Include="SyntaxTree\States\AtStates\ImplicitWriteState.cs" />
     <Compile Include="SyntaxTree\States\AtStates\AtActions.cs" />
-    <Compile Include="SyntaxTree\States\AtStates\StateExtensions.cs" />
+    <Compile Include="SyntaxTree\States\StateExtensions.cs" />
     <Compile Include="SyntaxTree\States\AtStates\Unexpected.cs" />
     <Compile Include="SyntaxTree\States\BracketStates\ApostropheBracketState.cs" />
     <Compile Include="SyntaxTree\States\BracketStates\AtBracketState.cs" />
@@ -123,6 +124,7 @@
     <Compile Include="Tests\CascadedForTest.cs" />
     <Compile Include="Tests\CommentTest.cs" />
     <Compile Include="Tests\ConfigInheritsTest.cs" />
+    <Compile Include="Tests\ForceEolTest.cs" />
     <Compile Include="Tests\ForTest.cs" />
     <Compile Include="Tests\IfTest.cs" />
     <Compile Include="Tests\ConfigsTests.cs" />

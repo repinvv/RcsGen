@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
-
-namespace RcsGen.SyntaxTree.States.AtStates
+﻿namespace RcsGen.SyntaxTree.States
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using RcsGen.SyntaxTree.Nodes;
 
@@ -25,7 +24,8 @@ namespace RcsGen.SyntaxTree.States.AtStates
                 .ToList();
         }
 
-        public static bool HasEol(this NodeStore nodes) 
-            => nodes.Nodes.Any(x => x.NodeType == NodeType.Eol || x.NodeType == NodeType.ForceEol);
+        public static bool IsEol(this Node node)
+            => node.NodeType == NodeType.Eol || node.NodeType == NodeType.ForceEol;
+        
     }
 }

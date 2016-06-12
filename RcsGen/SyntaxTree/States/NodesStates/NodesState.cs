@@ -29,34 +29,19 @@
 
         protected void AddAccumulatedWithEol()
         {
-            var current = Accumulated;
-            Clear();
-            if (!string.IsNullOrWhiteSpace(current))
+            AddAccumulated();
+            if (!nodes.Nodes.Any())
             {
-                nodes.Add(new ContentNode(current, NodeType.Literal));
+                return;
+            }
+
+            var last = nodes.Nodes.Last();
+            if (last.NodeType != NodeType.Eol
+                && last.NodeType != NodeType.ForceEol
+                && last.NodeType != NodeType.Config)
+            {
                 nodes.Add(new Node(NodeType.Eol));
-                return;
             }
-
-            if (!NodesHaveContent())
-            {
-                return;
-            }
-
-            if (current != string.Empty)
-            {
-                nodes.Add(new ContentNode(current, NodeType.Literal));
-            }
-
-            nodes.Add(new Node(NodeType.Eol));
-        }
-
-        private bool NodesHaveContent()
-        {
-            return nodes.Nodes.Any() 
-                && nodes.Nodes.Last().NodeType != NodeType.Eol
-                && nodes.Nodes.Last().NodeType != NodeType.ForceEol
-                && nodes.Nodes.Last().NodeType != NodeType.Config;
         }
 
         public override void Finish()

@@ -14,12 +14,14 @@
 
 namespace @model.GetModelNamespace(options)
 {
-    @options.Visibility partial class @model.Name
-    {
-      @foreach(var field in model.Model.Fields)
-      {
+	using System;
+@newline
+    @options.Visibility partial class @model.Model.Name
+    {	
+	  @{var fields = model.Model.Fields.Where(x => x.IsEnabled).ToList();}
+      @foreach (var field in fields){
         @[ModelField(field, options)]
-        @if(!field.Equals(model.Model.Fields.Last())){@newline}
+		@if(!field.Equals(fields.Last())){@newline}
       }
     }
 }
