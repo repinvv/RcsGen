@@ -6,11 +6,13 @@
 
     internal class AtConfigState : IState
     {
+        private readonly IState previous;
         private readonly AtState atState;
         private readonly Dictionary<string, Action> actionsDict;
 
         public AtConfigState(StateMachine stateMachine, IState previous, NodeStore nodes) 
         {
+            this.previous = previous;
             var actions = new AtConfigActions(stateMachine, previous, nodes);
             atState = new AtState(stateMachine, previous, nodes);
             actionsDict = new Dictionary<string, Action>
@@ -31,7 +33,6 @@
             action();
         }
 
-        public void Finish()
-        { }
+        public void Finish() => previous.Finish();
     }
 }

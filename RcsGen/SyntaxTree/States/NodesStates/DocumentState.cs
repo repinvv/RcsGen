@@ -9,7 +9,8 @@
     {
         private readonly StateMachine stateMachine;
 
-        public DocumentState(StateMachine stateMachine, NodeStore nodes) : base(nodes)
+        public DocumentState(StateMachine stateMachine, NodeStore nodes, IState stateToFinish) 
+            : base(nodes, stateToFinish)
         {
             this.stateMachine = stateMachine;
         }

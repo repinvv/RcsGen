@@ -17,6 +17,10 @@
                     var content = (ContentNode)node;
                     sg.AppendLine($"WriteLiteral(\"{content.Content}\");");
                     break;
+                case NodeType.ForceEol:
+                    genState.GeneratedEol = true;
+                    sg.AppendLine("WriteLiteral(Environment.NewLine);");
+                    break;
                 case NodeType.Eol:
                     genState.GeneratedEol = true;
                     if (!eol)

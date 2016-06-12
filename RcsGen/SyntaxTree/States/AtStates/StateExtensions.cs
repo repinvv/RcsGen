@@ -4,6 +4,7 @@ namespace RcsGen.SyntaxTree.States.AtStates
 {
     using System;
     using System.Linq;
+    using RcsGen.SyntaxTree.Nodes;
 
     internal static class StateExtensions
     {
@@ -23,5 +24,8 @@ namespace RcsGen.SyntaxTree.States.AtStates
                 .Select(x => new Tuple<string, string>(x[0], x[1]))
                 .ToList();
         }
+
+        public static bool HasEol(this NodeStore nodes) 
+            => nodes.Nodes.Any(x => x.NodeType == NodeType.Eol || x.NodeType == NodeType.ForceEol);
     }
 }

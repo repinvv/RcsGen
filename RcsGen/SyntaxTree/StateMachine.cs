@@ -11,7 +11,7 @@
 
         public StateMachine()
         {
-            State = new DocumentState(this, nodes);
+            State = new DocumentState(this, nodes, null);
         }
 
         public Document Document => new Document(nodes);
@@ -20,9 +20,6 @@
 
         public void ProcessToken(string token) => State.ProcessToken(token);
 
-        public void Finish()
-        {
-            State.Finish();
-        }
+        public void Finish() => State.Finish();
     }
 }

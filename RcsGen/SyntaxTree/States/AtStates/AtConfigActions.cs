@@ -5,7 +5,7 @@
     using System.Linq;
     using RcsGen.SyntaxTree.Nodes;
     using RcsGen.SyntaxTree.Nodes.ConfigNodes;
-    using RcsGen.SyntaxTree.States.AtStates.ConfigStates;
+    using RcsGen.SyntaxTree.States.AtStates.Expect;
     using static RcsGen.SyntaxTree.States.BracketStates.BracketStateFactory;
 
     internal class AtConfigActions
@@ -49,11 +49,9 @@
         private void CreateConstructorNode(string content) 
             => nodes.Add(new ConstructorParametersNode(content.CreateParameters()));
 
-        public void Previous() => stateMachine.State = previous;
-
         public void GotoConstructor() => stateMachine
             .ExpectAtSameLine("(", previous)
-            .SuccessState = new Unexpected(Previous, "\n")
+            .SuccessState = new Unexpected(stateMachine, previous, "\n")
                 .State = new ContentState(stateMachine, ")", CreateConstructorNode, previous);
 
         private void CreateMemberNode(string content) => nodes.Add(new MemberNode(content));

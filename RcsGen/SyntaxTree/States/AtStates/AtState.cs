@@ -6,11 +6,13 @@
 
     internal class AtState : IState
     {
+        private readonly IState previous;
         private readonly AtActions actions;
         private readonly Dictionary<string, Action<string>> actionsDict;
 
         public AtState(StateMachine stateMachine, IState previous, NodeStore nodes)
         {
+            this.previous = previous;
             actions = new AtActions(stateMachine, previous, nodes);
             actionsDict = new Dictionary<string, Action<string>>
                           {
@@ -29,6 +31,7 @@
                               { "*", t => actions.GotoComment() },
                               { "(", t => actions.GotoExplicitWriteExpression() },
                               { "[", t => actions.GotoPartial() },
+                              { KeywordConstants.Newline, t => actions.CreateNewLine() },
                               { KeywordConstants.If, t => actions.GotoIf() },
                               { KeywordConstants.For, actions.GotoFor },
                               { KeywordConstants.Foreach, actions.GotoFor },
@@ -41,6 +44,6 @@
             action(token);
         }
 
-        public void Finish() { }
+        public void Finish() => previous.Finish();
     }
 }

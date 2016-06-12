@@ -10,6 +10,8 @@
 
         public const string Foreach = "foreach";
 
+        public const string Newline = "newline";
+
         public static class Config
         {
             public const string Inherits = "inherits";
@@ -24,7 +26,7 @@
 
             public const string Member = "member";
 
-            public const string PartialPattern = "partialPattern";
+            public const string PartialPattern = "partialpattern";
         }
     }
 }

@@ -12,8 +12,11 @@
         private readonly Action returnAction;
         int lastEol;
 
-        public MultiLineChildNodesState(StateMachine stateMachine, NodeStore nodes, Action returnAction) 
-            : base(nodes)
+        public MultiLineChildNodesState(StateMachine stateMachine, 
+            NodeStore nodes,
+            Action returnAction,
+            IState stateToFinish) 
+            : base(nodes, stateToFinish)
         {
             this.stateMachine = stateMachine;
             this.returnAction = returnAction;

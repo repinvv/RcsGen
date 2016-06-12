@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using RcsGen.SyntaxTree.Nodes;
+    using RcsGen.SyntaxTree.States.AtStates.Expect;
     using RcsGen.SyntaxTree.States.AtStates.ForStates;
     using RcsGen.SyntaxTree.States.AtStates.IfStates;
     using static RcsGen.SyntaxTree.States.BracketStates.BracketStateFactory;
@@ -49,10 +50,8 @@
             nodes.Add(new Node(NodeType.Eol));
             stateMachine.State = previous;
         }
-
-        public void Previous() => stateMachine.State = previous;
-
-        public void GotoComment() => stateMachine.State = new CommentState(Previous);
+        
+        public void GotoComment() => stateMachine.State = new CommentState(stateMachine, previous);
 
         public void GotoIf()
             => stateMachine
@@ -76,5 +75,7 @@
 
         public void GotoPartial() 
             => stateMachine.State = new ContentState(stateMachine, "]", CreatePartialNode, previous, AllBrackets);
+
+        public void CreateNewLine() => nodes.Add(new Node(NodeType.ForceEol));
     }
 }

@@ -4,11 +4,12 @@
 
     internal static class UsingsGenerator
     {
-        private static readonly string[] usings = new[]
-                                   {
-                                               "System",
-                                               "System.Text"
-                                           };
+        private static readonly string[] usings =
+        {
+            "System",
+            "System.Text",
+            "System.Linq"
+        };
 
         public static void GenerateUsings(this StringGenerator sg, Config config)
         {

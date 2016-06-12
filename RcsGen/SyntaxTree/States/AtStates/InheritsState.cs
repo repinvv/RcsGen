@@ -1,9 +1,7 @@
-﻿namespace RcsGen.SyntaxTree.States.AtStates.ConfigStates
+﻿namespace RcsGen.SyntaxTree.States.AtStates
 {
-    using System;
-    using System.Collections.Generic;
-    using RcsGen.SyntaxTree.Nodes;
     using RcsGen.SyntaxTree.Nodes.ConfigNodes;
+    using RcsGen.SyntaxTree.States.AtStates.Expect;
 
     internal class InheritsState : AccumulatingState
     {
@@ -49,7 +47,7 @@
         }
 
         private IState CreateContentState()
-            => new Unexpected(() => stateMachine.State = previous, "\n")
+            => new Unexpected(stateMachine, previous, "\n")
                {
                    State = new ContentState(stateMachine, ")", CreateNode, previous)
                };

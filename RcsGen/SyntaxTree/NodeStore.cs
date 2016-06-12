@@ -22,7 +22,7 @@
             spaces = lineStart &&
                      node.NodeType == NodeType.Literal &&
                      string.IsNullOrWhiteSpace(((ContentNode)node).Content);
-            lineStart = node.NodeType == NodeType.Eol;
+            lineStart = node.NodeType == NodeType.Eol || node.NodeType == NodeType.ForceEol;
             nodes.Add(node);
         }
     }

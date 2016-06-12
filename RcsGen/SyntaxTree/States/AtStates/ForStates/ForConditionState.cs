@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using RcsGen.SyntaxTree.Nodes;
+    using RcsGen.SyntaxTree.States.AtStates.Expect;
     using RcsGen.SyntaxTree.States.BracketStates;
     using RcsGen.SyntaxTree.States.NodesStates;
 
@@ -13,16 +14,18 @@
         private readonly string keyword;
         private readonly NodeStore nodes;
         private readonly BracketStateFactory factory;
+        private NodeStore childNodes;
 
-        public ForConditionState(StateMachine stateMachine, 
-            IState previous, 
-            string keyword, 
+        public ForConditionState(StateMachine stateMachine,
+            IState previous,
+            string keyword,
             NodeStore nodes)
         {
             this.stateMachine = stateMachine;
             this.previous = previous;
             this.keyword = keyword;
             this.nodes = nodes;
+            this.childNodes = new NodeStore();
             factory = new BracketStateFactory(stateMachine, this, BracketStateFactory.AllBrackets);
         }
 
@@ -35,20 +38,26 @@
                 return;
             }
 
-            var childNodes = new NodeStore();
             stateMachine
                 .Expect("{", previous)
-                .SuccessState = new SingleLineChildNodesState(stateMachine, childNodes)
-                                {
-                                    ReturnAction = () =>
-                                    {
-                                        var hasEol = childNodes.Nodes.Any(x => x.NodeType == NodeType.Eol);
-                                        nodes.Add(new ForNode(keyword, Accumulated, childNodes), hasEol);
-                                        stateMachine.State = previous;
-                                    }
-                                };
+                .SuccessState
+                = new SingleLineChildNodesState(stateMachine, childNodes, this)
+                {
+                    ReturnAction = CreateNode
+                };
         }
 
-        public override void Finish() { }
+        private void CreateNode()
+        {
+            var hasEol = childNodes.HasEol();
+            nodes.Add(new ForNode(keyword, Accumulated, childNodes), hasEol);
+            stateMachine.State = previous;
+        }
+
+        public override void Finish()
+        {
+            CreateNode();
+            previous.Finish();
+        }
     }
 }

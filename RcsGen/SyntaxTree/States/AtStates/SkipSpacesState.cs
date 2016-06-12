@@ -1,4 +1,4 @@
-﻿namespace RcsGen.SyntaxTree.States.AtStates.ConfigStates
+﻿namespace RcsGen.SyntaxTree.States.AtStates
 {
     internal class SkipSpacesState : IState
     {
@@ -22,6 +22,6 @@
             state.ProcessToken(token);
         }
 
-        public void Finish() { }
+        public void Finish() => state.Finish();
     }
 }

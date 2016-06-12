@@ -5,11 +5,13 @@
 
     internal class Unexpected : IState
     {
-        private readonly Action reject;
+        private readonly StateMachine stateMachine;
+        private readonly IState reject;
         private readonly string[] unexpected;
 
-        public Unexpected(Action reject, params string[] unexpected)
+        public Unexpected(StateMachine stateMachine, IState reject, params string[] unexpected)
         {
+            this.stateMachine = stateMachine;
             this.reject = reject;
             this.unexpected = unexpected;
         }
@@ -20,7 +22,7 @@
         {
             if (unexpected.Contains(token))
             {
-                reject();
+                stateMachine.State = reject;
             }
             else
             {
@@ -28,6 +30,6 @@
             }
         }
 
-        public void Finish() => State.Finish();
+        public void Finish() => reject.Finish();
     }
 }

@@ -11,6 +11,7 @@
         If,
         For,
         Space,
-        Eol
+        Eol,
+        ForceEol
     }
 }

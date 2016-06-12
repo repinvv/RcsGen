@@ -1,4 +1,4 @@
-﻿namespace RcsGen.SyntaxTree.States.AtStates
+﻿namespace RcsGen.SyntaxTree.States.AtStates.Expect
 {
     internal class ExpectAtSameLineState : AccumulatingState
     {
@@ -31,18 +31,24 @@
                     break;
                 default:
                     Accumulate(token);
-                    Finish();
+                    Reject();
                     break;
             }
         }
 
-        public override void Finish()
+        private void Reject()
         {
             stateMachine.State = rejectState;
             foreach (var t in tokens)
             {
                 stateMachine.ProcessToken(t);
             }
+        }
+
+        public override void Finish()
+        {
+            Reject();
+            rejectState.Finish();
         }
     }
 }

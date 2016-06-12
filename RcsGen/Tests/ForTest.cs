@@ -21,6 +21,16 @@
         string source5 = @"@for (smth) {
     smthMore}
     }";
+        string unclosed = @"@for(smth){
+    smthMore}
+    @if(smthelse(){234}
+}
+";
+        string unclosed2 = @"@for(smth){
+    smthMore}
+    @if(smthelse()){234
+
+";
 
         [TestMethod]
         public void EnclosedOneLineFor()
@@ -94,6 +104,34 @@
             Assert.AreEqual(NodeType.For, forNode.NodeType);
             Assert.AreEqual("for", forNode.Keyword);
             Assert.AreEqual("smth", forNode.Condition);
+        }
+
+        [TestMethod]
+        public void UnclosedIfCondition()
+        {
+            var node = Parser.Parse(unclosed);
+            Assert.AreEqual(1, node.Nodes.Nodes.Count);
+            var forNode = (ForNode)node.Nodes.Nodes[0];
+            TestForNode(forNode);
+
+            var childNode = (ContentNode)forNode.ChildNodes.Nodes[0];
+            Assert.AreEqual(NodeType.Literal, childNode.NodeType);
+            Assert.AreEqual("    smthMore}", childNode.Content);
+            Assert.AreEqual(NodeType.Eol, forNode.ChildNodes.Nodes[1].NodeType);
+        }
+
+        [TestMethod]
+        public void UnclosedIfContent()
+        {
+            var node = Parser.Parse(unclosed2);
+            Assert.AreEqual(1, node.Nodes.Nodes.Count);
+            var forNode = (ForNode)node.Nodes.Nodes[0];
+            TestForNode(forNode);
+
+            var childNode = (ContentNode)forNode.ChildNodes.Nodes[0];
+            Assert.AreEqual(NodeType.Literal, childNode.NodeType);
+            Assert.AreEqual("    smthMore}", childNode.Content);
+            Assert.AreEqual(NodeType.Eol, forNode.ChildNodes.Nodes[1].NodeType);
         }
     }
 }

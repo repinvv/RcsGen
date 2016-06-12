@@ -29,7 +29,7 @@
         {
             if (token == closing)
             {
-                Finish();
+                close(Accumulated);
                 stateMachine.State = closingState;
                 return;
             }
@@ -41,6 +41,7 @@
         public override void Finish()
         {
             close(Accumulated);
+            closingState.Finish();
         }
     }
 }

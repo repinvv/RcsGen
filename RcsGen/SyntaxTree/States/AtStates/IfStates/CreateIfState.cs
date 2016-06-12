@@ -27,15 +27,21 @@ namespace RcsGen.SyntaxTree.States.AtStates.IfStates
 
         public void ProcessToken(string token)
         {
-            Finish();
+            CreateIf();
             previous.ProcessToken(token);
+        }
+
+        private void CreateIf()
+        {
+            var hasEol = ifNodes.HasEol();
+            parentNodes.Add(new IfNode(condition, ifNodes), hasEol);
+            stateMachine.State = previous;
         }
 
         public void Finish()
         {
-            var hasEol = ifNodes.Nodes.Any(x => x.NodeType == NodeType.Eol);
-            parentNodes.Add(new IfNode(condition, ifNodes), hasEol);
-            stateMachine.State = previous;
+            CreateIf();
+            previous.Finish();
         }
     }
 }

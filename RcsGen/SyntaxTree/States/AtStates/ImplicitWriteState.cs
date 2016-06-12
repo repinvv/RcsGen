@@ -35,12 +35,12 @@
                 case ",":
                 case "\t":
                 case "=":
-                    Finish();
+                    CreateNode();
                     stateMachine.State = previous;
                     previous.ProcessToken(token);
                     break;
                 case "\n":
-                    Finish();
+                    CreateNode();
                     nodes.Add(new Node(NodeType.Eol));
                     stateMachine.State = previous;
                     break;
@@ -49,13 +49,15 @@
                     factory.TryBracket(token);
                     break;
             }
-
-
         }
+
+        private void CreateNode() 
+            => nodes.Add(new ContentNode(Accumulated, NodeType.WriteExpression));
 
         public override void Finish()
         {
-            nodes.Add(new ContentNode(Accumulated, NodeType.WriteExpression));
+            CreateNode();
+            previous.Finish();  
         }
     }
 }

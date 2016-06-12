@@ -6,19 +6,22 @@
     [TestClass]
     public class ManualTest
     {
-        string source = @"@using Models System.Collections.Generic
-@visibility internal 
-@inherits TemplateBase<List<EntityModel>>
-@member{public string FileName { get; set; }}
-@{FileName = Options.ContextName;}
-namespace @Options.OutputNamespace
-{
-    using LinqToDB;
+        string source = @"@visibility internal
+@inherits FileGenerator
+@using StormGenerator.Models StormGenerator.Settings GeneratorHelpers
+@constructor(GenOptions options, EntityModel model)
+@member{public override string FileName => model.Name + "".main"";}
 
-    public partial class @Options.ContextName
-	{
-    @foreach(var model in Model){@Resolve.With(model).Run<ContextTableLine>()}
-	}	
+namespace @model.GetModelNamespace(options)
+{
+    @options.Visibility partial class @model.Name
+    {
+      @foreach(var field in model.Model.Fields)
+      {
+        @[ModelField(field, options)]
+        @if(!field.Equals(model.Model.Fields.Last())){@newline}
+      }
+    }
 }
 ";
         [TestMethod]

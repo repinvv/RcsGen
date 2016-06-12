@@ -4,12 +4,14 @@
 
     internal class CommentState : IState
     {
-        private readonly Action back;
+        private readonly StateMachine stateMachine;
+        private readonly IState previous;
         bool starred;
 
-        public CommentState(Action back)
+        public CommentState(StateMachine stateMachine, IState previous)
         {
-            this.back = back;
+            this.stateMachine = stateMachine;
+            this.previous = previous;
         }
 
         public void ProcessToken(string token)
@@ -22,7 +24,7 @@
                 case "@":
                     if (starred)
                     {
-                        back();
+                        stateMachine.State = previous;
                     }
 
                     break;
@@ -32,6 +34,6 @@
             }
         }
 
-        public void Finish() { }
+        public void Finish() => previous.Finish();
     }
 }

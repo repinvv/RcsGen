@@ -1,4 +1,4 @@
-﻿namespace RcsGen.SyntaxTree.States.AtStates
+﻿namespace RcsGen.SyntaxTree.States.AtStates.Expect
 {
     internal static class ExpectExtension
     {

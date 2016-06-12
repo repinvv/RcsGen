@@ -4,6 +4,7 @@ using RcsGen.SyntaxTree.Nodes;
 namespace RcsGen.SyntaxTree.States.AtStates.IfStates
 {
     using System.Linq;
+    using RcsGen.SyntaxTree.States.AtStates.Expect;
     using RcsGen.SyntaxTree.States.NodesStates;
 
     internal class ElseState : IState
@@ -14,6 +15,7 @@ namespace RcsGen.SyntaxTree.States.AtStates.IfStates
         private readonly IState ifState;
         private readonly IState previous;
         private readonly StateMachine stateMachine;
+        private readonly NodeStore elseNodes;
 
         public ElseState(StateMachine stateMachine,
             string condition, NodeStore ifNodes, NodeStore parentNodes, IState ifState, IState previous)
@@ -24,26 +26,31 @@ namespace RcsGen.SyntaxTree.States.AtStates.IfStates
             this.parentNodes = parentNodes;
             this.ifState = ifState;
             this.previous = previous;
+            this.elseNodes = new NodeStore();
         }
 
         public void ProcessToken(string token)
         {
-            var elseNodes = new NodeStore();
             stateMachine
                 .Expect("{", ifState)
-                .SuccessState = new SingleLineChildNodesState(stateMachine, elseNodes)
+                .SuccessState = new SingleLineChildNodesState(stateMachine, elseNodes, previous)
                 {
-                    ReturnAction = () =>
-                    {
-                        var hasEol = ifNodes.Nodes.Any(x => x.NodeType == NodeType.Eol);
-                        hasEol |= elseNodes.Nodes.Any(x => x.NodeType == NodeType.Eol);
-                        parentNodes.Add(new IfNode(condition, ifNodes, elseNodes), hasEol);
-                        stateMachine.State = previous;
-                    }
+                    ReturnAction = CreateNode
                 };
             stateMachine.ProcessToken(token);
         }
 
-        public void Finish() { }
+        private void CreateNode()
+        {
+            var hasEol = ifNodes.HasEol() || elseNodes.HasEol();
+            parentNodes.Add(new IfNode(condition, ifNodes, elseNodes), hasEol);
+            stateMachine.State = previous;
+        }
+
+        public void Finish()
+        {
+            CreateNode();
+            previous.Finish();
+        }
     }
 }

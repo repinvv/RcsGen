@@ -1,17 +1,20 @@
 ﻿namespace RcsGen.SyntaxTree.States.NodesStates
 {
     using System;
-    using System.Collections.Generic;
-    using RcsGen.SyntaxTree.Nodes;
     using RcsGen.SyntaxTree.States.AtStates;
 
     internal class SingleLineChildNodesState : NodesState
     {
         private readonly StateMachine stateMachine;
+        private readonly IState stateToFinish;
 
-        public SingleLineChildNodesState(StateMachine stateMachine, NodeStore nodes) : base(nodes)
+        public SingleLineChildNodesState(StateMachine stateMachine,
+            NodeStore nodes,
+            IState stateToFinish) 
+            : base(nodes, stateToFinish)
         {
             this.stateMachine = stateMachine;
+            this.stateToFinish = stateToFinish;
         }
 
         public Action ReturnAction { get; set; }
@@ -30,7 +33,11 @@
                     break;
                 case "\n":
                     AddAccumulatedWithEol();
-                    stateMachine.State = new MultiLineChildNodesState(stateMachine, nodes, ReturnAction);
+                    stateMachine
+                        .State = new MultiLineChildNodesState(stateMachine,
+                                                              nodes,
+                                                              ReturnAction,
+                                                              stateToFinish);
                     break;
                 default:
                     Accumulate(token);

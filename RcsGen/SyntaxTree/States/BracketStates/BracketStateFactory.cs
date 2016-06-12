@@ -27,9 +27,9 @@
 
             switch (token)
             {
-                case "@":
-                    stateMachine.State = new AtBracketState(stateMachine, state);
-                    return true;
+                //case "@":
+                //    stateMachine.State = new AtBracketState(stateMachine, state);
+                //    return true;
                 case "<":
                     stateMachine.State = new GenericBracketState(stateMachine, state);
                     return true;

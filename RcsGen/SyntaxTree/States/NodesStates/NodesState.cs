@@ -8,10 +8,12 @@
     internal abstract class NodesState : AccumulatingState
     {
         protected readonly NodeStore nodes;
+        private readonly IState stateToFinish;
 
-        protected NodesState(NodeStore nodes)
+        protected NodesState(NodeStore nodes, IState stateToFinish)
         {
             this.nodes = nodes;
+            this.stateToFinish = stateToFinish;
         }
 
         protected void AddAccumulated()
@@ -52,13 +54,15 @@
         private bool NodesHaveContent()
         {
             return nodes.Nodes.Any() 
-                && nodes.Nodes.Last().NodeType != NodeType.Eol 
+                && nodes.Nodes.Last().NodeType != NodeType.Eol
+                && nodes.Nodes.Last().NodeType != NodeType.ForceEol
                 && nodes.Nodes.Last().NodeType != NodeType.Config;
         }
 
         public override void Finish()
         {
             AddAccumulated();
+            stateToFinish?.Finish();
         }
     }
 }
