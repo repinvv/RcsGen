@@ -28,7 +28,9 @@
 
         public static bool IsSuppressionNode(this Node node)
         {
-            if (node.NodeType == NodeType.CodeExpression || node.IsMultiline())
+            if (node.NodeType == NodeType.CodeExpression 
+                || node.NodeType == NodeType.ForceEol
+                || node.IsMultiline())
             {
                 return true;
             }

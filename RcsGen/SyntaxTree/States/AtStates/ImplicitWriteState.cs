@@ -16,7 +16,7 @@
             this.nodes = nodes;
             this.stateMachine = stateMachine;
             this.previous = previous;
-            factory = new BracketStateFactory(stateMachine, this, "(", "<");
+            factory = new BracketStateFactory(stateMachine, this, "(", "<", "[");
         }
 
         public override void ProcessToken(string token)

@@ -121,6 +121,7 @@
     <Compile Include="SyntaxTree\States\NodesStates\NodesState.cs" />
     <Compile Include="SyntaxTree\States\NodesStates\SingleLineChildNodesState.cs" />
     <Compile Include="SyntaxTree\Tokenizer.cs" />
+    <Compile Include="Tests\BracketTest.cs" />
     <Compile Include="Tests\CascadedForTest.cs" />
     <Compile Include="Tests\CommentTest.cs" />
     <Compile Include="Tests\ConfigInheritsTest.cs" />
