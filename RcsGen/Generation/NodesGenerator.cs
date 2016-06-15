@@ -62,26 +62,25 @@
         {
             foreach (var line in nodes.GroupLines())
             {
-                if (ShouldSuppressEmptyEntries(line))
+                var resultline = ShouldSuppressEmptyEntries(line) 
+                    ? line.Where(x => !x.IsSuppressed()) 
+                    : line;
+
+                foreach (var node in resultline)
                 {
-                    foreach (var node in line.Where(x=>!x.IsSuppressed()))
-                    {
-                        sg.GenerateNode(node, config);
-                    }
-                }
-                else
-                {
-                    foreach (var node in line)
-                    {
-                        sg.GenerateNode(node, config);
-                    }
+                    sg.GenerateNode(node, config);
                 }
             }
         }
 
+        private static bool IsEmpty(List<Node> line)
+        {
+            return line.All(x => x.IsSuppressed());
+        }
+
         private static bool ShouldSuppressEmptyEntries(List<Node> line)
         {
-            return line.Any(x=>x.IsSuppressionNode());
+            return line.Any(x => x.IsSuppressionNode());
         }
     }
 }

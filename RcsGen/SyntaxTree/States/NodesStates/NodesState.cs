@@ -30,18 +30,22 @@
         protected void AddAccumulatedWithEol()
         {
             AddAccumulated();
-            if (!nodes.Nodes.Any())
+            if (!HaveContent())
             {
                 return;
             }
 
             var last = nodes.Nodes.Last();
-            if (last.NodeType != NodeType.Eol
-                && last.NodeType != NodeType.ForceEol
+            if (last.NodeType != NodeType.ForceEol
                 && last.NodeType != NodeType.Config)
             {
                 nodes.Add(new Node(NodeType.Eol));
             }
+        }
+
+        protected bool HaveContent()
+        {
+            return nodes.Nodes.Any(x => x.NodeType != NodeType.Config);
         }
 
         public override void Finish()
