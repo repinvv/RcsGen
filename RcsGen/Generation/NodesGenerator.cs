@@ -2,7 +2,6 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-    using RcsGen.SyntaxTree;
     using RcsGen.SyntaxTree.Nodes;
 
     internal static class NodesGenerator
@@ -80,7 +79,10 @@
 
         private static bool ShouldSuppressEmptyEntries(List<Node> line)
         {
-            return line.Any(x => x.IsSuppressionNode());
+            return line.Any(x => x.IsSuppressionNode()) ||
+                   (line.Count == 2
+                    && line[0].NodeType == NodeType.Partial
+                    && line[1].NodeType == NodeType.Eol);
         }
     }
 }

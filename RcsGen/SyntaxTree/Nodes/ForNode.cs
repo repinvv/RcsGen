@@ -1,7 +1,5 @@
 ﻿namespace RcsGen.SyntaxTree.Nodes
 {
-    using System.Collections.Generic;
-
     internal class ForNode : Node
     {
         public ForNode(string keyword, string condition, NodeStore childNodes) : base(NodeType.For)

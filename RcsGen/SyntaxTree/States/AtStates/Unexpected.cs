@@ -1,6 +1,5 @@
 ﻿namespace RcsGen.SyntaxTree.States.AtStates
 {
-    using System;
     using System.Linq;
 
     internal class Unexpected : IState

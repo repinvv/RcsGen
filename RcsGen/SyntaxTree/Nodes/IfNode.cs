@@ -1,7 +1,5 @@
 ﻿namespace RcsGen.SyntaxTree.Nodes
 {
-    using System.Collections.Generic;
-
     internal class IfNode : Node
     {
         public IfNode(string condition, NodeStore ifNodes) : base(NodeType.If)

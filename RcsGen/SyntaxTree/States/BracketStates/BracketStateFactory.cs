@@ -1,6 +1,5 @@
 ﻿namespace RcsGen.SyntaxTree.States.BracketStates
 {
-    using System.Collections.Generic;
     using System.Linq;
 
     internal class BracketStateFactory

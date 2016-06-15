@@ -3,7 +3,6 @@
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using RcsGen.SyntaxTree;
     using RcsGen.SyntaxTree.Nodes;
-    using RcsGen.SyntaxTree.Nodes.ConfigNodes;
 
     [TestClass]
     public class ForceEolTest

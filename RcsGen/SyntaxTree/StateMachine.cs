@@ -1,6 +1,5 @@
 ﻿namespace RcsGen.SyntaxTree
 {
-    using System.Collections.Generic;
     using RcsGen.SyntaxTree.Nodes;
     using RcsGen.SyntaxTree.States;
     using RcsGen.SyntaxTree.States.NodesStates;

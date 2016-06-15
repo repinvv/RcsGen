@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using RcsGen.SyntaxTree.Nodes;
 
     internal class AtConfigState : IState
     {

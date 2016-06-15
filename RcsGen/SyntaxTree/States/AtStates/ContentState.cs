@@ -1,7 +1,6 @@
 ﻿namespace RcsGen.SyntaxTree.States.AtStates
 {
     using System;
-    using System.Linq;
     using RcsGen.SyntaxTree.States.BracketStates;
 
     internal class ContentState : AccumulatingState

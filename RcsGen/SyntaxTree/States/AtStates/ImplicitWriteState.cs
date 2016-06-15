@@ -1,6 +1,5 @@
 ﻿namespace RcsGen.SyntaxTree.States.AtStates
 {
-    using System.Collections.Generic;
     using RcsGen.SyntaxTree.Nodes;
     using RcsGen.SyntaxTree.States.BracketStates;
 

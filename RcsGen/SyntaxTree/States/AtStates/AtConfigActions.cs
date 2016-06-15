@@ -1,9 +1,7 @@
 ﻿namespace RcsGen.SyntaxTree.States.AtStates
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
-    using RcsGen.SyntaxTree.Nodes;
     using RcsGen.SyntaxTree.Nodes.ConfigNodes;
     using RcsGen.SyntaxTree.States.AtStates.Expect;
     using static RcsGen.SyntaxTree.States.BracketStates.BracketStateFactory;

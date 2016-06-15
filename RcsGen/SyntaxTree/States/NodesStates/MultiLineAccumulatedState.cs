@@ -1,9 +1,6 @@
 ﻿namespace RcsGen.SyntaxTree.States.NodesStates
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using RcsGen.SyntaxTree.Nodes;
     using RcsGen.SyntaxTree.States.AtStates;
 
     internal class MultiLineChildNodesState : NodesState

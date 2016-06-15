@@ -1,6 +1,5 @@
 ﻿namespace RcsGen.Tests
 {
-    using System.Linq;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using RcsGen.SyntaxTree;
     using RcsGen.SyntaxTree.Nodes;

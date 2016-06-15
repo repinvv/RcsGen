@@ -1,7 +1,6 @@
 ﻿namespace RcsGen.Tests
 {
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using RcsGen.SyntaxTree;
 
     [TestClass]
     public class ManualTest

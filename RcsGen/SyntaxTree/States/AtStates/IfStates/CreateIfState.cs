@@ -1,10 +1,7 @@
-﻿using System.Collections.Generic;
-using RcsGen.SyntaxTree.Nodes;
+﻿using RcsGen.SyntaxTree.Nodes;
 
 namespace RcsGen.SyntaxTree.States.AtStates.IfStates
 {
-    using System.Linq;
-
     internal class CreateIfState : IState
     {
         private readonly StateMachine stateMachine;

@@ -1,6 +1,5 @@
 ﻿namespace RcsGen.SyntaxTree
 {
-    using System.Linq;
     using RcsGen.SyntaxTree.Nodes;
 
     internal static class Parser

@@ -1,7 +1,5 @@
 ﻿namespace RcsGen.SyntaxTree.States
 {
-    using System;
-
     internal class CommentState : IState
     {
         private readonly StateMachine stateMachine;
