@@ -12,7 +12,7 @@
             {
                 case NodeType.Literal:
                     var content = (ContentNode)node;
-                    sg.AppendLine($"WriteLiteral(\"{content.Content}\");");
+                    sg.AppendLine($"WriteLiteral(@\"{content.Content.Replace("\"", "\"\"")}\");");
                     break;
                 case NodeType.ForceEol:
                     sg.AppendLine("WriteLiteral(Environment.NewLine);");

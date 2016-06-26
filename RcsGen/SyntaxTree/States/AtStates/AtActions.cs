@@ -37,10 +37,16 @@
         public void GotoExplicitWriteExpression() => stateMachine
             .State = new ContentState(stateMachine, ")", CreateWriteExpression, previous, "<", "(");
 
-        public void SkipAtAndReenterToken(string token)
+        public void ReturnAndReenterToken(string token)
         {
             stateMachine.State = previous;
             previous.ProcessToken(token);
+        }
+
+        public void CreateLiteralAndReenterToken(string token)
+        {
+            nodes.Add(new ContentNode("@", NodeType.Literal));
+            ReturnAndReenterToken(token);
         }
 
         public void CreateAtTokenWithEol()

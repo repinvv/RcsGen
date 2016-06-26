@@ -34,6 +34,7 @@
                 case ",":
                 case "\t":
                 case "=":
+                case ":":
                     CreateNode();
                     stateMachine.State = previous;
                     previous.ProcessToken(token);
