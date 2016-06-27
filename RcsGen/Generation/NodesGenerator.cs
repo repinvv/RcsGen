@@ -1,5 +1,6 @@
 ﻿namespace RcsGen.Generation
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using RcsGen.SyntaxTree.Nodes;
@@ -42,7 +43,7 @@
                     sg.Braces(x => x.GenerateNodes(ifNode.ElseNodes.Nodes, config));
                     break;
                 case NodeType.CodeExpression:
-                    sg.AppendLine(((ContentNode)node).Content);
+                    sg.AppendLine(((ContentNode)node).Content.Replace("\n", Environment.NewLine));
                     break;
                 case NodeType.Partial:
                     sg.AppendLine($"Write({string.Format(config.PartialPattern, ((ContentNode)node).Content)});");

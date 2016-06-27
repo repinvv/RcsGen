@@ -16,13 +16,14 @@
             '\n', ' ',
             '*', ',',
             ';', ':',
-            '\t', '='
+            '='
         };
 
         public static List<string> GetTokens(string source)
         {
             source = source.Replace("\r\n", "\n")
-                           .Replace("\r", "\n");
+                           .Replace("\r", "\n")
+                           .Replace("\t", "    ");
             var tokens = new List<string>();
             var chars = new List<char>();
             foreach (var ch in source)
