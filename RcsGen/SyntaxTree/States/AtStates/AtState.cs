@@ -18,7 +18,6 @@
                               { "@", actions.CreateLiteral },
                               { "\"", actions.CreateLiteralAndReenterToken },
                               { " ", actions.ReturnAndReenterToken },
-                              { "\t", actions.ReturnAndReenterToken },
                               { "<", actions.ReturnAndReenterToken },
                               { ">", actions.ReturnAndReenterToken },
                               { "]", actions.ReturnAndReenterToken },

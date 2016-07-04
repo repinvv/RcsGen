@@ -2,6 +2,8 @@
 {
     using System;
     using System.Linq;
+    using System.Text.RegularExpressions;
+    using RcsGen.SyntaxTree.Nodes;
     using RcsGen.SyntaxTree.Nodes.ConfigNodes;
     using RcsGen.SyntaxTree.States.AtStates.Expect;
     using static RcsGen.SyntaxTree.States.BracketStates.BracketStateFactory;
@@ -21,12 +23,31 @@
         }
 
         public void GotoInherits() => stateMachine
-            .State = new SkipSpacesState(stateMachine, new InheritsState(stateMachine, previous, nodes));
+             .State = new ContentState(stateMachine, "\n", CreateInheritsNode, previous);
 
         private void CreateUsingNode(string content) => nodes.Add(new UsingNode(content.SplitBySpace()));
 
         public void GotoUsing() => stateMachine
             .State = new ContentState(stateMachine, "\n", CreateUsingNode, previous);
+
+        private void CreateInheritsNode(string content)
+        {
+            var trimmed = content.Trim();
+            if(trimmed == string.Empty) return;
+
+            if (!trimmed.Contains("("))
+            {
+                nodes.Add(new InheritsNode(trimmed.Split(' ').First()));
+                return;
+            }
+
+            var regex = new Regex(@"([^\)]*)\(([^\)]*)\)");
+            var match = regex.Match(trimmed);
+            if (!match.Success) return;
+            var baseClass = match.Groups[1].Value.Trim();
+            var parameters = match.Groups[2].Value.Trim().CreateParameters();
+            nodes.Add(new InheritsNode(baseClass, parameters));
+        }
 
         private void CreateVisibilityNode(string content)
         {
@@ -44,13 +65,17 @@
         public void GotoImplements() => stateMachine
             .State = new ContentState(stateMachine, "\n", CreateImplementsNode, previous);
 
-        private void CreateConstructorNode(string content) 
-            => nodes.Add(new ConstructorParametersNode(content.CreateParameters()));
+        private void CreateConstructorNode(string content)
+       {
+            var regex = new Regex(@"[^\)]*\(([^\)]*)\)");
+            var match = regex.Match(content);
+            if (!match.Success) return;
+            var parameters = match.Groups[1].Value.Trim().CreateParameters();
+            nodes.Add(new ConstructorParametersNode(parameters));
+        }
 
         public void GotoConstructor() => stateMachine
-            .ExpectAtSameLine("(", previous)
-            .SuccessState = new Unexpected(stateMachine, previous, "\n")
-                .State = new ContentState(stateMachine, ")", CreateConstructorNode, previous);
+            .State = new ContentState(stateMachine, "\n", CreateConstructorNode, previous);
 
         private void CreateMemberNode(string content) => nodes.Add(new MemberNode(content));
 

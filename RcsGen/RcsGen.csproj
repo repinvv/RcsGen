@@ -89,7 +89,6 @@
     <Compile Include="SyntaxTree\States\AtStates\AtConfigActions.cs" />
     <Compile Include="SyntaxTree\States\AtStates\AtConfigState.cs" />
     <Compile Include="SyntaxTree\States\AtStates\AtState.cs" />
-    <Compile Include="SyntaxTree\States\AtStates\InheritsState.cs" />
     <Compile Include="SyntaxTree\States\AtStates\SkipSpacesState.cs" />
     <Compile Include="SyntaxTree\States\AtStates\ContentState.cs" />
     <Compile Include="SyntaxTree\States\AtStates\Expect\ExpectAtSameLineState.cs" />
@@ -102,7 +101,6 @@
     <Compile Include="SyntaxTree\States\AtStates\ImplicitWriteState.cs" />
     <Compile Include="SyntaxTree\States\AtStates\AtActions.cs" />
     <Compile Include="SyntaxTree\States\StateExtensions.cs" />
-    <Compile Include="SyntaxTree\States\AtStates\Unexpected.cs" />
     <Compile Include="SyntaxTree\States\BracketStates\ApostropheBracketState.cs" />
     <Compile Include="SyntaxTree\States\BracketStates\AtBracketState.cs" />
     <Compile Include="SyntaxTree\States\BracketStates\BracketState.cs" />

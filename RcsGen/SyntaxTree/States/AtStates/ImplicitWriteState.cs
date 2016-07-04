@@ -32,7 +32,6 @@
                 case ">":
                 case ";":
                 case ",":
-                case "\t":
                 case "=":
                 case ":":
                     CreateNode();

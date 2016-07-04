@@ -27,7 +27,6 @@
             {
                 case " ":
                 case "\n":
-                case "\t":
                     Accumulate(token);
                     break;
                 default:

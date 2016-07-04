@@ -28,7 +28,14 @@
 
         protected void AddAccumulatedWithEol()
         {
+            if (!HaveContent() && string.IsNullOrWhiteSpace(Accumulated))
+            {
+                Clear();
+                return;
+            }
+
             AddAccumulated();
+
             if (!HaveContent())
             {
                 return;

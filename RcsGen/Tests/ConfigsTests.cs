@@ -17,7 +17,7 @@
         string visibility = @"@visibility internal
 ";
 
-        string member = @"@member{public override string FileName { get; set; }}
+        string member = @"@member{public override string FileName { get; set; }}   
 ";
 
         [TestMethod]

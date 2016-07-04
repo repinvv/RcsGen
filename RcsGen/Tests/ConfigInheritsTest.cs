@@ -10,15 +10,15 @@
     [TestClass]
     public class ConfigInheritsTest
     {
-        string inherits = @"@inherits SomeClass
+        string inherits = @"@inherits SomeClass   
 ";
         string inheritsWithParams = @"@inherits SomeClass(MyClass myClass, OtherClass otherClass)
 ";
-        string inheritsWithParams2 = @"@inherits SomeClass (MyClass myClass, OtherClass otherClass)
+        string inheritsWithParams2 = @"@inherits SomeClass(MyClass myClass, OtherClass otherClass)    
 ";
         string constructorParams = @"@constructor(MyClass myClass, OtherClass otherClass)
 ";
-        string constructorParams2 = @"@constructor (MyClass myClass, OtherClass otherClass)
+        string constructorParams2 = @"@constructor (MyClass myClass, OtherClass otherClass)   
 ";
 
         [TestMethod]

@@ -13,7 +13,7 @@
 
         public void ProcessToken(string token)
         {
-            if (token == " " || token == "\t")
+            if (token == " ")
             {
                 return;
             }

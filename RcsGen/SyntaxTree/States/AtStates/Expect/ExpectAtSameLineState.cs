@@ -26,7 +26,6 @@
             switch (token)
             {
                 case " ":
-                case "\t":
                     Accumulate(token);
                     break;
                 default:

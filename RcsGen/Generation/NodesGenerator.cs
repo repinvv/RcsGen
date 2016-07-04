@@ -51,7 +51,7 @@
             }
         }
 
-        private static bool IsSuppressed(this Node node)
+        private static bool IsSuppressable(this Node node)
         {
             return node.NodeType == NodeType.Eol
                    || (node.NodeType == NodeType.Literal
@@ -60,11 +60,19 @@
 
         public static void GenerateNodes(this StringGenerator sg, IEnumerable<Node> nodes, Config config)
         {
+            bool empty = true;
             foreach (var line in nodes.GroupLines())
             {
                 var resultline = ShouldSuppressEmptyEntries(line) 
-                    ? line.Where(x => !x.IsSuppressed()) 
+                    ? line.Where(x => !x.IsSuppressable()) 
                     : line;
+
+                if (empty && line.All(x => x.IsSuppressable()))
+                {
+                    continue;
+                }
+
+                empty = false;
 
                 foreach (var node in resultline)
                 {
@@ -75,7 +83,7 @@
 
         private static bool IsEmpty(List<Node> line)
         {
-            return line.All(x => x.IsSuppressed());
+            return line.All(x => x.IsSuppressable());
         }
 
         private static bool ShouldSuppressEmptyEntries(List<Node> line)

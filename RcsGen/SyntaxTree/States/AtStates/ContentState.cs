@@ -28,8 +28,8 @@
         {
             if (token == closing)
             {
-                close(Accumulated);
                 stateMachine.State = closingState;
+                close(Accumulated);
                 return;
             }
 
