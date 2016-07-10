@@ -23,16 +23,16 @@
                     break;
                 case NodeType.WriteExpression:
                     var expr = (ContentNode)node;
-                    sg.AppendLine($"Write({expr.Content});");
+                    sg.AppendLine($"Write({expr.Content.ReplaceLe()});");
                     break;
                 case NodeType.For:
                     var forNode = (ForNode)node;
-                    sg.AppendLine($"{forNode.Keyword} ({forNode.Condition})");
+                    sg.AppendLine($"{forNode.Keyword.ReplaceLe()} ({forNode.Condition})");
                     sg.Braces(x => x.GenerateNodes(forNode.ChildNodes.Nodes, config));
                     break;
                 case NodeType.If:
                     var ifNode = (IfNode)node;
-                    sg.AppendLine($"if ({ifNode.Condition})");
+                    sg.AppendLine($"if ({ifNode.Condition.ReplaceLe()})");
                     sg.Braces(x => x.GenerateNodes(ifNode.IfNodes.Nodes, config));
                     if (!ifNode.ElseNodes.Nodes.Any())
                     {
@@ -43,13 +43,15 @@
                     sg.Braces(x => x.GenerateNodes(ifNode.ElseNodes.Nodes, config));
                     break;
                 case NodeType.CodeExpression:
-                    sg.AppendLine(((ContentNode)node).Content.Replace("\n", Environment.NewLine));
+                    sg.AppendLine(((ContentNode)node).Content.ReplaceLe());
                     break;
                 case NodeType.Partial:
                     sg.AppendLine($"Write({string.Format(config.PartialPattern, ((ContentNode)node).Content)});");
                     break;
             }
         }
+
+        public static string ReplaceLe(this string src) => src.Replace("\n", Environment.NewLine);
 
         private static bool IsSuppressable(this Node node)
         {

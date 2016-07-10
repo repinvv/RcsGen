@@ -23,7 +23,7 @@
                 sg.GenerateBasicMembers();
             }
 
-            config.Members.ForEach(x => sg.AppendLine(x + Environment.NewLine));
+            config.Members.ForEach(x => sg.AppendLine(x.ReplaceLe() + Environment.NewLine));
             var overrideString = config.InheritsNode == null ? string.Empty : "override ";
             sg.AppendLine($"public {overrideString}string Execute()");
             sg.Braces(x => sg.GenerateExecute(document, config));
